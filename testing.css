@@ -1,0 +1,221 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Crimson Text', serif; 
+    background: white;
+  }
+ 
+  .container-fluid{
+      background-color:black;
+     opacity:0.4;
+  }
+  .navbar-fixed-top {
+      position:fixed;
+      right:0;
+      left:0;
+  }
+  .navbar {
+    border-bottom: 3px solid transparent;
+  }
+  .navbar-header a img {
+    margin-top:0px;
+    padding:0px;
+  }
+  .headingg:hover {
+    width:16px;
+  }
+label{
+    margin-left: 20px;
+}
+
+    /* ---- mid-section ---- */
+
+#mid-section {
+    background-color:white;
+    color: black;
+
+}
+
+
+/* ---- portfolio ---- */
+    
+   #portfolio {
+        
+        background:white;
+        background-size: cover;
+    }
+
+    .portfolio-heading img {
+        margin-bottom:100px;
+        margin-top:100px;
+        margin-left:510px;
+        width:15vw;
+    }
+    .about-heading {
+        padding-top:3px;
+        margin-top:30px;
+    }
+    .about-heading img{
+        margin-bottom:70px;
+        margin-top:50px;
+        margin-left:530px;
+        width:10vw;
+    }
+    .contact-heading img {
+        margin-bottom:70px;
+        margin-top:150px;
+        margin-left:560px;
+        width:10vw;
+    }
+
+    .primary {
+        border-width: 3px;
+    }
+
+
+
+aside {
+    background-image: url(image/contact-background.jpg);
+    background-repeat: no-repeat;
+   
+}
+#map {
+    height: 15vh;
+    border: 2px solid black;
+    margin:50px auto 50px;
+    
+    
+}
+
+#contact-wrap {
+    font-family: 'Lato', calibri, arial;
+    font-size:16px;
+    font-weight:300;
+    width: 402px;
+    color:#fff;
+    float:left;
+    margin-left:70px;
+    margin-bottom:29px;
+    background-color:black;
+  }
+  
+  #contact-area {
+    margin-left:3px;
+    width: 342px;
+    background-color:black;
+    padding:20px;
+  }
+  
+  #contact-area input, #contact-area textarea {
+      padding: 5px;
+      width: 342px;
+    font-family: 'Lato', calibri, arial;
+    font-size:14px;
+    font-weight:300;
+    color:#fff;
+        background-color:transparent;
+        border-top: 1px solid transparent;
+        border-left: 1px solid transparent;
+        border-bottom: 1px solid #fff;
+        border-right: 1px solid transparent;
+    
+  
+  }
+  
+  #contact-area textarea {
+      height: 130px;
+    background-color:transparent;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid transparent;
+    
+  }
+  
+  #contact-area textarea:focus, #contact-area input:focus {
+              background-color:#333;
+        border-top: 1px solid transparent;
+        border-left: 1px solid transparent;
+        border-bottom: 1px solid #fff;
+        border-right: 1px solid transparent;
+    
+  }
+  
+  #contact-area input.submit-button {
+    font-family: 'Lato', calibri, arial;
+    font-size:12px;
+    font-weight:300;
+    text-transform:uppercase;
+      width: 100px;
+      float: left;
+      margin-bottom:15px;
+    background-color:transparent;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff;
+      transition:all 0.1s ease-in-out;
+  }
+  
+  #contact-area input.submit-button:hover {
+    color:#fff;
+    background-color:#333;
+  }
+
+
+  i.fa.fa-facebook,i.fa.fa-whatsapp, i.fa.fa-weibo, i.fa.fa-twitter, i.fa.fa-stack-overflow, i.fa.fa-instagram, i.fa.fa-envelope, i.fa.fa-skype,i.fa.fa-slack,i.fa.fa-snapchat-ghost{
+    border-radius: 100%;
+    font-size: 28px;
+    height: 38px;
+    line-height: 40px;
+    margin: 10px;
+    text-align: center;
+    width: 38px;
+    background-color:white;
+    }
+    i.fa.fa-facebook{
+    border: 1px solid #3B5998;
+    color: #3B5998;
+    }
+    i.fa.fa-twitter{
+    border: 1px solid #00aced;
+    color: #00aced;
+    }
+    i.fa.fa-instagram{
+    border: 1px solid #833ab4;
+    color: #833ab4;
+    }
+    i.fa.fa-skype{
+        border: 1px solid darkturquoise;
+        color: darkturquoise;
+    }
+    i.fa.fa-slack{
+        border: 1px solid black;
+        color: black;
+    }
+    i.fa.fa-snapchat-ghost{
+        border: 1px solid yellow;
+        color: yellow;
+    }
+    i.fa.fa-whatsapp{
+        border: 1px solid lightgreen;
+        color: lightgreen;
+    }
+    i.fa.fa-stack-overflow{
+        border: 1px solid orange;
+        color: orange;
+    }
+    i.fa.fa-weibo{
+        border: 1px solid red;
+        color: red;
+    }
+    i.fa.fa-facebook:hover, i.fa.fa-twitter:hover, i.fa.fa-whatsapp:hover, i.fa.fa-instagram:hover, i.fa.fa-stack-overflow:hover, i.fa.fa-instagram:hover, i.fa.fa-envelope:hover, i.fa.fa-skype:hover,i.fa.fa-slack:hover,i.fa.fa-snapchat-ghost:hover{
+        opacity: .6;
+       }
+
+    #rest {
+        height:50vh;
+    }
+
+    
