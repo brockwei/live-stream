@@ -42,16 +42,20 @@ module.exports = (express) => {
     router.get('/locallogin', (req, res) => {
         res.sendFile(__dirname + '/localLogin.html');
     });
+
+    router.post('/locallogin', passport.authenticate('local-login', {
+        successRedirect: '/test',
+        failureRedirect: '/error'
+    }));
+
     router.get('/signup', (req, res) => {
         res.sendFile(__dirname + '/signup.html');
     });
 
-    // router.post('/signup', passport.authenticate('local-signup', {
-    //     successRedirect: '/',
-    //     failureRedirect: '/error'
-    // }));
-
-
+    router.post('/signup', passport.authenticate('local-signup', {
+        successRedirect: '/test',
+        failureRedirect: '/error'
+    }));
 
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');

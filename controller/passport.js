@@ -9,12 +9,12 @@ const sequelize = require('sequelize');
 const bcrypt = require('./bcrypt');
 
 const Model = require('../models')
-const User = Model.user
-const Email = Model.user.email
-const FacebookID = Model.user.facebookID
-const FacebookDisplayName = Model.user.facebookDisplayName
-const GoogleID = Model.user.googleID
-const GoogleDisplayName = Model.user.googleDisplayName
+// const User = Model.user
+// const Email = Model.user.email
+// const FacebookID = Model.user.facebookID
+// const FacebookDisplayName = Model.user.facebookDisplayName
+// const GoogleID = Model.user.googleID
+// const GoogleDisplayName = Model.user.googleDisplayName
 
 module.exports = (app) => {
   app.use(passport.initialize());
@@ -28,25 +28,25 @@ module.exports = (app) => {
   },
     function (accessToken, refreshToken, profile, cb) {
       User
-      .findOrCreate({
-        where: {
-          email: profile.emails[0].value
-        }
-      })
-      .spread((user, created) => {
-        console.log(user.get({
-          plain: true
-        }))
-        // user.email = user.profile.
-        if (created){
-          user.facebookID = profile.id
-          user.facebookDisplayName = profile.displayName
-          user.save()
-          console.log('new user is created')
-        } else{
-          console.log('old user login')
-        }
-      })
+        .findOrCreate({
+          where: {
+            email: profile.emails[0].value
+          }
+        })
+        .spread((user, created) => {
+          console.log(user.get({
+            plain: true
+          }))
+          // user.email = user.profile.
+          if (created) {
+            user.facebookID = profile.id
+            user.facebookDisplayName = profile.displayName
+            user.save()
+            console.log('new user is created')
+          } else {
+            console.log('old user login')
+          }
+        })
 
       return cb(null, { profile: profile, accessToken: accessToken });
     }
@@ -62,22 +62,22 @@ module.exports = (app) => {
   }, (accessToken, refreshToken, profile, done) => {
     // check if user already exists in our own db
     User
-    .findOrCreate({
-      where: {
-        email: profile.emails[0].value
-      }
-    })
-    .spread((user, created) => {
-      if (created){
-        user.googleID = profile.id
-        // user.email = profile.emails[0].value
-        user.googleDisplayName = profile.displayName
-        user.save()
-        console.log('new user is created')
-      } else{
-        console.log('old user login')
-      }
-    })
+      .findOrCreate({
+        where: {
+          email: profile.emails[0].value
+        }
+      })
+      .spread((user, created) => {
+        if (created) {
+          user.googleID = profile.id
+          // user.email = profile.emails[0].value
+          user.googleDisplayName = profile.displayName
+          user.save()
+          console.log('new user is created')
+        } else {
+          console.log('old user login')
+        }
+      })
 
     return done(null, { profile: profile, accessToken: accessToken });
   })
@@ -85,7 +85,7 @@ module.exports = (app) => {
 
   passport.use('local-login', new LocalStrategy(
     (email, password, done) => {
-      Model.User.findOne({
+      Model.user.findOne({
         where: {
           'email': email
         }
@@ -109,7 +109,7 @@ module.exports = (app) => {
 
   passport.use('local-signup', new LocalStrategy(
     (email, password, done) => {
-      Model.User.findOne({
+      Model.user.findOne({
         where: {
           'email': email
         }
@@ -124,7 +124,7 @@ module.exports = (app) => {
                 password: hash
               };
 
-              Model.User.create(newUser).then((newUser) => {
+              Model.user.create(newUser).then((newUser) => {
                 console.log('newUser ' + newUser)
                 done(null, newUser);
 
@@ -141,27 +141,8 @@ module.exports = (app) => {
   */
   passport.serializeUser((user, done) => {
     done(null, user);
-    // console.log(user);
-    // console.log(user.profile.provider);
-    // console.log(user.profile.emails[0].value);
-    // console.log(user.profile.name);
-    // if(user.profile.provider == 'facebook'){
-    //   User.create({
-    //     'email'
-    //   })
-    // }
   });
   passport.deserializeUser((user, done) => {
     done(null, user);
-    // console.log(user);
-    // console.log(user.profile.provider);
-    // console.log(user.profile.emails[0].value);
-    // console.log(user.profile.name);
-
-    // if(user.profile.provider == 'google'){
-
-    // }
-    
-
   });
 };
