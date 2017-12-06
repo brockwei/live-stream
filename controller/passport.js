@@ -9,7 +9,7 @@ const sequelize = require('sequelize');
 const bcrypt = require('./bcrypt');
 
 const Model = require('../models')
-// const User = Model.user
+const User = Model.user
 // const Email = Model.user.email
 // const FacebookID = Model.user.facebookID
 // const FacebookDisplayName = Model.user.facebookDisplayName
@@ -56,8 +56,7 @@ module.exports = (app) => {
     // options for google strategy
     clientID: process.env.GOOGLE_clientID,
     clientSecret: process.env.GOOGLE_clientSecret,
-    callbackURL: process.env.GOOGLE_callbackURL
-    //'http://localhost:8080/auth/google/redirect',
+    callbackURL: process.env.GOOGLE_callbackURL,
     scope: 'user:email',
 
   }, (accessToken, refreshToken, profile, done) => {
