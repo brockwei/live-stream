@@ -34,18 +34,18 @@ module.exports = (app) => {
           }
         })
         .spread((user, created) => {
-          console.log(user.get({
-            plain: true
-          }))
+          // console.log(user.get({
+          //   plain: true
+          // }))
           // user.email = user.profile.
-          if (created) {
+          // if (created) {
             user.facebookID = profile.id
             user.facebookDisplayName = profile.displayName
             user.save()
             console.log('new user is created')
-          } else {
-            console.log('old user login')
-          }
+          // } else {
+            // console.log('old user login')
+          // }
         })
 
       return cb(null, { profile: profile, accessToken: accessToken });
@@ -56,7 +56,8 @@ module.exports = (app) => {
     // options for google strategy
     clientID: process.env.GOOGLE_clientID,
     clientSecret: process.env.GOOGLE_clientSecret,
-    callbackURL: 'http://localhost:8080/auth/google/redirect',
+    callbackURL: process.env.GOOGLE_callbackURL
+    //'http://localhost:8080/auth/google/redirect',
     scope: 'user:email',
 
   }, (accessToken, refreshToken, profile, done) => {
@@ -68,15 +69,15 @@ module.exports = (app) => {
         }
       })
       .spread((user, created) => {
-        if (created) {
+        // if (created) {
           user.googleID = profile.id
           // user.email = profile.emails[0].value
           user.googleDisplayName = profile.displayName
           user.save()
           console.log('new user is created')
-        } else {
-          console.log('old user login')
-        }
+        // } else {
+        //   console.log('old user login')
+        // }
       })
 
     return done(null, { profile: profile, accessToken: accessToken });
