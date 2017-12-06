@@ -39,7 +39,7 @@ module.exports = (express) => {
     }), (req, res) => {
         res.redirect('/test');
     });
-    router.get('/localLogin', (req, res) => {
+    router.get('/locallogin', (req, res) => {
         res.sendFile(__dirname + '/localLogin.html');
     });
     router.get('/signup', (req, res) => {
