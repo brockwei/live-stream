@@ -9,7 +9,7 @@ const sequelize = require('sequelize');
 const bcrypt = require('./bcrypt');
 
 const Model = require('../models')
-// const User = Model.user
+const User = Model.user
 // const Email = Model.user.email
 // const FacebookID = Model.user.facebookID
 // const FacebookDisplayName = Model.user.facebookDisplayName
