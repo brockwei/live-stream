@@ -28,7 +28,13 @@ module.exports = (express) => {
         res.send('You are not logged in!');
     });
     router.get('/', (req, res) => {
-        res.sendFile(__dirname + '/login.html');
+        //res.sendFile(__dirname + '/login.html');
+        if(!req.isAuthenticated()){
+            res.sendFile(__dirname + '/login.html');
+        }
+        else {
+            res.sendFile(__dirname + '/index.html');
+        }
     });
     router.get('/logout',(req,res)=>{
         req.logout();
