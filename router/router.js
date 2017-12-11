@@ -39,22 +39,22 @@ module.exports = (express) => {
     }), (req, res) => {
         res.redirect('/test');
     });
-    router.get('/locallogin', (req, res) => {
-        res.sendFile(__dirname + '/localLogin.html');
-    });
+    // router.get('/locallogin', (req, res) => {
+    //     res.sendFile(__dirname + '/localLogin.html');
+    // });
 
     router.post('/locallogin', passport.authenticate('local-login', {
         successRedirect: '/test',
-        failureRedirect: '/error'
+        failureRedirect: '/'
     }));
 
-    router.get('/signup', (req, res) => {
-        res.sendFile(__dirname + '/signup.html');
-    });
+    // router.get('/signup', (req, res) => {
+    //     res.sendFile(__dirname + '/signup.html');
+    // });
 
     router.post('/signup', passport.authenticate('local-signup', {
         successRedirect: '/test',
-        failureRedirect: '/error'
+        failureRedirect: '/'
     }));
 
     router.get('/error', (req, res) => {

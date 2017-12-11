@@ -14,9 +14,39 @@
     </head>
     <body>
         <h1>Login Page</h1>
-        <a class="btn btn-warning" href="/auth/facebook">Login with facebook</a>
-        <a class="btn btn-warning" href="/auth/google">Login with google</a>
-        <a class="btn btn-warning" href="/locallogin">Login</a>
+        <form action="/locallogin" method="post">
+            <div>
+                <label>email:</label>
+                <input type="text" name="username" />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" />
+            </div>
+            <div>
+                <input type="submit" value="Log In" />            
+            </div>
+            <!-- <a href="/signup"><button type="button" name="button">signup</button></a> -->
+        </form>
+
+        <form action="/signup" method="post">
+            <div>
+                <label>email:</label>
+                <input type="text" name="username" />
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" />
+            </div>
+            <div>
+                <input type="submit" value="Sign up" />
+            </div>
+        </form>
+
+        <a class="btn btn-primary" href="/auth/facebook">Login with facebook</a>
+        <a class="btn btn-danger" href="/auth/google">Login with google</a>
+        <!-- <a class="btn btn-warning" href="/locallogin">Login</a> -->
         
+        <!-- <script src></script> -->
     </body>
 </html>

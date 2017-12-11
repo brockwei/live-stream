@@ -31,4 +31,5 @@ app.use(session({
 app.use(bodyParser());
 setupPassport(app);
 app.use('/', router);
+
 app.listen(port);
