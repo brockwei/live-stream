@@ -19,6 +19,9 @@
         <a class="btn btn-primary" href="/logout">Logout</a> -->
         <div class="container">
             <div id="left-group">
+                    <div class="usersArea">
+                         <ul id="users"></ul>
+                    </div>
                 <a class="btn btn-primary" href="/logout">Logout</a>
             </div>
             <div id="right-group">
@@ -40,20 +43,53 @@
     <script>
         $(function () {
             var socket = io();
+            var emailID = '';
+            $('#chat-messages').append($('<li>').text('Welcome to the chatroom!'));
+             function loadMessages(data, scrollH){
+            if(JSON.parse(data[0])["email"]==emailID){
+                $('#chat-messages').append($('<li>').html('<span class="currentUser">'+JSON.parse(data[0])["user"]+"</span> : "+JSON.parse(data[0])["msg"]));
+            }
+            else{
+                $('#chat-messages').append($('<li>').text(JSON.parse(data[0])["user"]+" : "+JSON.parse(data[0])["msg"]));
+            }
+            if(scrollH <0){
+                $('.chatArea').scrollTop($('#chat-messages')[0].scrollHeight);
+            }
+    }    
+
             $('form').submit(function() {
-                socket.emit('chat message', $('#input-field').val());
-                console.log($('#input-field').val());
+                if($('#input-field').val()=="/clear") {
+                    $('#messages').empty();
+                } else if($('#input-field').val()) {
+                    socket.emit('chat message', $('#input-field').val());
+                }
+                // console.log($('#input-field').val());
                 $('#input-field').val('');
                 return false;
             });
-            socket.on('chat message', function(msg){
-                $('#chat-messages').append($('<li>').text(msg));
-            
+
+            socket.on('email id', function(data) {
+                emailID = data;
+                console.log(emailID);
             });
-            window.setInterval(function() {
-            var elem = document.getElementById('chat-messages');
-            elem.scrollTop = elem.scrollHeight;
-            }, 100);
+
+            socket.on('user data',function(data){
+                //console.log(data);
+                $('.userNumber').html(data.numberOfUsers);
+                $('#users').empty();
+                $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers==1?"":"s"} in chat.`));
+                for(var i in data.users){
+                    $('#users').append($('<li>').text(data.users[i]));
+                }
+            });
+            
+            socket.on('chat message', function(data){
+                //let scrollH = $('.chatArea').scrollTop();
+                let scrollH = $('#chat-messages')[0].scrollHeight - $('.chatArea').scrollTop()-$('.chatArea')[0].clientHeight;
+                //$('#messages').empty();
+                loadMessages(data,scrollH);
+    });
+
         });
 
         
