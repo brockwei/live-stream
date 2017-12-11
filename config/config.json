@@ -1,40 +1,22 @@
 {
   "development": {
-<<<<<<< HEAD
-    "username": "MichelleBae",
-    "abc": "michelleee",
+    "username": "isaacyuen",
+    "password": "abc",
     "database": "fruits",
-=======
-    "username": "haha",
-    "password": "test",
-    "database": "video",
->>>>>>> 78dffad75468ea1827ba31267bc4e53fb8def5c8
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-<<<<<<< HEAD
-    "username": "MichelleBaen",
-    "abc": "michelleee",
+    "username": "isaacyuen",
+    "password": "abc",
     "database": "fruits",
-=======
-    "username": "haha",
-    "password": "test",
-    "database": "video",
->>>>>>> 78dffad75468ea1827ba31267bc4e53fb8def5c8
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-<<<<<<< HEAD
-    "username": "MichelleBae",
-    "abc": "michelleee",
+    "username": "isaacyuen",
+    "password": "abc",
     "database": "fruits",
-=======
-    "username": "haha",
-    "password": "test",
-    "database": "video",
->>>>>>> 78dffad75468ea1827ba31267bc4e53fb8def5c8
     "host": "127.0.0.1",
     "dialect": "postgres"
   }

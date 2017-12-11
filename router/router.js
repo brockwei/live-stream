@@ -1,4 +1,5 @@
 const passport = require('passport');
+const Model = require('../models')
 
 module.exports = (express) => {
 
@@ -55,7 +56,8 @@ module.exports = (express) => {
     router.post('/signup', passport.authenticate('local-signup', {
         successRedirect: '/test',
         failureRedirect: '/'
-    }));
+    })
+);
 
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
