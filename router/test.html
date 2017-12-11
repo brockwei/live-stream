@@ -26,52 +26,36 @@
                 <div class="chat-group">
                     <div class="chat-area">
                         <ul id="chat-messages">
-                            <li>TestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTest</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
-                            <li>Test</li>
                         </ul>
                     </div>
                     <form id="chat-field" action="">
-                            <input id="input-field" autocomplete="off" /><button>Chat</button>
+                            <input id="input-field" placeholder="Start typing your message..." autocomplete="off" /><button id='send'>Chat</button>
                     </form>
                 </div>
             </div>
         </div>
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        $(function () {
+            var socket = io();
+            $('form').submit(function() {
+                socket.emit('chat message', $('#input-field').val());
+                console.log($('#input-field').val());
+                $('#input-field').val('');
+                return false;
+            });
+            socket.on('chat message', function(msg){
+                $('#chat-messages').append($('<li>').text(msg));
+            
+            });
+            window.setInterval(function() {
+            var elem = document.getElementById('chat-messages');
+            elem.scrollTop = elem.scrollHeight;
+            }, 100);
+        });
+
+        
+    </script>
 </html>
