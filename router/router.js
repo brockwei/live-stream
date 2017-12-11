@@ -1,5 +1,4 @@
 const passport = require('passport');
-const Model = require('../models')
 
 module.exports = (express) => {
 
@@ -27,6 +26,8 @@ module.exports = (express) => {
     }), (req, res) => {
         //console.log(req.session);
         res.redirect('/test');
+        console.log('facebook'+req.user)
+        console.log(req.user)
     });
     // auth with google+
     router.get('/auth/google', passport.authenticate('google', {
@@ -39,6 +40,8 @@ module.exports = (express) => {
         failureRedirect: '/'
     }), (req, res) => {
         res.redirect('/test');
+        console.log('google router'+req.user);
+        console.log(req.user)        
     });
     // router.get('/locallogin', (req, res) => {
     //     res.sendFile(__dirname + '/localLogin.html');

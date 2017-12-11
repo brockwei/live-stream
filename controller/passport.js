@@ -141,7 +141,7 @@ module.exports = (app) => {
 
               Model.user.create(newUser).then((newUser) => {
 
-                console.log(newUser);
+                // console.log(newUser);
                 done(null, newUser);
               });
             })
