@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Test</title>
+        <link href="styles/main.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <video id="localVideo" autoplay muted style="width:40%;"></video>
+        <video id="remoteVideo" autoplay style="width:40%;"></video>
+
+        <br />
+
+        <input type="button" id="start" value="Start Video">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="http://webrtc.github.io/adapter/adapter-latest.js"></script>
+        <script src="scripts/main.js"></script>
+        <script type="text/javascript">
+            pageReady();
+        </script>
+    </body>
+</html>

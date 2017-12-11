@@ -1,0 +1,12 @@
+html,body {
+    margin: 0;
+    background: rgb(230,230,230);
+}
+
+#localVideo {
+    border: 3px dotted blue;
+}
+
+#remoteVideo {
+    border: 3px solid red;
+}
