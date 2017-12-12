@@ -2,6 +2,7 @@ const client = require('./redis');
 
 module.exports = (io) =>{
     io.on("connection", function(socket) {
+        // setTimeout(() => socket.disconnect(true), 5000);
         io.to(socket.id).emit('email id', socket.request.session.email);
 
         let chatroomData = {
@@ -69,7 +70,6 @@ module.exports = (io) =>{
                 'msg': msg
             }
             let message2 = JSON.stringify(message);
-            console.log('messagesss '+message);
             console.log(message);
             client.rpush('holymoly', message2, function(err, data) {
                if(err) {
@@ -78,8 +78,8 @@ module.exports = (io) =>{
             client.lrange('holymoly',-1,-1,function(err, data) {
                 if(err) {
                     return console.log(err);
-                    io.emit('chat message', data)
                 }
+                io.emit('chat message', data);
             })
             });
         });

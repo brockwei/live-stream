@@ -24,13 +24,11 @@ module.exports = (express) => {
     router.get('/auth/facebook/callback', passport.authenticate('facebook', {
         failureRedirect: '/'
     }), (req, res) => {
-        //console.log(req.session);
-        console.log('fb: '+ req.user);
+        // console.log(req.session);
         let name = req.user.profile.name.givenName;
         req.session.name = name;
         req.session.email = req.user.profile._json.email;
         res.redirect('/test');
-        console.log('facebook'+req.user)
         console.log(req.user)
     });
     // auth with google+

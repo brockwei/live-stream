@@ -20,7 +20,13 @@ const setupPassport = require('./controller/passport');
 const bodyParser = require('body-parser');
 const router = require('./router/router')(express);
 const port = process.env.PORT
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+    pingInterval: 10000,
+    pingTimeout: 5000000,
+    cookie: false
+});
+io.set('heartbeat timeout', 40000); 
+io.set('heartbeat interval', 20000);
 const websocket =require('./controller/websockets')(io)
 const redis = require('redis');
 app.use(express.static('public'));
