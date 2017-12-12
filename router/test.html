@@ -51,6 +51,8 @@
         var emailID = '';
         $('#chat-messages').append($('<li class="welcoming">').text('Welcome to the chatroom!'));
         function loadMessages(data, scrollH) {
+            console.log('dsdadadasd')
+            console.log(JSON.parse(data[0])['email']+emailID)
             if (JSON.parse(data[0])["email"] == emailID) {
                 $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(data[0])["user"] + "</span> : " + JSON.parse(data[0])["msg"]));
                 console.log('data[0][email]')
@@ -97,10 +99,13 @@
         });
 
         socket.on('chat message', function (data) {
+            console.log('datatattattatatatta')
+            console.log(JSON.parse(data));
             //let scrollH = $('.chatArea').scrollTop();
             let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
             //$('#messages').empty();
             loadMessages(data, scrollH);
+            console.log(JSON.parse(data));
             console.log(scrollH);
         });
 

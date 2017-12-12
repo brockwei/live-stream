@@ -79,7 +79,12 @@ module.exports = (io) =>{
                 if(err) {
                     return console.log(err);
                 }
+<<<<<<< HEAD
                 io.emit('chat message', data);
+=======
+                io.emit('chat message', data)
+                
+>>>>>>> 652511371ae54f9cdaf37962a14866414ed578a4
             })
             });
         });
