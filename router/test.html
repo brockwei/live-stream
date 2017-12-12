@@ -14,6 +14,7 @@
                 integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link href="styles/skype.css" rel="stylesheet">
+    <link href="styles/chat.css" rel="stylesheet">
     <script src="./public/scripts/mainforChatroom.js"></script>
 </head>
 
@@ -35,7 +36,7 @@
                     </ul>
                 </div>
                 <form id="chat-field" action="">
-                    <input id="input-field" autocomplete="off" />
+                    <input id="input-field" placeholder="Type message here.." autocomplete="off" />
                     <button>Chat</button>
                 </form>
             </div>
@@ -48,7 +49,7 @@
     $(function () {
         var socket = io();
         var emailID = '';
-        $('#chat-messages').append($('<li>').text('Welcome to the chatroom!'));
+        $('#chat-messages').append($('<li class="welcoming">').text('Welcome to the chatroom!'));
         function loadMessages(data, scrollH) {
             // console.log('dsdadadasd')
             // console.log(JSON.parse(data[0])['email'] + emailID)
@@ -89,7 +90,7 @@
 
         socket.on('user data', function (data) {
             //console.log(data);
-            $('.userNumber').html(data.numberOfUsers);
+            // $('.userNumber').html(data.numberOfUsers);
             $('#users').empty();
             $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers == 1 ? "" : "s"} in chat.`));
             for (var i in data.users) {

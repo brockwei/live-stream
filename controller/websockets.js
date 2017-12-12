@@ -2,6 +2,7 @@ const client = require('./redis');
 
 module.exports = (io) => {
     io.on("connection", function (socket) {
+        //loading history from redis
 
         client.lrange('holymoly', 0, -1, function (err, data) {
             
@@ -89,10 +90,9 @@ module.exports = (io) => {
                     io.emit('chat message', data)
                 })
 
-                //loading history from redis
                 
+            })
 
-            });
         });
 
         // socket.on('chat history', function (msg) {
