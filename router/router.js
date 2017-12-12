@@ -25,13 +25,13 @@ module.exports = (express) => {
         failureRedirect: '/'
     }), (req, res) => {
         //console.log(req.session);
-        console.log('fb: '+ req.user);
+        // console.log('fb: '+ req.user);
         let name = req.user.profile.name.givenName;
         req.session.name = name;
         req.session.email = req.user.profile._json.email;
         res.redirect('/test');
-        console.log('facebook'+req.user)
-        console.log(req.user)
+        // console.log('facebook'+req.user)
+        // console.log(req.user)
     });
     // auth with google+
     router.get('/auth/google', passport.authenticate('google', {
@@ -43,11 +43,11 @@ module.exports = (express) => {
     router.get('/auth/google/redirect', passport.authenticate('google', {
         failureRedirect: '/'
     }), (req, res) => {
-        console.log('google router');
-        console.log(req.user);
+        // console.log('google router');
+        // console.log(req.user);
         res.redirect('/test');
-        console.log('google router'+req.user);
-        console.log(req.user)        
+        // console.log('google router'+req.user);
+        // console.log(req.user)        
     });
     // router.get('/locallogin', (req, res) => {
     //     res.sendFile(__dirname + '/localLogin.html');
