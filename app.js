@@ -46,3 +46,4 @@ setupPassport(app);
 app.use('/', router);
 
 http.listen(port);
+console.log("Listening to " + port);
