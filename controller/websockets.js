@@ -10,10 +10,14 @@ module.exports = (io) =>{
         }
 
         for(var i in socket.request.sessionStore.sessions) {
-            JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport') ?            
+            // JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport') ?            
             // JSON.parse(socket.request.sessionStore.sessions[i]).passport.hasOwnProperty('user') ?
-            chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name) :
-            delete socket.request.sessionStore.sessions[i];
+            // chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name)
+            // delete socket.request.sessionStore.sessions[i];
+            if (JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport')){
+                chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name)
+            }
+
             console.log(socket.request.sessionStore.sessions[i]);
         }
         chatroomData.numberOfUsers = Object.keys(socket.request.sessionStore.sessions).length;
@@ -21,16 +25,13 @@ module.exports = (io) =>{
         let username='';
         let email='';
         if(!socket.request.session.name){
-            let destination = '/chatroom';
+            let destination = '/test';
             io.emit('redirect', destination);
         }
         else {
             username = socket.request.session.name;
             email = socket.request.session.email;
         }
-
-        let username='';
-        let email='';
         if(!socket.request.session.name){
             let destination = '/test';
             io.emit('redirect', destination);
@@ -46,11 +47,14 @@ module.exports = (io) =>{
                users:[]
            }
            for(var i in socket.request.sessionStore.sessions) {
-               JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport') ?
+            //    JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport') ?
                
             //    JSON.parse(socket.request.sessionStore.sessions[i]).passport.hasOwnProperty('user') ?
-               chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name):
-               delete socket.request.sessionStore.sessions[i];
+            //    chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name)
+            //    delete socket.request.sessionStore.sessions[i];
+            if (JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport')){
+                chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name)
+            }
            }
            console.log(`${username} left the socket`);
            io.emit('user data', chatroomData);
@@ -65,6 +69,8 @@ module.exports = (io) =>{
                 'msg': msg
             }
             let message2 = JSON.stringify(message);
+            console.log('messagesss '+message);
+            console.log(message);
             client.rpush('holymoly', message2, function(err, data) {
                if(err) {
                    return console.log(err);

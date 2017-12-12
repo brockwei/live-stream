@@ -34,12 +34,11 @@
                     <ul id="chat-messages">
                     </ul>
                 </div>
-                
+                <form id="chat-field" action="">
+                    <input id="input-field" autocomplete="off" />
+                    <button>Chat</button>
+                </form>
             </div>
-            <!-- <form id="chat-field" action="">
-                <input id="input-field" autocomplete="off" />
-                <button>Chat</button>
-            </form> -->
         </div>
     </div>
 </body>
@@ -76,7 +75,6 @@
             } else if ($('#input-field').val()) {
                 socket.emit('chat message', $('#input-field').val());
                 console.log($('#input-field').val());
-
             }
             $('#input-field').val('');
             return false;
