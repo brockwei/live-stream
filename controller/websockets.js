@@ -30,6 +30,8 @@ module.exports = (io) =>{
            console.log(`${username} left the socket`);
            io.emit('user data', chatroomData);
         });
+        
+        //this part pass the data from the backend to frontend
         socket.on('chat message', function(msg){
             // io.emit('chat message', msg);
             let message = {

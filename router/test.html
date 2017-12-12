@@ -20,85 +20,87 @@
 <body>
     <!-- <h1>Dashboard</h1>
         <a class="btn btn-primary" href="/logout">Logout</a> -->
-        <div class="container">
-            <div id="left-group">
-                    <div class="usersArea">
-                         <ul id="users"></ul>
-                    </div>
-                <a class="btn btn-primary" href="/logout">Logout</a>
+    <div class="container">
+        <div id="left-group">
+            <div class="usersArea">
+                <ul id="users"></ul>
             </div>
-            <div id="right-group">
-                <div class="video-group"></div>
-                <div class="chat-group">
-                    <div class="chat-area">
-                        <ul id="chat-messages">
-                        </ul>
-                    </div>
-                    <form id="chat-field" action="">
-                            <input id="input-field" placeholder="Start typing your message..." autocomplete="off" /><button id='send'>Chat</button>
-                    </form>
+            <a class="btn btn-primary" href="/logout">Logout</a>
+        </div>
+        <div id="right-group">
+            <div class="video-group"></div>
+            <div class="chat-group">
+                <div class="chat-area">
+                    <ul id="chat-messages">
+                    </ul>
                 </div>
                 <form id="chat-field" action="">
-                    <input id="input-field" autocomplete="off" />
-                    <button>Chat</button>
+                    <input id="input-field" placeholder="Start typing your message..." autocomplete="off" />
+                    <button id='send'>Chat</button>
                 </form>
             </div>
+            <form id="chat-field" action="">
+                <input id="input-field" autocomplete="off" />
+                <button>Chat</button>
+            </form>
         </div>
-    </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-        $(function () {
-            var socket = io();
-            var emailID = '';
-            $('#chat-messages').append($('<li>').text('Welcome to the chatroom!'));
-             function loadMessages(data, scrollH){
-            if(JSON.parse(data[0])["email"]==emailID){
-                $('#chat-messages').append($('<li>').html('<span class="currentUser">'+JSON.parse(data[0])["user"]+"</span> : "+JSON.parse(data[0])["msg"]));
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+    $(function () {
+        var socket = io();
+        var emailID = '';
+        $('#chat-messages').append($('<li>').text('Welcome to the chatroom!'));
+        function loadMessages(data, scrollH) {
+            if (JSON.parse(data[0])["email"] == emailID) {
+                $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(data[0])["user"] + "</span> : " + JSON.parse(data[0])["msg"]));
             }
-            else{
-                $('#chat-messages').append($('<li>').text(JSON.parse(data[0])["user"]+" : "+JSON.parse(data[0])["msg"]));
+            else {
+                $('#chat-messages').append($('<li>').text(JSON.parse(data[0])["user"] + " : " + JSON.parse(data[0])["msg"]));
             }
-            if(scrollH <0){
+            if (scrollH < 0) {
                 $('.chatArea').scrollTop($('#chat-messages')[0].scrollHeight);
             }
-    }    
+        }
 
-            $('form').submit(function() {
-                if($('#input-field').val()=="/clear") {
-                    $('#messages').empty();
-                } else if($('#input-field').val()) {
-                    socket.emit('chat message', $('#input-field').val());
-                }
-                // console.log($('#input-field').val());
-                $('#input-field').val('');
-                return false;
-            });
-
-            socket.on('email id', function(data) {
-                emailID = data;
-                console.log(emailID);
-            });
-
-            socket.on('user data',function(data){
-                //console.log(data);
-                $('.userNumber').html(data.numberOfUsers);
-                $('#users').empty();
-                $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers==1?"":"s"} in chat.`));
-                for(var i in data.users){
-                    $('#users').append($('<li>').text(data.users[i]));
-                }
-            });
-            
-            socket.on('chat message', function(data){
-                //let scrollH = $('.chatArea').scrollTop();
-                let scrollH = $('#chat-messages')[0].scrollHeight - $('.chatArea').scrollTop()-$('.chatArea')[0].clientHeight;
-                //$('#messages').empty();
-                loadMessages(data,scrollH);
-    });
-
+        $('form').submit(function () {
+            if ($('#input-field').val() == "/clear") {
+                $('#messages').empty();
+            } else if ($('#input-field').val()) {
+                socket.emit('chat message', $('#input-field').val());
+            }
+            // console.log($('#input-field').val());
+            $('#input-field').val('');
+            return false;
         });
 
-        
-    </script>
+        socket.on('email id', function (data) {
+            emailID = data;
+            console.log(emailID);
+        });
+
+        socket.on('user data', function (data) {
+            //console.log(data);
+            $('.userNumber').html(data.numberOfUsers);
+            $('#users').empty();
+            $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers == 1 ? "" : "s"} in chat.`));
+            for (var i in data.users) {
+                $('#users').append($('<li>').text(data.users[i]));
+            }
+        });
+
+        socket.on('chat message', function (data) {
+            //let scrollH = $('.chatArea').scrollTop();
+            let scrollH = $('#chat-messages')[0].scrollHeight - $('.chatArea').scrollTop() - $('.chatArea')[0].clientHeight;
+            //$('#messages').empty();
+            loadMessages(data, scrollH);
+        });
+
+    });
+
+
+</script>
+
 </html>
