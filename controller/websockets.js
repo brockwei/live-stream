@@ -18,16 +18,6 @@ module.exports = (io) =>{
         }
         chatroomData.numberOfUsers = Object.keys(socket.request.sessionStore.sessions).length;
         io.emit('user data', chatroomData);
-        let username='';
-        let email='';
-        if(!socket.request.session.name){
-            let destination = '/chatroom';
-            io.emit('redirect', destination);
-        }
-        else {
-            username = socket.request.session.name;
-            email = socket.request.session.email;
-        }
 
         let username='';
         let email='';
