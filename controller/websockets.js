@@ -78,8 +78,9 @@ module.exports = (io) =>{
             client.lrange('holymoly',-1,-1,function(err, data) {
                 if(err) {
                     return console.log(err);
-                    io.emit('chat message', data)
                 }
+                io.emit('chat message', data)
+                
             })
             });
         });
