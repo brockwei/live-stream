@@ -114,10 +114,10 @@
             console.log('chat history'+data);
             console.log(emailID)
             data.forEach(dataElement => {
-                if (dataElement["email"] == emailID) {
+                // if (dataElement["email"] == emailID) {
                     console.log('dataElemenetntnntntnt')
                     $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(dataElement)["user"] + "</span> : " + JSON.parse(dataElement)["msg"]));
-                }
+                // }
             });
         })
 
