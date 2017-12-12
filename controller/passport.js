@@ -24,7 +24,8 @@ module.exports = (app) => {
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: process.env.CALLBACK_URL,
-    profileFields: ['email', 'name']
+    profileFields: ['email', 'name'],
+    // enableProof: true    
   },
     function (accessToken, refreshToken, profile, cb) {
       // console.log(profile)
@@ -61,6 +62,7 @@ module.exports = (app) => {
     callbackURL: process.env.GOOGLE_callbackURL,
     //'http://localhost:8080/auth/google/redirect',
     scope: 'user:email',
+    // enableProof: true    
 
   }, (accessToken, refreshToken, profile, done) => {
     // check if user already exists in our own db
