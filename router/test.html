@@ -51,12 +51,12 @@
         var emailID = '';
         $('#chat-messages').append($('<li class="welcoming">').text('Welcome to the chatroom!'));
         function loadMessages(data, scrollH) {
-            console.log('dsdadadasd')
-            console.log(JSON.parse(data[0])['email']+emailID)
+            // console.log('dsdadadasd')
+            // console.log(JSON.parse(data[0])['email'] + emailID)
             if (JSON.parse(data[0])["email"] == emailID) {
                 $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(data[0])["user"] + "</span> : " + JSON.parse(data[0])["msg"]));
-                console.log('data[0][email]')
-                console.log(data)
+                // console.log('data[0][email]')
+                // console.log(data)
             }
             else {
                 $('#chat-messages').append($('<li>').text(JSON.parse(data[0])["user"] + " : " + JSON.parse(data[0])["msg"]));
@@ -85,7 +85,7 @@
 
         socket.on('email id', function (data) {
             emailID = data;
-            console.log('socketID'+emailID);
+            console.log('socketID' + emailID);
         });
 
         socket.on('user data', function (data) {
@@ -99,8 +99,8 @@
         });
 
         socket.on('chat message', function (data) {
-            console.log('datatattattatatatta')
-            console.log(JSON.parse(data));
+            // console.log('datatattattatatatta')
+            // console.log(JSON.parse(data));
             //let scrollH = $('.chatArea').scrollTop();
             let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
             //$('#messages').empty();
@@ -108,6 +108,18 @@
             console.log(JSON.parse(data));
             console.log(scrollH);
         });
+
+        socket.once('chat history', function (data) {
+            console.log('chat history')
+            console.log('chat history'+data);
+            console.log(emailID)
+            data.forEach(dataElement => {
+                if (dataElement["email"] == emailID) {
+                    console.log('dataElemenetntnntntnt')
+                    $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(dataElement)["user"] + "</span> : " + JSON.parse(dataElement)["msg"]));
+                }
+            });
+        })
 
     });
 

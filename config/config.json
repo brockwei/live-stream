@@ -1,21 +1,21 @@
 {
   "development": {
-    "username": "MichelleBae",
-    "abc": "michelleee",
+    "username": "isaacyuen",
+    "abc": "abc",
     "database": "fruits",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "MichelleBae",
-    "abc": "michelleee",
+    "username": "isaacyuen",
+    "abc": "abc",
     "database": "fruits",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "MichelleBae",
-    "abc": "michelleee",
+    "username": "isaacyuen",
+    "abc": "abc",
     "database": "fruits",
     "host": "127.0.0.1",
     "dialect": "postgres"
