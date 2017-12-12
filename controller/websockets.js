@@ -8,13 +8,25 @@ module.exports = (io) =>{
             numberOfUsers: 0,
             users: []
         }
+
         for(var i in socket.request.sessionStore.sessions) {
-            JSON.parse(socket.request.sessionStore.sessions[i]).passport.hasOwnProperty('user') ?
+            JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport') ?            
+            // JSON.parse(socket.request.sessionStore.sessions[i]).passport.hasOwnProperty('user') ?
             chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name) :
             delete socket.request.sessionStore.sessions[i];
         }
         chatroomData.numberOfUsers = Object.keys(socket.request.sessionStore.sessions).length;
         io.emit('user data', chatroomData);
+        let username='';
+        let email='';
+        if(!socket.request.session.name){
+            let destination = '/chatroom';
+            io.emit('redirect', destination);
+        }
+        else {
+            username = socket.request.session.name;
+            email = socket.request.session.email;
+        }
 
         socket.on('disconnect', () => {
            chatroomData = {
@@ -22,11 +34,12 @@ module.exports = (io) =>{
                users:[]
            }
            for(var i in socket.request.sessionStore.sessions) {
-               JSON.parse(socket.request.sessionStore.sessions[i]).passport.hasOwnProperty('user') ?
+               JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport') ?
+               
+            //    JSON.parse(socket.request.sessionStore.sessions[i]).passport.hasOwnProperty('user') ?
                chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name):
                delete socket.request.sessionStore.sessions[i];
            }
-           chatroomData.numberOfUsers = Object.keys(socket.request.sessionsStore.sessions).length;
            console.log(`${username} left the socket`);
            io.emit('user data', chatroomData);
         });

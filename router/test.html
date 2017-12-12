@@ -39,10 +39,10 @@
                     <button id='send'>Chat</button>
                 </form>
             </div>
-            <form id="chat-field" action="">
+            <!-- <form id="chat-field" action="">
                 <input id="input-field" autocomplete="off" />
                 <button>Chat</button>
-            </form>
+            </form> -->
         </div>
     </div>
 </body>
@@ -56,29 +56,38 @@
         function loadMessages(data, scrollH) {
             if (JSON.parse(data[0])["email"] == emailID) {
                 $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(data[0])["user"] + "</span> : " + JSON.parse(data[0])["msg"]));
+                console.log('data[0][email]')
+                console.log(data)
             }
             else {
                 $('#chat-messages').append($('<li>').text(JSON.parse(data[0])["user"] + " : " + JSON.parse(data[0])["msg"]));
+                console.log('data[0][email]2')
+                console.log(data)
+
             }
             if (scrollH < 0) {
                 $('.chatArea').scrollTop($('#chat-messages')[0].scrollHeight);
+                console.log('data[0][email]3')
+                console.log(data)
             }
         }
 
         $('form').submit(function () {
             if ($('#input-field').val() == "/clear") {
                 $('#messages').empty();
+
             } else if ($('#input-field').val()) {
                 socket.emit('chat message', $('#input-field').val());
+                console.log($('#input-field').val());
+
             }
-            // console.log($('#input-field').val());
             $('#input-field').val('');
             return false;
         });
 
         socket.on('email id', function (data) {
             emailID = data;
-            console.log(emailID);
+            console.log('socketID'+emailID);
         });
 
         socket.on('user data', function (data) {
@@ -96,6 +105,7 @@
             let scrollH = $('#chat-messages')[0].scrollHeight - $('.chatArea').scrollTop() - $('.chatArea')[0].clientHeight;
             //$('#messages').empty();
             loadMessages(data, scrollH);
+            console.log(scrollH);
         });
 
     });
