@@ -2,8 +2,8 @@ const client = require('./redis');
 
 module.exports = (io) => {
     io.on("connection", function (socket) {
+        
         //loading history from redis
-
         client.lrange('holymoly', 0, -1, function (err, data) {
             
             io.emit('chat history', data)
