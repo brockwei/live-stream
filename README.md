@@ -12,9 +12,11 @@ This is a nodejs live streaming group project with websockets
  - Update config.json to match PostGreSQL config information
  - Call `sequelize db:migrate` in command line to update SQL table.
 
- - Click [here](URL) to use     
+ - Before using: 
  - Start postgresql
     - sudo service postgresql start
+
+ - Click [here](URL) to use
 
 ## Features
 
