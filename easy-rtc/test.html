@@ -5,17 +5,18 @@
         </head>
     
         <body>
-            
-            <h1>Home Page lol</h1>
-            <a href="/test">room "test"</a>
-            <a href="/test2">room "test2"</a>
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+            <video id="localVideo" autoplay muted style="width:40%;"></video>
+            <video id="remoteVideo" autoplay style="width:40%;"></video>
+    
+            <br />
+    
+            <input type="button" id="start" value="Start Video">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
             <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
             <script src="http://webrtc.github.io/adapter/adapter-latest.js"></script>
             <script src="scripts/main.js"></script>
             <script type="text/javascript">
-                var socket = io.connect();    
+                pageReady();
             </script>
         </body>
     </html>
