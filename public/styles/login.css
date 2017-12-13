@@ -1,0 +1,14 @@
+html,body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: rgb(238,238,238);
+}
+
+.content-box {
+    background-color: white;
+    height:70vh;
+    width:80vw;
+    margin:auto;
+    
+}

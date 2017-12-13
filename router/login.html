@@ -11,8 +11,16 @@
                 integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" 
                 integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    </head>
+        <link href="styles/login.css" rel="stylesheet">
+     </head>
     <body>
+        <div class="content-box">
+            <h1 class="signupFor">Sign Up for IBM</h1>
+                <a class="btn btn-primary" href="/auth/facebook">With facebook</a>
+                <a class="btn btn-danger" href="/auth/google">With google</a>
+        </div>
+    
+
         <h1>Login Page</h1>
         <form action="/locallogin" method="post">
             <div>
@@ -47,10 +55,9 @@
             </div>
         </form>
 
-        <a class="btn btn-primary" href="/auth/facebook">Login with facebook</a>
-        <a class="btn btn-danger" href="/auth/google">Login with google</a>
+ 
         <!-- <a class="btn btn-warning" href="/locallogin">Login</a> -->
         
-        <!-- <script src></script> -->
+         <!-- <script src></script> -->
     </body>
 </html>
