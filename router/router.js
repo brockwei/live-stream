@@ -53,20 +53,49 @@ module.exports = (express) => {
     //     res.sendFile(__dirname + '/localLogin.html');
     // });
 
-    router.post('/locallogin', passport.authenticate('local-login', {
-        successRedirect: '/test',
-        failureRedirect: '/'
-    }));
+    // router.post('/signin', passport.authenticate('local-login', {
+    //     successRedirect: '/test',
+    //     failureRedirect: '/'
+    // }));
+
+    router.post('/locallogin', function (req, res, next) {
+        passport.authenticate('local-login', function (err, user, info) {
+            if (err) {
+                res.send('errors ' + JSON.stringify(err));
+                return;
+                //return next(err);
+            }
+            if (!user) {
+                return res.redirect('/')
+            }
+            return res.redirect('/test')
+        })(req, res, next);
+    })
 
     // router.get('/signup', (req, res) => {
     //     res.sendFile(__dirname + '/signup.html');
     // });
 
-    router.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/test',
-        failureRedirect: '/'
+    // router.post('/signup', passport.authenticate('local-signup', {
+    //     successRedirect: '/test',
+    //     failureRedirect: '/'
+    // })
+    // );
+
+    router.post('/signup', function (req, res, next) {
+        passport.authenticate('local-signup', function (err, user, info) {
+            if (err) {
+                res.send('errors ' + JSON.stringify(err));
+                return;
+                //return next(err);
+            }
+            if (!user) {
+                return res.redirect('/')
+            }
+            return res.redirect('/test')
+        })(req, res, next);
     })
-);
+
 
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');

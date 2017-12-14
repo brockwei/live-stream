@@ -16,8 +16,9 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const session = require('express-session');
-const setupPassport = require('./controller/passport');
 const bodyParser = require('body-parser');
+const setupPassport = require('./controller/passport');
+const validator = require('express-validator');
 const router = require('./router/router')(express);
 const port = process.env.PORT
 const io = require('socket.io')(http, {
@@ -27,7 +28,7 @@ const io = require('socket.io')(http, {
 });
 io.set('heartbeat timeout', 40000); 
 io.set('heartbeat interval', 20000);
-const websocket =require('./controller/websockets')(io)
+const websocket =require('./controller/websockets2')(io)
 const redis = require('redis');
 app.use(express.static('public'));
 
@@ -47,6 +48,7 @@ app.use(sessionMiddleware);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(validator());
 
 setupPassport(app);
 app.use('/', router);

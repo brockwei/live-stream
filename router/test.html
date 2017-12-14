@@ -13,8 +13,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" 
                 integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <link href="styles/skype.css" rel="stylesheet">
-    <link href="styles/chat.css" rel="stylesheet">
+    <link href="/styles/skype.css" rel="stylesheet">
+    <link href="/styles/chat.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,6 +24,9 @@
         <div id="left-group">
             <div class="usersArea">
                 <ul id="users"></ul>
+            </div>
+            <b>ROOMS</b>
+            <div id="rooms">
             </div>
             <a class="btn btn-primary" href="/logout">Logout</a>
         </div>
@@ -36,7 +39,7 @@
                 </div>
                 <form id="chat-field" action="">
                     <input id="input-field" placeholder="Type message here.." autocomplete="off" />
-                    <button>Chat</button>
+                    <button id='datasend'>Chat</button>
                 </form>
             </div>
         </div>
@@ -44,7 +47,7 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-<script src ="/scripts/mainforChatroom.js"></script>
+<script src ="/scripts/mainforChatroom2.js"></script>
 
 
 </html>
