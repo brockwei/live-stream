@@ -18,6 +18,7 @@ const http = require('http').Server(app);
 const session = require('express-session');
 const setupPassport = require('./controller/passport');
 const bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 const router = require('./router/router')(express);
 const port = process.env.PORT
 const io = require('socket.io')(http, {

@@ -143,13 +143,21 @@ module.exports = (app) => {
 
               Model.user.create(newUser).then((newUser) => {
 
-                // console.log(newUser);
+                console.log(newUser);
                 done(null, newUser);
               });
             })
             .catch(err => console.log(err));
         }
       });
+      // Model.user.comparePassword(password, confirmPassword, (isMatch) => {
+      //   if(isMatch){
+      //     return done(null, user);
+      //   } else {
+      //     return done(null, false, {message: 'Password does not match the confirm password'});
+      //   }
+      // })
+      //   .catch(err => console.log(err));
     }
   ));
 

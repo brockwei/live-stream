@@ -18,6 +18,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      confirmPassword: {
+        type: Sequelize.STRING
+      },
       facebookID: {
         type: Sequelize.STRING
       },

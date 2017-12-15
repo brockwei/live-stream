@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>success</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abel|Alegreya+Sans+Raleway" rel="stylesheet">
+    <link href="styles/login2.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <div class=white-strip>
+        <a class="btn btn-primary first third" href=""> Log In</a>
+        <a class="btn btn-primary first second" href="/"> Sign Up</a>
+        <h3 class="slogan">GoChat</h3>
+    </div>
+    <div class="white-box">
+        <div class="content-box">
+                <h1 class="signupFor">Log In</h1>
+                        <br> <br> <br> 
+
+                <a class="btn btn-primary social fb" href="/auth/facebook">
+                    <i class="fa fa-facebook-official" style="color:rgb(61,91,152)"></i> <span id="with">Log In via</span> Facebook</a>
+                <a class="btn btn-danger social google" href="/auth/google">
+                    <i class="fa fa-google-plus" style="color:rgb(219,76,63)"></i> <span id="with">Log In via</span> Google</a>
+                <div id="divider">
+                        <hr id="lefthr"> Or <hr id="righthr">
+                </div>
+                   
+
+
+                <form action="/locallogin" method="post">
+                    <div>
+                        <input placeholder="Email" type="text" name="email" />
+                    </div>
+                    <div>
+                        <input placeholder="Password" type="password" name="password" />
+                    </div>
+
+                    <a href="/" class="signupNow">Not a member of GoChat? Sign up here now. </a>
+                    <br> <br> <br> 
+                    <a href="/test"><input class="loginNow" type="submit" value="Log In" /></a>          
+                    
+                  
+            </form>
+        
+<!--           
+                    <h1 class="signupFor">Sign Up for IBM</h1>
+           
+            <a class="btn btn-primary social fb" href="/auth/facebook">
+                <i class="fa fa-facebook-official" style="color:rgb(61,91,152)"></i> <span id="with">With</span> Facebook</a>
+            <a class="btn btn-danger social google" href="/auth/google">
+                <i class="fa fa-google-plus" style="color:rgb(219,76,63)"></i> <span id="with">With</span> Google</a>
+            <hr>
+
+            <form action="/signup" method="post">
+                <div>
+                    <input placeholder="Email" type="text" name="email" />
+                </div>
+                <div>
+                    <input placeholder="Display Name" type="text" name="displayname" />
+                </div>
+                <div>
+                    <input placeholder="Password" type="password" name="password" />
+                </div>
+                <div>
+                    <input placeholder="Confirm Password" type="password" name="confirmPassword" />
+                </div>
+
+
+
+
+                <div>
+                    <input class="signup" type="submit" value="Sign up" />
+                </div>
+            </form> -->
+
+        </div>
+    </div>
+
+
+
+
+
+   
+</body>
+
+</html>

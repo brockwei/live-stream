@@ -13,6 +13,9 @@ module.exports = (express) => {
     router.get('/', (req, res) => {
         res.sendFile(__dirname + '/login.html');
     });
+    router.get('/login2', (req, res) => {
+        res.sendFile(__dirname + '/login2.html');
+    });
     // Secret Path to be protected
     router.get('/test', isLoggedIn, (req, res) => {
         res.sendFile(__dirname + '/test.html');
@@ -62,11 +65,33 @@ module.exports = (express) => {
     //     res.sendFile(__dirname + '/signup.html');
     // });
 
-    router.post('/signup', passport.authenticate('local-signup', {
+    router.post('/signup', (req,res) => {
+        // let email = req.body.email;
+        // let displayname = req.body.displayname;
+        // let password = req.body.password;
+        // let confirmPassword = req.body.confirmPassword;
+
+        // req.checkBody('email', 'Email is required').notEmpty();
+        // req.checkBody('email', 'Email is not valid').isEmail();
+        // req.checkBody('displayname', 'Display name is required').notEmpty();
+        // req.checkBody('password', 'Password is required').notEmpty();
+        // req.checkBody('confirmPassword', 'Password is required').notEmpty();
+        // req.checkBody('confirmPassword', 'Password does not match the confirm password').equals(req.body.password);
+
+        // var errors = req.validationErrors();
+
+        // if(errors){
+        //     res.sendFile(__dirname + '/test.html',{
+        //         errors:errors
+        //     });
+            
+        // }
+        // next();
+    }, passport.authenticate('local-signup', {
         successRedirect: '/test',
         failureRedirect: '/'
-    })
-);
+    }));
+
 
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
