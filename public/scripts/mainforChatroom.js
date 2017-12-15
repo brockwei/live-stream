@@ -77,6 +77,14 @@ $(function () {
         });
         // $('.chat-area').scrollBottom()
     })
+
+    
+    $('#input-field').keypress(function(e) {
+        if(e.which == 13) { //press the enter key
+            $(this).blur();
+            $('#datasend').focus().click();
+        }
+    });
     // $('#chat-messages').animate({
     //     scrollTop: $('#chat-scroll').get(0).scrollHeight
     // }, 2000);

@@ -92,9 +92,22 @@ module.exports = (app) => {
     {
       usernameField: 'email',
       passwordField: 'password',
-      session: false
+      passReqToCallback: true,
+      // session: false
     },
-    (email, password, done) => {
+    (req, email, password, done) => {
+
+      //use the express-validator to check input items
+      req.checkBody('email', 'Email is required.').notEmpty();
+      req.checkBody('email', 'Invalid email format.').isEmail();
+      req.checkBody('password', 'Password is required.').notEmpty();
+      req.checkBody('password', 'The password length must be between 8 and 100.').isLength({ min: 8, max: 100 });
+
+      var err = req.validationErrors();
+      if (err) {
+        return done(err, false, { success: false, error: err });
+      }
+
       Model.user.findOne({
         where: {
           'email': email
@@ -122,9 +135,23 @@ module.exports = (app) => {
       usernameField: 'email',
       passwordField: 'password',
       passReqToCallback: true,
-      session: false
+      // session: false
     },
     (req, email, password, done) => {
+
+      //use the express-validator to check input items
+      req.checkBody('email', 'Email is required.').notEmpty();
+      req.checkBody('email', 'Invalid email format.').isEmail();
+      req.checkBody('password', 'Password is required.').notEmpty();
+      req.checkBody('password', 'The password length must be between 8 and 20.').isLength({ min: 8, max: 20 });
+      req.checkBody('displayname', 'Display Name is required').notEmpty();
+      req.checkBody('displayname', 'Display Name must be between 2 and 100').isLength({ min: 2, max: 100 })
+
+      var err = req.validationErrors();
+      if (err) {
+        return done(err, false, { success: false, error: err });
+      }
+
       Model.user.findOne({
         where: {
           'email': email

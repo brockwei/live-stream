@@ -23,18 +23,50 @@ $(function () {
         }
     }
 
+    $('#input-field').keypress(function(e) {
+        if(e.which == 13) { //press the enter key
+            $(this).blur();
+            $('#datasend').focus().click();
+        }
+    });
+
     $('form').submit(function () {
         if ($('#input-field').val() == "/clear") {
             $('#messages').empty();
 
         } else if ($('#input-field').val()) {
             socket.emit('chat message', $('#input-field').val());
-            console.log($('#input-field').val());
+            // console.log($('#input-field').val());
         }
         $('#input-field').val('');
         return false;
     });
 
+    //socket io starts
+    socket.once('connect', function () {
+		// call the server-side function 'adduser' and send one parameter (value of prompt)
+        socket.emit('chat adduser', prompt("What's your name?"));
+        socket.emit('chat roomname',prompt("What's your room name?"));
+	});
+
+	// listener, whenever the server emits 'updaterooms', this updates the room the client is in
+	socket.on('updaterooms', function (rooms, current_room) {
+		$('#rooms').empty();
+		$.each(rooms, function (key, value) {
+			if (value == current_room) {
+				$('#rooms').append('<div>' + value + '</div>');
+			}
+			else {
+				$('#rooms').append('<div><a href="#" onclick="switchRoom(\'' + value + '\')">' + value + '</a></div>');
+			}
+		});
+	});
+
+	function switchRoom(room) {
+		socket.emit('switchRoom', room);
+    }
+    
+    //('email id') save the email id received from the backend to emailID for the function loadMessages() to use
     socket.on('email id', function (data) {
         emailID = data;
         console.log('socketID' + emailID);
@@ -57,8 +89,8 @@ $(function () {
         let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
         //$('#messages').empty();
         loadMessages(data, scrollH);
-        console.log(JSON.parse(data));
-        console.log(scrollH);
+        // console.log(JSON.parse(data));
+        // console.log(scrollH);
     });
 
     socket.once('chat history', function (data) {
@@ -77,6 +109,13 @@ $(function () {
         });
         // $('.chat-area').scrollBottom()
     })
+
+    $('#input-field').keypress(function(e) {
+        if(e.which == 13) { //press the enter key
+            $(this).blur();
+            $('#datasend').focus().click();
+        }
+    });
     // $('#chat-messages').animate({
     //     scrollTop: $('#chat-scroll').get(0).scrollHeight
     // }, 2000);

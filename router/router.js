@@ -56,41 +56,48 @@ module.exports = (express) => {
     //     res.sendFile(__dirname + '/localLogin.html');
     // });
 
-    router.post('/locallogin', passport.authenticate('local-login', {
-        successRedirect: '/test',
-        failureRedirect: '/'
-    }));
+    // router.post('/signin', passport.authenticate('local-login', {
+    //     successRedirect: '/test',
+    //     failureRedirect: '/'
+    // }));
+
+    router.post('/locallogin', function (req, res, next) {
+        passport.authenticate('local-login', function (err, user, info) {
+            if (err) {
+                res.send('errors ' + JSON.stringify(err));
+                return;
+                //return next(err);
+            }
+            if (!user) {
+                return res.redirect('/')
+            }
+            return res.redirect('/test')
+        })(req, res, next);
+    })
 
     // router.get('/signup', (req, res) => {
     //     res.sendFile(__dirname + '/signup.html');
     // });
 
-    router.post('/signup', (req,res) => {
-        // let email = req.body.email;
-        // let displayname = req.body.displayname;
-        // let password = req.body.password;
-        // let confirmPassword = req.body.confirmPassword;
+    // router.post('/signup', passport.authenticate('local-signup', {
+    //     successRedirect: '/test',
+    //     failureRedirect: '/'
+    // })
+    // );
 
-        // req.checkBody('email', 'Email is required').notEmpty();
-        // req.checkBody('email', 'Email is not valid').isEmail();
-        // req.checkBody('displayname', 'Display name is required').notEmpty();
-        // req.checkBody('password', 'Password is required').notEmpty();
-        // req.checkBody('confirmPassword', 'Password is required').notEmpty();
-        // req.checkBody('confirmPassword', 'Password does not match the confirm password').equals(req.body.password);
-
-        // var errors = req.validationErrors();
-
-        // if(errors){
-        //     res.sendFile(__dirname + '/test.html',{
-        //         errors:errors
-        //     });
-            
-        // }
-        // next();
-    }, passport.authenticate('local-signup', {
-        successRedirect: '/test',
-        failureRedirect: '/'
-    }));
+    router.post('/signup', function (req, res, next) {
+        passport.authenticate('local-signup', function (err, user, info) {
+            if (err) {
+                res.send('errors ' + JSON.stringify(err));
+                return;
+                //return next(err);
+            }
+            if (!user) {
+                return res.redirect('/')
+            }
+            return res.redirect('/test')
+        })(req, res, next);
+    })
 
 
     router.get('/error', (req, res) => {
