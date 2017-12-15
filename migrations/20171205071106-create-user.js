@@ -12,6 +12,9 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
+      displayNameforLocalLogin: {
+        type: Sequelize.STRING
+      },
       password: {
         type: Sequelize.STRING
       },

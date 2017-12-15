@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>WebCam</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+</head>
+<body>
+<a onclick="view(); return false">View</a>
+<a onclick="stream(); return false">Stream..</a>
+	<video style="display: none;" id="video"> </video>
+	<canvas id="prev"></canvas>
+
+	<img id="img">
+
+	<script>
+	var socket = io();
+
+	function stream() {
+		var canvas = document.getElementById("prev"),
+		context = canvas.getContext("2d"),
+		video = document.getElementById("video"),
+		freq = 10;
+
+		canvas.width = 300;//window.innerWidth ;//  800;
+		canvas.height = 200;//window.innerHeight;// 400;
+		
+		context.width = canvas.width;
+		context.height = canvas.height;
+
+		function loadCam(stream) {
+			video.src = window.URL.createObjectURL(stream);
+			// logger("Camera loaded [OKAY]");
+		}
+		
+		function loadFail(stream) {
+			// logger("Failed loading camera");
+		}
+		
+		function viewVideo(video, context) {
+			context.drawImage(video, 0, 0, context.width, context.height);
+			socket.emit("stream", canvas.toDataURL("image/webp"));
+		}
+	
+		$(function() {
+			// navigator.getUserMedia = navigator.getUserMedia ||
+            //              navigator.webkitGetUserMedia ||
+            //              navigator.mozGetUserMedia;
+			
+			// if(navigator.getUserMedia) {
+			// 	navigator.getUserMedia({video: true}, loadCam, loadFail);
+            // }
+            navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+            .then(function(stream) {
+                loadCam(stream);
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
+
+			setInterval(function() {
+				viewVideo(video, context);
+			}, 10);
+		});
+	}
+
+	function view() {
+		socket.on("stream", function (video) {
+            console.log('working');
+			var img = document.getElementById("img");
+			img.src = video;
+		});
+	}
+	</script>
+</body>
+</html>

@@ -9,6 +9,7 @@ This is a nodejs live streaming group project with websockets
     - GOOGLE_clientID
     - GOOGLE_clientSecret
     - GOOGLE_callbackURL
+    - PORT
  - Update config.json to match PostGreSQL config information
  - Call `sequelize db:migrate` in command line to update SQL table.
 
@@ -29,6 +30,8 @@ This is a nodejs live streaming group project with websockets
     - Passportjs
     - Postgresql
     - Redis
+    - Socket.io
+ - WebRTC
 
 ## Contributors
  - [Brock Wei](https://brockwei.github.io) 

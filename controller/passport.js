@@ -24,9 +24,11 @@ module.exports = (app) => {
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: process.env.CALLBACK_URL,
-    profileFields: ['email', 'name']
+    profileFields: ['email', 'name'],
+    // enableProof: true    
   },
     function (accessToken, refreshToken, profile, cb) {
+      // console.log(profile)
       User
         .findOrCreate({
           where: {
@@ -39,12 +41,13 @@ module.exports = (app) => {
           // }))
           // user.email = user.profile.
           // if (created) {
-            user.facebookID = profile.id
-            user.facebookDisplayName = profile.displayName
-            user.save()
-            console.log('new user is created')
+          user.facebookID = profile.id
+          user.facebookDisplayName = profile.name.givenName + ' ' + profile.name.familyName
+          //profile.displayName
+          user.save()
+          console.log('new user is created')
           // } else {
-            // console.log('old user login')
+          // console.log('old user login')
           // }
         })
 
@@ -59,6 +62,7 @@ module.exports = (app) => {
     callbackURL: process.env.GOOGLE_callbackURL,
     //'http://localhost:8080/auth/google/redirect',
     scope: 'user:email',
+    // enableProof: true    
 
   }, (accessToken, refreshToken, profile, done) => {
     // check if user already exists in our own db
@@ -70,11 +74,11 @@ module.exports = (app) => {
       })
       .spread((user, created) => {
         // if (created) {
-          user.googleID = profile.id
-          // user.email = profile.emails[0].value
-          user.googleDisplayName = profile.displayName
-          user.save()
-          console.log('new user is created')
+        user.googleID = profile.id
+        // user.email = profile.emails[0].value
+        user.googleDisplayName = profile.displayName
+        user.save()
+        console.log('new user is created')
         // } else {
         //   console.log('old user login')
         // }
@@ -85,6 +89,11 @@ module.exports = (app) => {
   );
 
   passport.use('local-login', new LocalStrategy(
+    {
+      usernameField: 'email',
+      passwordField: 'password',
+      session: false
+    },
     (email, password, done) => {
       Model.user.findOne({
         where: {
@@ -109,7 +118,13 @@ module.exports = (app) => {
   ));
 
   passport.use('local-signup', new LocalStrategy(
-    (email, password, done) => {
+    {
+      usernameField: 'email',
+      passwordField: 'password',
+      passReqToCallback: true,
+      session: false
+    },
+    (req, email, password, done) => {
       Model.user.findOne({
         where: {
           'email': email
@@ -122,13 +137,14 @@ module.exports = (app) => {
             .then(hash => {
               const newUser = {
                 email: email,
-                password: hash
+                password: hash,
+                displayNameforLocalLogin: req.body.displayname
               };
 
               Model.user.create(newUser).then((newUser) => {
-                console.log('newUser ' + newUser)
-                done(null, newUser);
 
+                // console.log(newUser);
+                done(null, newUser);
               });
             })
             .catch(err => console.log(err));
