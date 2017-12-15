@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Michelle's Mukbang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Michelles Mukbang</title>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
@@ -27,6 +28,9 @@
             <div id="control-username">Placeholder</div>
             <div class="usersArea">
                 <ul id="users"></ul>
+            </div>
+            <b>ROOMS</b>
+            <div id="rooms">
             </div>
             <a class="btn btn-primary" href="/logout">Logout</a>
             <!-- <div id="rooms-group">
@@ -63,7 +67,7 @@
                 </div>
                 <form id="chat-field" action="">
                     <input id="input-field" placeholder="Type message here.." autocomplete="off" />
-                    <button>Chat</button>
+                    <button id='datasend'>Chat</button>
                 </form>
             </div>
         </div>

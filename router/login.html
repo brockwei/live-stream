@@ -1,20 +1,71 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>success</title>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" 
-            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" 
-                integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" 
-                integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <h1>Login Page</h1>
-        <form action="/locallogin" method="post">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>success</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abel|Alegreya+Sans+Raleway" rel="stylesheet">
+    <link href="styles/login.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <div class=white-strip>
+        <a class="btn btn-primary first third" href="/login2"> Log In</a>
+        <a class="btn btn-primary first second" href=""> Sign Up</a>
+        <h3 class="slogan">Go Chat</h3>
+    </div>
+    <div class="white-box">
+        <div class="content-box">
+          
+                    <h1 class="signupFor">Sign Up for GoChat</h1>
+           
+            <a class="btn btn-primary social fb" href="/auth/facebook">
+                <i class="fa fa-facebook-official" style="color:rgb(61,91,152)"></i> <span id="with">With</span> Facebook</a>
+            <a class="btn btn-danger social google" href="/auth/google">
+                <i class="fa fa-google-plus" style="color:rgb(219,76,63)"></i> <span id="with">With</span> Google</a>
+            <hr>
+
+            <form action="/signup" method="post">
+                <div>
+                    <input placeholder="Email" type="text" name="email" />
+                </div>
+                <div>
+                    <input placeholder="Display Name" type="text" name="displayname" />
+                </div>
+                <div>
+                    <input placeholder="Password" type="password" name="password" />
+                </div>
+                <div>
+                    <input placeholder="Confirm Password" type="password" name="confirmPassword" />
+                </div>
+
+                <div>
+                    <input class="signup" type="submit" value="Sign up" />
+                </div>
+                    <br><br>
+                <div class="lastrow">
+                        By signing up, you agree to our <a href="/" class="signupNow">&nbsp; terms of use </a> &nbsp; and <a href="/" class="signupNow"> &nbsp; privacy policy </a>. 
+                        
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+
+    <!-- <form action="/locallogin" method="post">
             <div>
                 <label>email:</label>
                 <input type="text" name="email" />
@@ -27,30 +78,14 @@
                 <input type="submit" value="Log In" />            
             </div>
             <!-- <a href="/signup"><button type="button" name="button">signup</button></a> -->
-        </form>
+    <!-- </form> -->
 
-        <form action="/signup" method="post">
-            <div>
-                <label>email:</label>
-                <input type="text" name="email" />
-            </div>
-            <div>
-                <label>Preferred Display Name:</label>
-                <input type="text" name="displayname" />
-            </div>
-            <div>
-                <label>Password:</label>
-                <input type="password" name="password" />
-            </div>
-            <div>
-                <input type="submit" value="Sign up" />
-            </div>
-        </form>
 
-        <a class="btn btn-primary" href="/auth/facebook">Login with facebook</a>
-        <a class="btn btn-danger" href="/auth/google">Login with google</a>
-        <!-- <a class="btn btn-warning" href="/locallogin">Login</a> -->
-        
-        <!-- <script src></script> -->
-    </body>
+
+
+    <!-- <a class="btn btn-warning" href="/locallogin">Login</a> -->
+
+    <!-- <script src></script> -->
+</body>
+
 </html>

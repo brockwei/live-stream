@@ -26,7 +26,10 @@ module.exports = (express) => {
     router.get('/', isNotLoggedIn, (req, res) => {
         res.sendFile(__dirname + '/login.html');
     });
-    // Chatroom
+    router.get('/login2', (req, res) => {
+        res.sendFile(__dirname + '/login2.html');
+    });
+    // Secret Path to be protected
     router.get('/test', isLoggedIn, (req, res) => {
         res.sendFile(__dirname + '/test.html');
     });

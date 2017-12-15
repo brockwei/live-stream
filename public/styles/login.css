@@ -1,0 +1,358 @@
+html,body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: rgb(238,238,238);
+}
+.white-strip {
+    width: 100%;
+    height: 10vh;
+    padding: 14px;
+    background-color: white;
+    border-bottom: rgb(227,227,227);
+    color:rgb(121,121,121);
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.first {
+    margin-left:2vw;
+    margin-top:0vh;
+    height:6vh;
+    width:11vw;
+    display: inline;
+    float:right;
+    font-family:'Alegreya Sans', sans-serif;
+    font-size:16px;
+    white-space: normal;
+    }
+
+.second {
+    background-color: white;
+    color:rgb(251,111,102);
+    border-color: rgb(251,111,102);
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+.third {
+    background-color: rgb(251,111,102);
+    color:white;
+    border-color: rgb(251,111,102);
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+@media screen and (max-width: 830px) {
+    .first {
+        margin-left:2vw;
+        margin-top:0.3vh;
+        width:13vw;
+        height:6vh;
+        display: inline;
+        float:right;
+        font-family:'Alegreya Sans', sans-serif;
+        font-size:16px;
+        white-space: normal;
+    }
+}
+@media screen and (max-width: 687px) {
+    .first {
+        margin-left:2vw;
+        margin-top:0.3vh;
+        padding-top:1vh;
+        width:13vw;
+        height:6vh;
+        display: inline;
+        float:right;
+        font-family:'Alegreya Sans', sans-serif;
+        font-size:14px;
+        white-space: normal;
+    }
+}
+@media screen and (max-width: 616px) {
+    .first {
+        margin-left:2vw;
+        margin-top:0.3vh;
+        padding-top:1.3vh;
+        width:13vw;
+        height:6vh;
+        display: inline;
+        float:right;
+        font-family:'Alegreya Sans', sans-serif;
+        font-size:13px;
+        white-space: normal;
+    }
+}
+@media screen and (max-width: 555px) {
+    .first {
+        margin-left:2vw;
+        margin-top:0.3vh;
+        padding-top:1.3vh;
+        padding-left:1vw;
+        padding-right:1vw;
+        width:13vw;
+        height:6vh;
+        display: inline;
+        float:right;
+        font-family:'Alegreya Sans', sans-serif;
+        font-size:13px;
+        white-space: normal;
+    }
+}
+@media screen and (max-width: 529px) {
+    .first {
+        margin-left:2vw;
+        margin-top:0.3vh;
+        padding-top:1.4vh;
+        padding-left:1vw;
+        padding-right:1vw;
+        width:14vw;
+        height:6vh;
+        display: inline;
+        float:right;
+        font-family:'Alegreya Sans', sans-serif;
+        font-size:13px;
+        white-space: normal;
+    }
+}
+@media screen and (max-width: 491px) {
+    .first {
+        margin-left:2vw;
+        margin-top:0.3vh;
+        padding-top:1.4vh;
+        padding-left:1vw;
+        padding-right:1vw;
+        width:16vw;
+        height:6vh;
+        display: inline;
+        float:right;
+        font-family:'Alegreya Sans', sans-serif;
+        font-size:13px;
+        white-space: normal;
+    }
+}
+@media screen and (max-width: 430px) {
+    .first {
+        margin-left:2vw;
+        margin-top:0.3vh;
+        padding-top:1.6vh;
+        padding-left:2vw;
+        width:16vw;
+        height:6vh;
+        display: inline;
+        float:right;
+        font-family:'Alegreya Sans', sans-serif;
+        font-size:13px;
+        white-space: normal;
+    }
+}
+@media screen and (max-width: 403px) {
+    .first {
+        margin-left:2vw;
+        margin-top:0.3vh;
+        padding-top:1.4vh;
+        padding-left:1vw;
+        padding-right:1vw;
+        width:17vw;
+        height:6vh;
+        display: inline;
+        float:right;
+        font-family:'Alegreya Sans', sans-serif;
+        font-size:13px;
+        white-space: normal;
+    }
+}
+.second:hover {
+    background-color: rgb(251,111,102);
+    color:white;
+    border-color: rgb(251,111,102);
+
+}
+.third:hover {
+    background-color: white;
+    color:rgb(251,111,102);
+    border-color: rgb(251,111,102);
+}
+
+.white-box {
+    background-color: white;
+    width:80vw;
+    margin :20vh 10vw;
+    padding: 60px;
+    border-radius: 15px;
+}
+.slogan {
+    font-family: 'Raleway', sans-serif;
+    font-size:30px;
+    margin-left:26vw;
+    font-family: 'Abel', sans-serif;
+}
+.content-box {
+    background-color: white;
+    margin:0;
+    padding:20px 70px;
+    text-align: center;
+    
+}
+
+.signupFor {
+    color: rgb(251,111,102);
+    margin-bottom:2vh;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size:6vw;
+}
+.social {
+    width:23vw;
+    height:8vh;
+    margin:2vh 1vw;
+    padding:10px 6px;
+    font-size:20px;
+    margin-bottom:3vh;
+    font-family: 'Abel', sans-serif;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+@media screen and (max-width: 882px) {
+    .social {
+        width:20vw;
+    }
+    
+}
+@media screen and (max-width: 735px) {
+    .social {
+        width:18vw;
+        font-size:17px;
+        padding:12.3px 6px;
+    }
+    .content-box {
+        padding:20px 50px; 
+    }
+    
+}
+@media screen and (max-width: 691px) {
+    .social {
+        width:18vw;
+        font-size:15px;
+        padding:12.3px 6px;
+        height:7vh;
+    }
+    .content-box {
+        padding:20px 40px; 
+    }
+    .whitebox {
+        padding: 20px;
+        margin :20vh 0vw;
+    }
+}
+@media screen and (max-width: 618px) {
+    .social {
+        width:18vw;
+        font-size:13px;
+        padding:12.3px 6px;
+        height:7vh;
+    }
+    .content-box {
+        padding:20px 30px; 
+    }
+    .whitebox {
+        padding: 20px;
+        margin :20vh 0vw;
+    }
+}
+@media screen and (max-width: 543px) {
+    .social {
+        width:22vw;
+        font-size:14px;
+        padding:12.3px 6px;
+        height:7vh;
+    }
+    #with {
+        display:none;
+    }
+    .content-box {
+        padding:20px 7px; 
+    }
+    .whitebox {
+        padding: 20px;
+        margin :20vh 0vw;
+    }
+}
+@media screen and (max-width: 543px) {
+
+}
+hr {
+    margin-top:4vh;
+}
+.fb {
+    background-color:white;
+    color:rgb(59,88,152);
+    border-color:rgb(32,65,137);
+}
+
+.fb:hover {
+    background-color: rgb(59,88,152);
+}
+
+.google {
+    background-color:white;
+    color:rgb(219,76,63);
+    border-color:rgb(219,76,63);
+}
+
+form {
+    margin-top: 6vh;
+}
+input {
+   border-radius:5px;
+   width: 96%;
+   margin:1.3vh;
+   padding: 12px 20px;
+   border: 2px solid;
+   border-color:rgb(238,238,238);
+   text-indent:35px;
+}
+input::-webkit-input-placeholder {
+    color:rgb(121,121,121);
+}
+input[name="email"] {
+    background-image: url(../images/image1.png);
+    background-repeat: no-repeat;
+    background-position: 6px 11px;
+    background-size:32px;
+
+}
+input[name='displayname'] {
+    background-image: url(../images/image2.png);
+    background-repeat: no-repeat;
+    background-position: 6px 10px;
+    background-size:33px;
+}
+input[name*='assword'] {
+    background-image: url(../images/image3.png);
+    background-repeat: no-repeat;
+    background-position: 7px 9px;
+    background-size:30px;
+}
+
+.signup {
+    background-color:rgb(219,76,63);
+    color:white;
+    margin-top:11vh;
+    margin-left:73%;
+    width:26%;
+    text-indent:0px !important;
+    padding:10px 5px;
+}
+.lastrow {
+    display:flex;
+    font-size:13px;
+    color:rgb(121,121,121);
+    margin-left:53px;
+    font-family:'Alegreya Sans', sans-serif;
+}
+.signupNow {
+    color:rgb(251,111,102);
+    font-size:13px;
+    float:left;
+
+}
