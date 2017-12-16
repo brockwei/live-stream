@@ -2,7 +2,7 @@ html,body {
     margin: 0;
     height: 100%;
     font-family: 'Ubuntu', sans-serif;
-    background-color: rgb(238,238,238);
+    background-color: rgb(251,111,102);
 }
 .white-strip {
     width: 100%;
@@ -34,7 +34,7 @@ html,body {
     color: darkslategrey;
     margin-bottom:2vh;
     font-family: 'Alegreya Sans', sans-serif;
-    font-size:2vw;
+    font-size:3vw;
 }
 .first {
     margin-left:2vw;
@@ -62,6 +62,7 @@ html,body {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
+
 @media screen and (max-width: 830px) {
     .first {
         margin-left:2vw;
@@ -215,7 +216,7 @@ hr {
     float:right;
 }
 .social {
-    width:20vw;
+    width:28vw;
     height:7vh;
     margin:1vh 1vw;
     padding:7px 6px;
@@ -224,6 +225,122 @@ hr {
     font-family: 'Abel', sans-serif;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
+}
+@media screen and (max-width: 882px) {
+    .social {
+        width:28vw;
+        font-size:18px;
+    }
+    .signupFor {
+        font-size:3vw;
+    }
+}
+@media screen and (max-width: 812px) {
+    .social {
+        width:28vw;
+        font-size:17px;
+        padding:12.3px 6px;
+    }
+    .content-box {
+        padding:20px 50px; 
+    }
+    .signupFor {
+        font-size:3vw;
+    }
+}
+@media screen and (max-width: 768px) {
+    .social {
+        width:28vw;
+        font-size:15px;
+        padding:12.3px 6px;
+        height:7vh;
+    }
+    .content-box {
+        padding:20px 40px; 
+    }
+    .whitebox {
+        padding: 0px;
+        margin :20vh 0vw;
+    }
+    .signupFor {
+        font-size:4vw;
+    }
+}
+@media screen and (max-width: 671px) {
+    .social {
+        width:28vw;
+        font-size:13px;
+        padding:12.3px 6px;
+        height:7vh;
+    }
+    .content-box {
+        padding:20px 30px; 
+    }
+    .whitebox {
+        padding: 0px;
+        margin :20vh 0vw;
+    }
+    .signupFor {
+        font-size:5vw;
+    }
+}
+@media screen and (max-width: 592px) {
+    .social {
+        width:28vw;
+        font-size:14px;
+        padding:12.3px 0px;
+        height:7vh;
+    }
+    .content-box {
+        padding:20px 0px; 
+    }
+    .whitebox {
+        padding: 0px;
+        margin :20vh 0vw;
+    }    
+    .signupFor {
+        font-size:6vw;
+    }
+}
+@media screen and (max-width: 567px) {
+    .social {
+        width:28vw;
+        font-size:14px;
+        padding:12.3px 0px;
+        height:7vh;
+    }
+    .content-box {
+        padding:20px 0px; 
+    }
+    .whitebox {
+        padding: 0px;
+        margin :20vh 0vw;
+    }
+    .signupFor {
+        font-size:6vw;
+    }
+}
+@media screen and (max-width: 567px) {
+    .social {
+        width:28vw;
+        font-size:14px;
+        padding:12.3px 0px;
+        height:7vh;
+    }
+    .signupFor {
+        font-size:6vw;
+    }
+}
+@media screen and (max-width: 441px) {
+    .social {
+        width:35vw;
+        font-size:14px;
+        padding:12.3px 0px;
+        height:7vh;
+    }
+    .signupFor {
+        font-size:7vw;
+    }
 }
 .fb {
     background-color:white;
@@ -282,7 +399,7 @@ input[name*='assword'] {
     margin-left:15px;
 }
 .loginNow {
-    background-color:rgb(251,111,102);
+    background-color:rgb(254,42,96);
     color:white;
     width:35vw;
     text-indent:0px !important;

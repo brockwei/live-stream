@@ -2,7 +2,7 @@ html,body {
     margin: 0;
     height: 100%;
     font-family: 'Ubuntu', sans-serif;
-    background-color: rgb(238,238,238);
+    background-color: rgb(251,111,102);
 }
 .white-strip {
     width: 100%;
@@ -54,6 +54,9 @@ html,body {
         font-size:16px;
         white-space: normal;
     }
+}
+@media screen and (max-width: 767px) {
+
 }
 @media screen and (max-width: 687px) {
     .first {
@@ -184,7 +187,7 @@ html,body {
 .slogan {
     font-family: 'Raleway', sans-serif;
     font-size:30px;
-    margin-left:26vw;
+    margin-left:28vw;
     font-family: 'Abel', sans-serif;
 }
 .content-box {
@@ -335,7 +338,7 @@ input[name*='assword'] {
 }
 
 .signup {
-    background-color:rgb(219,76,63);
+    background-color:rgb(95,158,160);
     color:white;
     margin-top:11vh;
     margin-left:73%;
@@ -347,12 +350,15 @@ input[name*='assword'] {
     display:flex;
     font-size:13px;
     color:rgb(121,121,121);
-    margin-left:53px;
+    align-items: center;  
+    flex-direction: column;  
     font-family:'Alegreya Sans', sans-serif;
+}
+.last {
+    text-align: center;
 }
 .signupNow {
     color:rgb(251,111,102);
     font-size:13px;
-    float:left;
 
 }
