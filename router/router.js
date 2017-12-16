@@ -13,17 +13,20 @@ module.exports = (express) => {
         if (req.isAuthenticated()) {
             return next();
         }
+        
         res.redirect('/');
     }
     // Checks if not already logged in, otherwise redirect from login page to chatroom
     function isNotLoggedIn(req,res,next){
         if(!req.isAuthenticated()){
+            // console.log(req.isAuthenticated());
             return next();
         }
         res.redirect('/test');
     }
     // Login Page
     router.get('/', isNotLoggedIn, (req, res) => {
+        // console.log('test');
         res.sendFile(__dirname + '/login.html');
     });
     router.get('/login2', (req, res) => {
@@ -75,6 +78,7 @@ module.exports = (express) => {
         // successRedirect: '/test',
         failureRedirect: '/'
     }), (req, res) => {
+        console.log('test');
         //Save Username and email in sessions
         req.session.userData = {
             username: req.user.dataValues.displayNameforLocalLogin,
@@ -89,6 +93,7 @@ module.exports = (express) => {
         failureRedirect: '/'
         })
     );
+    
 
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
