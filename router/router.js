@@ -1,17 +1,33 @@
 const passport = require('passport');
 
+/* Database */
+const sequelize = require('sequelize');
+const Model = require('../models');
+const User = Model.user;
+
 module.exports = (express) => {
-
     const router = express.Router();
-
+    /* Middleware */
+    // Checks if logged in, otherwise redirect to login page
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
             return next();
         }
+        
         res.redirect('/');
     }
-    router.get('/', (req, res) => {
-        res.sendFile(__dirname + '/login.html');
+    // Checks if not already logged in, otherwise redirect from login page to chatroom
+    function isNotLoggedIn(req,res,next){
+        if(!req.isAuthenticated()){
+            // console.log(req.isAuthenticated());
+            return next();
+        }
+        res.redirect('/test');
+    }
+    // Login Page
+    router.get('/', isNotLoggedIn, (req, res) => {
+        // console.log('test');
+        res.sendFile(__dirname + '/loginB.html');
     });
     router.get('/login2', (req, res) => {
         res.sendFile(__dirname + '/login2.html');
@@ -20,6 +36,13 @@ module.exports = (express) => {
     router.get('/test', isLoggedIn, (req, res) => {
         res.sendFile(__dirname + '/test.html');
     });
+    router.get('/test/:room', isLoggedIn, (req, res) => {
+        req.session.room = req.params.room;
+        // console.log(req.session.room);
+        res.sendFile(__dirname + '/test.html');
+    });
+
+    // Facebook OAuthentication
     router.get('/auth/facebook', passport.authenticate('facebook', {
         scope: ['user_friends', 'manage_pages', 'email']
     }));
@@ -27,22 +50,19 @@ module.exports = (express) => {
     router.get('/auth/facebook/callback', passport.authenticate('facebook', {
         failureRedirect: '/'
     }), (req, res) => {
-        //console.log(req.session);
-        // console.log('fb: '+ req.user);
-        let name = req.user.profile.name.givenName;
-        req.session.name = name;
-        req.session.email = req.user.profile._json.email;
-        res.redirect('/test');
-        // console.log('facebook'+req.user)
-        // console.log(req.user)
+        User.findAll({where: {"email":req.user.profile._json.email}}).then(user=>{
+            let name = req.user.profile.name.givenName;
+            req.session.name = name;
+            req.session.email = req.user.profile._json.email;
+            res.redirect('/test');
+        });
     });
-    // auth with google+
+    // Google+ OAuthentication
     router.get('/auth/google', passport.authenticate('google', {
         scope: ['profile', 'email']
     }));
 
-    // callback route for google to redirect to
-    // hand control to passport to use code to grab profile info
+    // callback route for google to redirect to hand control to passport to use code to grab profile info
     router.get('/auth/google/redirect', passport.authenticate('google', {
         failureRedirect: '/'
     }), (req, res) => {
@@ -52,64 +72,40 @@ module.exports = (express) => {
         // console.log('google router'+req.user);
         // console.log(req.user)        
     });
-    // router.get('/locallogin', (req, res) => {
-    //     res.sendFile(__dirname + '/localLogin.html');
-    // });
 
-    // router.post('/signin', passport.authenticate('local-login', {
-    //     successRedirect: '/test',
-    //     failureRedirect: '/'
-    // }));
+    //Local Authentication - Login
+    router.post('/locallogin', passport.authenticate('local-login', {
+        // successRedirect: '/test',
+        failureRedirect: '/'
+    }), (req, res) => {
+        //Save Username and email in sessions
+        req.session.userData = {
+            username: req.user.dataValues.username,
+            email: req.session.email = req.user.dataValues.email
+        }
+        // console.log(req.user.dataValues);
+        res.redirect('/test');
+    });
 
-    router.post('/locallogin', function (req, res, next) {
-        passport.authenticate('local-login', function (err, user, info) {
-            if (err) {
-                res.send('errors ' + JSON.stringify(err));
-                return;
-                //return next(err);
-            }
-            if (!user) {
-                return res.redirect('/')
-            }
-            return res.redirect('/test')
-        })(req, res, next);
-    })
-
-    // router.get('/signup', (req, res) => {
-    //     res.sendFile(__dirname + '/signup.html');
-    // });
-
-    // router.post('/signup', passport.authenticate('local-signup', {
-    //     successRedirect: '/test',
-    //     failureRedirect: '/'
-    // })
-    // );
-
-    router.post('/signup', function (req, res, next) {
-        passport.authenticate('local-signup', function (err, user, info) {
-            if (err) {
-                res.send('errors ' + JSON.stringify(err));
-                return;
-                //return next(err);
-            }
-            if (!user) {
-                return res.redirect('/')
-            }
-            return res.redirect('/test')
-        })(req, res, next);
-    })
-
+    //Local Authentication - Sign Up
+    router.post('/signup', passport.authenticate('local-signup', {
+        // successRedirect: '/test',
+        failureRedirect: '/'
+    }), (req, res) => {
+        //Save Username and email in sessions
+        req.session.userData = {
+            username: req.user.dataValues.username,
+            email: req.session.email = req.user.dataValues.email
+        }
+        // console.log(req.user.dataValues);
+        res.redirect('/test');
+    });
 
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
     });
-    // router.get('/logout', (req, res) => {
-    //     req.logout();
-    //     res.redirect("/")
-    // });
 
     router.get('/logout', (req, res) => {
-
         req.session.destroy((err) => {
             console.log("logouted")
             if (err) { console.log(err) }
