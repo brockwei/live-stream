@@ -116,12 +116,19 @@ module.exports = (app) => {
   ));
 
   passport.use('local-signup', new LocalStrategy(
-    (email, password, done) => {
+    {
+      usernameField: 'email',
+      passwordField: 'password',
+      passReqToCallback: true,
+      // session: false
+    },
+    (req, email, password, done) => {
       Model.user.findOne({
         where: {
           'email': email
         }
       }).then((user) => {
+        console.log(req.body);
         if (user) {
           return done(null, false, { message: 'Email already taken' });
         } else {
@@ -129,6 +136,7 @@ module.exports = (app) => {
             .then(hash => {
               const newUser = {
                 email: email,
+                username: req.body.displayname,
                 password: hash
               };
 

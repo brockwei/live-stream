@@ -27,7 +27,7 @@ module.exports = (express) => {
     // Login Page
     router.get('/', isNotLoggedIn, (req, res) => {
         // console.log('test');
-        res.sendFile(__dirname + '/login.html');
+        res.sendFile(__dirname + '/loginB.html');
     });
     router.get('/login2', (req, res) => {
         res.sendFile(__dirname + '/login2.html');
@@ -78,22 +78,28 @@ module.exports = (express) => {
         // successRedirect: '/test',
         failureRedirect: '/'
     }), (req, res) => {
-        console.log('test');
         //Save Username and email in sessions
         req.session.userData = {
-            username: req.user.dataValues.displayNameforLocalLogin,
+            username: req.user.dataValues.username,
             email: req.session.email = req.user.dataValues.email
         }
+        // console.log(req.user.dataValues);
         res.redirect('/test');
     });
 
     //Local Authentication - Sign Up
     router.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/test',
+        // successRedirect: '/test',
         failureRedirect: '/'
-        })
-    );
-    
+    }), (req, res) => {
+        //Save Username and email in sessions
+        req.session.userData = {
+            username: req.user.dataValues.username,
+            email: req.session.email = req.user.dataValues.email
+        }
+        // console.log(req.user.dataValues);
+        res.redirect('/test');
+    });
 
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
