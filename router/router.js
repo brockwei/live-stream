@@ -83,24 +83,6 @@ module.exports = (express) => {
             })
     )
 
-    // router.get('/signup', (req, res) => {
-    //     res.sendFile(__dirname + '/signup.html');
-    // });
-
-    // router.post('/signup', passport.authenticate('local-signup', {
-    //     successRedirect: '/test',
-    //     failureRedirect: '/'
-    // })
-    // );
-
-    // router.post('/signup',
-    //     passport.authenticate('local-signup', {
-    //         successRedirect: '/test',
-    //         failureRedirect: '/',
-    //         failureFlash: true
-    //     })
-    // );
-
     router.post('/signup',
         passport.authenticate('local-signup',
             // { session: false },

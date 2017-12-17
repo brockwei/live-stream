@@ -37,13 +37,13 @@ module.exports = (app) => {
           // }))
           // user.email = user.profile.
           if (created) {
-          user.facebookID = profile.id
-          user.facebookDisplayName = profile.name.givenName + ' ' + profile.name.familyName
-          //profile.displayName
-          user.save()
-          console.log('new user is created')
+            user.facebookID = profile.id
+            user.facebookDisplayName = profile.name.givenName + ' ' + profile.name.familyName
+            //profile.displayName
+            user.save()
+            console.log('new user is created')
           } else {
-          console.log('old user login')
+            console.log('old user login')
           }
         })
 
@@ -69,11 +69,11 @@ module.exports = (app) => {
       })
       .spread((user, created) => {
         if (created) {
-        user.googleID = profile.id
-        // user.email = profile.emails[0].value
-        user.googleDisplayName = profile.displayName
-        user.save()
-        console.log('new user is created')
+          user.googleID = profile.id
+          // user.email = profile.emails[0].value
+          user.googleDisplayName = profile.displayName
+          user.save()
+          console.log('new user is created')
         } else {
           console.log('old user login')
         }
@@ -100,7 +100,7 @@ module.exports = (app) => {
 
       var err = req.validationErrors();
       if (err) {
-        return done(JSON.stringify(err))
+        return done(JSON.stringify(err.msg))
         // return done(JSON.stringify(err), false, { success: false, error: err });
       }
 
@@ -110,6 +110,8 @@ module.exports = (app) => {
         }
       }).then((user) => {
         if (user == null) {
+          // return done(null, false, req.flash('signupMessage', 'Incorrect credentials.'));
+
           return done(null, false, { message: 'Incorrect credentials.' });
         }
 
@@ -141,7 +143,7 @@ module.exports = (app) => {
       req.checkBody('password', 'Password is required.').notEmpty();
       req.checkBody('password', 'The password length must be between 2 and 20.').isLength({ min: 2, max: 20 });
       req.checkBody('displayname', 'Display Name is required').notEmpty();
-      req.checkBody('displayname', 'Display Name must be between 8 and 100').isLength({ min: 8, max: 100 })
+      req.checkBody('displayname', 'Display Name must be between 2 and 100').isLength({ min: 2, max: 100 })
 
       var err = req.validationErrors();
       if (err) {
