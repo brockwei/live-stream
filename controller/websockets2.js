@@ -11,117 +11,116 @@ module.exports = (io) => {
             users: []
         }
 
-        //loading history from redis
-        // client.lrange('holymoly', 0, -1, function (err, data) {
-
-        //     io.emit('chat history', data)
-
-        // })
-
-        // client.lrange(`${socket.room}`, 0, -1, function (err, data) {
-        //     console.log('socket.room '+socket.room)
-        //     io.emit('chat history', data)
-
-        // })
-
-        // usernames which are currently connected to the chat
-
-        // rooms which are currently available in chat
-        // var rooms = ['room1', 'room2', 'room3'];
-
         //ask the user for a display name and 
-        socket.on('chat adduser', function (username) {
+        socket.on('chat adduser room', function (obj) {
             // store the username in the socket session for this client
-            socket.username = username;
-            console.log('chat adduser');
-            console.log(socket.username);
-            console.log('socket.request.session.name '+socket.request.session.displayname);
-            socket.request.session.displayname = username;
-            // store the room name in the socket session for this client
-            // socket.room = 'room1';
-            // add the client's username to the global list
-            // usernames[username] = username;
-            // console.log('usernames ' + JSON.stringify(usernames))
-            chatroomData.users.push(socket.username)
+            obj = JSON.parse(obj);
+
+            socket.username = obj.username;
+
+            socket.room = obj.roomname;
+
+            console.log('socket .room ' + socket.room);
+            // send client to the room
+            socket.join(socket.room);
+
+            client.lrange(`${socket.room}`, 0, -1, function (err, data) {
+                // console.log('socket.room ' + socket.room)
+                // console.log('chathisotry '+ data)
+                io.emit('chat history', data)
+            })
 
             // send client to room 1
-            // socket.join('room1');
             // echo to client they've connected
             socket.emit('updatechat', 'SERVER', 'you have connected to room1');
             // echo to room 1 that a person has connected to their room
-            socket.broadcast.to(`${rooms[0]}`).emit('updatechat', 'SERVER', socket.username + ' has connected to this room');
-            socket.emit('updaterooms', rooms, 'room1');
-        });
+            // socket.broadcast.to(`${socket.room}`).emit('updatechat', 'SERVER', socket.username + ' has connected to this room');
+            // socket.emit('updaterooms', rooms, 'room1');
 
-        socket.on('chat roomname', function (roomname) {
-            socket.room = roomname;
-            rooms.push(roomname);
-            console.log('roomname '+roomname);
-            // send client to room 1
-            socket.join(socket.room);
-            console.log('room0 '+rooms[0]);
+            // socket.emit('user data', socket.chatroomData);
 
-            client.lrange(`${socket.room}`, 0, -1, function (err, data) {
-                console.log('socket.room '+socket.room)
-                io.emit('chat history', data)
-    
+            // echo to room 1 that a person has connected to their room
+            socket.broadcast.to(`${socket.room}`).emit('updatechat', 'SERVER', socket.username + ' has connected to this room');
+            console.log('emailsssss ' + socket.request.session.email);
+
+            let emailAndName = {
+                email: socket.request.session.email,
+                username: socket.username
+            }
+
+            emailAndName = JSON.stringify(emailAndName)
+
+            console.log('emailandname ' + emailAndName)
+
+            client.sadd(`${socket.room}_userlist`, emailAndName, function (err, num) {
+                if (err) { return console.log(err) }
+
+                chatroomData.numberOfUsers = num;
+
+                client.smembers(`${socket.room}_userlist`, function (err, reply) {
+                    console.log('reply ' + reply);
+
+                    io.emit('user data', reply);
+
+                });
+
             })
 
-        })
+        });
+
+
 
         //('email id')send the email address received in the backend to the frontend
         io.to(socket.id).emit('email id', socket.request.session.email);
 
 
-
-        // for (var i in socket.request.sessionStore.sessions) {
-        //     // JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport') ?            
-        //     // JSON.parse(socket.request.sessionStore.sessions[i]).passport.hasOwnProperty('user') ?
-        //     // chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name)
-        //     // delete socket.request.sessionStore.sessions[i];
-        //     if (JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport')) {
-        //         chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name)
-        //     }
-
-        //     // console.log(socket.request.sessionStore.sessions[i]);
-        // }
-
         chatroomData.numberOfUsers = Object.keys(socket.request.sessionStore.sessions).length;
-        chatroomData.numberOfUsers = chatroomData.users.length;
-        
-        // console.log('socket.request')
-        // console.log(socket.request.sessionStore.sessions)
-        io.emit('user data', chatroomData);
-        let username = '';
+        // chatroomData.numberOfUsers = chatroomData.users.length;
+
+        // io.emit('user data', chatroomData);
+        // let username = '';
         let email = '';
         if (!socket.request.session.name) {
             let destination = '/test';
             io.emit('redirect', destination);
-        } 
+        }
         else {
             // username = socket.request.session.name;
-            username = socket.username
-            console.log('username123 '+socket.username);        
+            // username = socket.username
+            // console.log('username123 ' + socket.username);
             email = socket.request.session.email;
         }
 
         socket.on('disconnect', () => {
-            chatroomData = {
-                numberOfUsers: 0,
-                users: []
-            }
-            for (var i in socket.request.sessionStore.sessions) {
-                //    JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport') ?
 
-                //    JSON.parse(socket.request.sessionStore.sessions[i]).passport.hasOwnProperty('user') ?
-                //    chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name)
-                //    delete socket.request.sessionStore.sessions[i];
-                if (JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport')) {
-                    chatroomData.users.push(JSON.parse(socket.request.sessionStore.sessions[i]).name)
-                }
+            let emailAndName = {
+                email: socket.request.session.email,
+                username: socket.username
             }
-            console.log(`${username} left the socket`);
-            io.emit('user data', chatroomData);
+
+            emailAndName = JSON.stringify(emailAndName)
+
+            client.srem(`${socket.room}_userlist`, `${emailAndName}`, function (err, reply) {
+
+                if (err) {
+                    return console.log(err);
+                }
+
+                client.smembers(`${socket.room}_userlist`, function (err, reply) {
+                    if (err) {
+                        return console.log(err);
+                    }
+
+                    io.emit('user data', reply);
+
+                })
+                // console.log('reply ' + reply);
+
+                // io.emit('user data', reply);
+
+            });
+
+            console.log(`${socket.username} left the socket`);
         });
 
         //this part pass the data from the backend to frontend
@@ -129,30 +128,17 @@ module.exports = (io) => {
             // io.emit('chat message', msg);
             let message = {
                 // 'user': username,
-                'user': socket.username,              
+                'user': socket.username,
                 'email': email,
                 'msg': msg
             }
-            let message2 = JSON.stringify(message);
-            // console.log('messagesss '+message);
-            // console.log(message);
-            // client.rpush('holymoly', message2, function (err, data) {
-            //     if (err) {
-            //         return console.log(err);
-            //     }
-            //     client.lrange('holymoly', -1, -1, function (err, data) {
-            //         if (err) {
-            //             return console.log(err);
-            //         }
-            //         io.emit('chat message', data)
-            //     })
-            // })
+            message = JSON.stringify(message);
 
-            client.rpush(`${rooms[0]}`, message2, function (err, data) {
+            client.rpush(`${socket.room}`, message, function (err, data) {
                 if (err) {
                     return console.log(err);
                 }
-                client.lrange(`${rooms[0]}`, -1, -1, function (err, data) {
+                client.lrange(`${socket.room}`, -1, -1, function (err, data) {
                     if (err) {
                         return console.log(err);
                     }

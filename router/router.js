@@ -49,28 +49,16 @@ module.exports = (express) => {
         // console.log('google router'+req.user);
         // console.log(req.user)        
     });
-    // router.get('/locallogin', (req, res) => {
-    //     res.sendFile(__dirname + '/localLogin.html');
-    // });
 
-    // router.post('/signin', passport.authenticate('local-login', {
-    //     successRedirect: '/test',
-    //     failureRedirect: '/'
-    // }));
-
-    router.post('/locallogin', function (req, res, next) {
-        passport.authenticate('local-login', function (err, user, info) {
-            if (err) {
-                res.send('errors ' + JSON.stringify(err));
-                return;
-                //return next(err);
-            }
-            if (!user) {
-                return res.redirect('/')
-            }
-            return res.redirect('/test')
-        })(req, res, next);
-    })
+    router.post('/locallogin',
+        passport.authenticate('local-login',
+            // { session: false },
+            {
+                successRedirect: '/test',
+                failureRedirect: '/',
+                failureFlash: true
+            })
+    )
 
     // router.get('/signup', (req, res) => {
     //     res.sendFile(__dirname + '/signup.html');
@@ -82,24 +70,28 @@ module.exports = (express) => {
     // })
     // );
 
-    router.post('/signup', function (req, res, next) {
-        passport.authenticate('local-signup', function (err, user, info) {
-            if (err) {
-                res.send('errors ' + JSON.stringify(err));
-                return;
-                //return next(err);
-            }
-            if (!user) {
-                return res.redirect('/')
-            }
-            return res.redirect('/test')
-        })(req, res, next);
-    })
+    // router.post('/signup',
+    //     passport.authenticate('local-signup', {
+    //         successRedirect: '/test',
+    //         failureRedirect: '/',
+    //         failureFlash: true
+    //     })
+    // );
 
+    router.post('/signup',
+        passport.authenticate('local-signup',
+            // { session: false },
+            {
+                successRedirect: '/test',
+                failureRedirect: '/',
+                failureFlash: true
+            })
+    );
 
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
     });
+
     // router.get('/logout', (req, res) => {
     //     req.logout();
     //     res.redirect("/")
