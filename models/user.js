@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   var user = sequelize.define('user', {
     email: DataTypes.STRING,
-    displayNameforLocalLogin: DataTypes.STRING,    
+    username: DataTypes.STRING,    
     password: DataTypes.STRING,
     facebookID:DataTypes.STRING,
     facebookDisplayName:DataTypes.STRING,

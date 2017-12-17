@@ -22,11 +22,9 @@ module.exports = (app) => {
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: process.env.CALLBACK_URL,
-    profileFields: ['email', 'name'],
-    // enableProof: true    
+    profileFields: ['email', 'name']
   },
     function (accessToken, refreshToken, profile, cb) {
-      // console.log(profile)
       User
         .findOrCreate({
           where: {
@@ -60,7 +58,6 @@ module.exports = (app) => {
     callbackURL: process.env.GOOGLE_callbackURL,
     //'http://localhost:8080/auth/google/redirect',
     scope: 'user:email',
-    // enableProof: true    
 
   }, (accessToken, refreshToken, profile, done) => {
     // check if user already exists in our own db
@@ -157,6 +154,7 @@ module.exports = (app) => {
           'email': email
         }
       }).then((user) => {
+        console.log(req.body);
         if (user) {
           return done(null, false, { message: 'Email already taken' });
         } else {
@@ -164,14 +162,14 @@ module.exports = (app) => {
             .then(hash => {
               const newUser = {
                 email: email,
-                password: hash,
-                displayNameforLocalLogin: req.body.displayname
+                username: req.body.displayname,
+                password: hash
               };
 
               Model.user.create(newUser).then((newUser) => {
-
-                // console.log(newUser);
+                console.log('newUser ' + newUser)
                 done(null, newUser);
+
               });
             })
             .catch(err => console.log(err));
