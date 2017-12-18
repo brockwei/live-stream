@@ -51,9 +51,13 @@ module.exports = (express) => {
         failureRedirect: '/'
     }), (req, res) => {
         User.findAll({where: {"email":req.user.profile._json.email}}).then(user=>{
-            let name = req.user.profile.name.givenName;
-            req.session.name = name;
-            req.session.email = req.user.profile._json.email;
+            // let name = req.user.profile.name.givenName;
+            // req.session.name = name;
+            // req.session.email = req.user.profile._json.email;
+            req.session.userData = {
+                username: req.user.profile._json.email,
+                email: req.user.profile._json.email
+            }
             res.redirect('/test');
         });
     });
@@ -78,10 +82,14 @@ module.exports = (express) => {
         // successRedirect: '/test',
         failureRedirect: '/'
     }), (req, res) => {
+        // req.session.userData = {
+        //     username: req.user.dataValues.username,
+        //     email: req.session.email = req.user.dataValues.email
+        // }
         //Save Username and email in sessions
         req.session.userData = {
             username: req.user.dataValues.username,
-            email: req.session.email = req.user.dataValues.email
+            email: req.user.dataValues.email
         }
         // console.log(req.user.dataValues);
         res.redirect('/test');
@@ -95,7 +103,7 @@ module.exports = (express) => {
         //Save Username and email in sessions
         req.session.userData = {
             username: req.user.dataValues.username,
-            email: req.session.email = req.user.dataValues.email
+            email: req.user.dataValues.email
         }
         // console.log(req.user.dataValues);
         res.redirect('/test');

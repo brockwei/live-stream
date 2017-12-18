@@ -1,0 +1,30 @@
+/*WebRTC styles*/
+.video-group {
+    height: 100%;
+    width: 100%;
+    background: rgb(0,0,0);
+    text-align: center;
+}
+#remoteVideo {
+    max-width: 500px;
+    border: 1px solid white;
+}
+#localVideo {
+    max-width: 500px;
+    border: 1px dotted orange;
+}
+.wrtc-button-group {
+    display: flex;
+    justify-content: center;
+}
+.wrtc-button {
+    color: white;
+    background: rgb(255, 166, 0);
+    padding: 5px 10px;
+    border: 1px solid orange;
+    border-radius: 50%;
+}
+.wrtc-button-stop {
+    background: red;
+    border: 1px solid red;
+}

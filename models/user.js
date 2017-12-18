@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+        user.hasMany(models.relations,{foreignKey:'username',sourceKey:'username'});
+        user.hasMany(models.messages,{foreignKey:'username',sourceKey:'username'});
       }
     }
   });
