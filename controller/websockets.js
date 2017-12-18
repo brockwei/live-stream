@@ -3,10 +3,10 @@ const client = require('./redis');
 module.exports = (io) => {
     io.on("connection", function (socket) {
         console.log(socket.request.session.room);
-        socket.join('')
+        socket.join('');
         //loading history from redis
         client.lrange('holymoly', 0, -1, function (err, data) {
-            io.emit('chat history', data)
+            io.emit('chat history', data);
         })
 
         io.to(socket.id).emit('email id', socket.request.session.email);
@@ -48,6 +48,8 @@ module.exports = (io) => {
             email = socket.request.session.email;
         }
 
+        io.broadcast.emit('typing', JSON.parse(socket.request.sessionStore.sessions).name);
+
         socket.on('disconnect', () => {
             chatroomData = {
                 numberOfUsers: 0,
@@ -86,13 +88,15 @@ module.exports = (io) => {
                     if (err) {
                         return console.log(err);
                     }
-                    io.emit('chat message', data)
-                })
-
-                
-            })
-
+                    io.emit('chat message', data);
+                });
+            });
         });
+
+
+            
+
+    });
 
         // socket.on('chat history', function (msg) {
         //     console.log('chat history')
@@ -105,5 +109,5 @@ module.exports = (io) => {
         // socket.on("stream", function(img) {
         //     socket.broadcast.emit("stream", img);
         // });
-    });
+    
 }

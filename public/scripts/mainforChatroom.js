@@ -31,6 +31,19 @@ $(function () {
         return false;
     });
 
+     //Function to show a person is typing
+    //  $('#input-field').keydown(function() {
+    //     socket.emit('typing', $('.currentUser'));
+    // });
+
+    socket.on('typing', function(data) {
+         $('#input-field').keydown(function() {
+            $('#typing').text("<em>" + data + "is typing a message... </em>");
+        });
+    });
+  
+   
+
     //Not needed: function to show online users in chat
     socket.on('user data', function (data) {
         $('#users').empty();
@@ -38,10 +51,13 @@ $(function () {
         for (var i in data.users) {
             $('#users').append($('<li>').text(data.users[i]));
         }
+       
     });
-
+   
+    
     //On chat message, scrolls to the bottom of page
     socket.on('chat message', function (data) {
+        // $('#typing').empty();
         let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
         loadMessages(data, scrollH);
         console.log(JSON.parse(data));

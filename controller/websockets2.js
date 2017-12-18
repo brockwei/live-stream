@@ -65,14 +65,14 @@ module.exports = (io) => {
                 console.log('socket.room '+socket.room)
                 io.emit('chat history', data)
     
-            })
+            });
 
-        })
+        });
 
         //('email id')send the email address received in the backend to the frontend
         io.to(socket.id).emit('email id', socket.request.session.email);
 
-
+        
 
         // for (var i in socket.request.sessionStore.sessions) {
         //     // JSON.parse(socket.request.sessionStore.sessions[i]).hasOwnProperty('passport') ?            
