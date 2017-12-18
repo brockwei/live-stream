@@ -1,7 +1,8 @@
 # Live Streaming Project
-This is a nodejs live streaming group project with websockets
+This is a nodejs live streaming group project with websockets and WebRTC
 
 ## Getting Started
+ - Type `npm install` to install all the dependencies
  - Add .env file to the home directory which includes the following information:
     - FACEBOOK_ID
     - FACEBOOK_CLIENT_SECRET
@@ -13,14 +14,15 @@ This is a nodejs live streaming group project with websockets
  - Update config.json to match PostGreSQL config information
  - Call `sequelize db:migrate` in command line to update SQL table.
 
- - Before using: 
+Before using: 
  - Start postgresql
     - sudo service postgresql start
 
- - Click [here](URL) to use
+ - Click [here](https://www.hk-goto.com/) to test the app!
 
 ## Features
-
+ - Direct chat with real time Video and Audio streams
+ - Encrypted login with optional facebook and google+ login methods
 
 ## Built With
  - HTML/CSS/Javascript
@@ -28,7 +30,7 @@ This is a nodejs live streaming group project with websockets
  - Nodejs
     - Expressjs
     - Passportjs
-    - Postgresql
+    - PostGreSQL
     - Redis
     - Socket.io
  - WebRTC
@@ -39,6 +41,7 @@ This is a nodejs live streaming group project with websockets
  - [Isaac Yuen](https://github.com/Isaacwhyuenac)
 
 ## Acknowledgements
+ - [Alex Lau](https://github.com/alexlau811) - For his guidance with this project
  - [Gordon Lau](https://github.com/gordonlau) - For his guidance with this project
  - [Michael Fung](https://github.com/MICFTK) - For his guidance with this project
  - [Icons8](https://icons8.com/) - For use of their icons

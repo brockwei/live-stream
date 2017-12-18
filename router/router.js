@@ -73,37 +73,34 @@ module.exports = (express) => {
         // console.log(req.user)        
     });
 
-    //Local Authentication - Login
-    router.post('/locallogin', passport.authenticate('local-login', {
-        // successRedirect: '/test',
-        failureRedirect: '/'
-    }), (req, res) => {
-        //Save Username and email in sessions
-        req.session.userData = {
-            username: req.user.dataValues.username,
-            email: req.session.email = req.user.dataValues.email
-        }
-        // console.log(req.user.dataValues);
-        res.redirect('/test');
-    });
+    router.post('/locallogin',
+        passport.authenticate('local-login',
+            // { session: false },
+            {
+                successRedirect: '/test',
+                failureRedirect: '/',
+                failureFlash: true
+            })
+    )
 
-    //Local Authentication - Sign Up
-    router.post('/signup', passport.authenticate('local-signup', {
-        // successRedirect: '/test',
-        failureRedirect: '/'
-    }), (req, res) => {
-        //Save Username and email in sessions
-        req.session.userData = {
-            username: req.user.dataValues.username,
-            email: req.session.email = req.user.dataValues.email
-        }
-        // console.log(req.user.dataValues);
-        res.redirect('/test');
-    });
+    router.post('/signup',
+        passport.authenticate('local-signup',
+            // { session: false },
+            {
+                successRedirect: '/test',
+                failureRedirect: '/',
+                failureFlash: true
+            })
+    );
 
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
     });
+
+    // router.get('/logout', (req, res) => {
+    //     req.logout();
+    //     res.redirect("/")
+    // });
 
     router.get('/logout', (req, res) => {
         req.session.destroy((err) => {
