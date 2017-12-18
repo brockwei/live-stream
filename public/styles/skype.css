@@ -1,0 +1,136 @@
+/*Global Styles*/
+html,body {
+    margin: 0;
+    height: 100%;
+    /* overflow: hidden; */
+    font-family: 'Ubuntu', sans-serif;
+    background: rgb(0,19,15);
+}
+div {
+    box-sizing: border-box;
+}
+.btn {
+    border-radius: 0;
+}
+.img-responsive {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+}
+
+/*Left side styles (Dashboard & Friendslist)*/
+#left-group {
+    background: rgb(44,116,112);
+    /* width: 20%;
+    max-width: 200px; */
+    width: 20%;
+    height: 100%;
+    border-right: 1px solid black;
+    text-align:center;
+}
+/*Right side styles (Video & Chat)*/
+#right-group {
+    /* background: red; */
+    width: 80%;
+    height: 100%;
+    display: flex;
+}
+.video-group {
+    /* display: none; */
+    height: 100%;
+    width: 100%;
+    background: rgb(0,19,15);
+}
+.chat-group {
+    height: 100%;
+    width: 30%;
+    background: rgb(44,116,112);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.chat-area {
+    background: rgb(44,116,112);
+    border: 1px solid black;
+    margin: 30px 0 0 0;
+    height: 100%;
+    overflow-y: scroll;
+    width: 100%;
+    word-wrap: break-word;
+}
+#chat-field {
+    /* border: 1px solid black; */
+    width: 100%;
+    /* text-align:center; */
+    display: flex;
+}
+#chat-messages {
+    list-style-type: none;
+    /* width: 100%; */
+    margin: 0;
+    padding: 0 30px;
+    height: auto;
+}
+#chat-messages li {
+    margin: 5px 0;
+}
+#input-field {
+    width: 100%;
+    padding: 10px;
+    /* height: 20px; */
+    /* text-decoration: none; */
+    font-family: 'Ubuntu', sans-serif;    
+}
+.chat-area::-webkit-scrollbar {
+    width: 12px;
+}
+.chat-area::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,19,15,0.3); 
+}
+.chat-area::-webkit-scrollbar-thumb {
+    background: rgb(0,19,15);
+}
+#typing {
+    height:20px;
+    font-size:10px;
+    color:white;
+    margin-top:5px;
+}
+
+/*Mobile responsive styles*/
+
+
+
+#users {
+    list-style-type: none;
+    padding: 0;
+}
+
+#users li {
+    padding: 5px;
+}
+
+.welcoming {
+    color: lightgray;
+}
+
+.usersArea {
+    padding-top: 20px;
+    color: blanchedalmond;
+    
+}
+
+.currentUser {
+    color: darkblue;
+    font-weight:bold;
+}
+
+#chat-messages{
+    color: lightblue;
+}

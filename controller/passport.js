@@ -17,8 +17,6 @@ const User = Model.user;
 // const GoogleDisplayName = Model.user.googleDisplayName
 
 module.exports = (app) => {
-  app.use(passport.initialize());
-  app.use(passport.session());
 
   passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_ID,
@@ -38,14 +36,15 @@ module.exports = (app) => {
           //   plain: true
           // }))
           // user.email = user.profile.
-          // if (created) {
+          if (created) {
             user.facebookID = profile.id
-            user.facebookDisplayName = profile.displayName
+            user.facebookDisplayName = profile.name.givenName + ' ' + profile.name.familyName
+            //profile.displayName
             user.save()
             console.log('new user is created')
-          // } else {
-            // console.log('old user login')
-          // }
+          } else {
+            console.log('old user login')
+          }
         })
 
       return cb(null, { profile: profile, accessToken: accessToken });
@@ -69,15 +68,15 @@ module.exports = (app) => {
         }
       })
       .spread((user, created) => {
-        // if (created) {
+        if (created) {
           user.googleID = profile.id
           // user.email = profile.emails[0].value
           user.googleDisplayName = profile.displayName
           user.save()
           console.log('new user is created')
-        // } else {
-        //   console.log('old user login')
-        // }
+        } else {
+          console.log('old user login')
+        }
       })
 
     return done(null, { profile: profile, accessToken: accessToken });
@@ -92,13 +91,27 @@ module.exports = (app) => {
       // session: false
     },
     (req, email, password, done) => {
-      // console.log('test');
+
+      // //use the express-validator to check input items
+      // req.checkBody('email', 'Email is required.').notEmpty();
+      // req.checkBody('email', 'Invalid email format.').isEmail();
+      // req.checkBody('password', 'Password is required.').notEmpty();
+      // req.checkBody('password', 'The password length must be between 1 and 100.').isLength({ min: 1, max: 100 });
+
+      // var err = req.validationErrors();
+      // if (err) {
+      //   return done(JSON.stringify(err.msg))
+      //   // return done(JSON.stringify(err), false, { success: false, error: err });
+      // }
+
       Model.user.findOne({
         where: {
           'email': email
         }
       }).then((user) => {
         if (user == null) {
+          // return done(null, false, req.flash('signupMessage', 'Incorrect credentials.'));
+
           return done(null, false, { message: 'Incorrect credentials.' });
         }
 
@@ -123,6 +136,21 @@ module.exports = (app) => {
       // session: false
     },
     (req, email, password, done) => {
+
+      //use the express-validator to check input items
+      req.checkBody('email', 'Email is required.').notEmpty();
+      req.checkBody('email', 'Invalid email format.').isEmail();
+      req.checkBody('password', 'Password is required.').notEmpty();
+      req.checkBody('password', 'The password length must be between 2 and 20.').isLength({ min: 2, max: 20 });
+      req.checkBody('displayname', 'Display Name is required').notEmpty();
+      req.checkBody('displayname', 'Display Name must be between 2 and 100').isLength({ min: 2, max: 100 })
+
+      var err = req.validationErrors();
+      if (err) {
+        return done(JSON.stringify(err))
+        // return done(err, false, { success: false, error: err });
+      }
+
       Model.user.findOne({
         where: {
           'email': email

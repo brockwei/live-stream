@@ -13,11 +13,11 @@ module.exports = (express) => {
         if (req.isAuthenticated()) {
             return next();
         }
-        
         res.redirect('/');
     }
     // Checks if not already logged in, otherwise redirect from login page to chatroom
     function isNotLoggedIn(req,res,next){
+        // console.log('test');
         if(!req.isAuthenticated()){
             // console.log(req.isAuthenticated());
             return next();
@@ -80,7 +80,8 @@ module.exports = (express) => {
     //Local Authentication - Login
     router.post('/locallogin', passport.authenticate('local-login', {
         // successRedirect: '/test',
-        failureRedirect: '/'
+        failureRedirect: '/',
+        failureFlash: true
     }), (req, res) => {
         // req.session.userData = {
         //     username: req.user.dataValues.username,
@@ -98,7 +99,8 @@ module.exports = (express) => {
     //Local Authentication - Sign Up
     router.post('/signup', passport.authenticate('local-signup', {
         // successRedirect: '/test',
-        failureRedirect: '/'
+        failureRedirect: '/',
+        failureFlash: true
     }), (req, res) => {
         //Save Username and email in sessions
         req.session.userData = {
@@ -112,6 +114,11 @@ module.exports = (express) => {
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
     });
+
+    // router.get('/logout', (req, res) => {
+    //     req.logout();
+    //     res.redirect("/")
+    // });
 
     router.get('/logout', (req, res) => {
         req.session.destroy((err) => {
