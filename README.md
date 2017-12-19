@@ -1,5 +1,5 @@
-# Live Streaming Project
-This is a nodejs live streaming group project with websockets and WebRTC
+# Live Streaming Instant Messaging Project
+This is a nodejs live streaming instant messaging group project with websockets and WebRTC
 
 ## Getting Started
  - Type `npm install` to install all the dependencies
@@ -18,7 +18,7 @@ Before using:
  - Start postgresql
     - sudo service postgresql start
 
- - Click [here](https://www.hk-goto.com/) to test the app!
+Click [here](https://www.hk-goto.com/) to test the app!
 
 ## Features
  - Direct chat with real time Video and Audio streams
@@ -30,9 +30,11 @@ Before using:
  - Nodejs
     - Expressjs
     - Passportjs
-    - PostGreSQL
+    - bcrypt
     - Redis
     - Socket.io
+    - sequelize
+ - PostGreSQL
  - WebRTC
 
 ## Contributors

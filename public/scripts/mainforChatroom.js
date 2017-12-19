@@ -246,6 +246,11 @@ $(function () {
     $('body').on('click','.wrtc-button-mute', function(){
         muteWebCam();
     })
+    $('body').on('click','.wrtc-button-stop', function(){
+        if(peerConnection){
+            peerConnection.close();
+        }
+    })
 
     /*Experimental */
     $('#hehexd').on('click',function(){

@@ -7,7 +7,7 @@
 }
 
 .chat-group {
-    border: 1px solid orange;
+    border-left: 1px solid rgb(189, 123, 255);
     height: 100%;
     width: 350px;
     background: rgb(0,0,0);
@@ -37,8 +37,9 @@
 .chat-message {
     min-width: 100px;
     max-width: 200px;
+    /* max-width: 80%; */
     margin: 5px 0;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid rgb(150,150,150);
     background: white;
     color: black;
@@ -57,10 +58,10 @@
     float: left;
 }
 .chat-message-read {
-    float: right;
+    float: left;
 }
 .chat-message-unread {
-    float: right;
+    float: left;
     background: rgb(255, 191, 123);
 }
 #input-field {
@@ -69,6 +70,9 @@
     /* height: 20px; */
     /* text-decoration: none; */
     font-family: 'Ubuntu', sans-serif;    
+}
+#input-field:focus {
+    outline: none;
 }
 .chat-area::-webkit-scrollbar {
     width: 12px;

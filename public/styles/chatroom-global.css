@@ -4,7 +4,7 @@ html,body {
     height: 100%;
     /* overflow: hidden; */
     font-family: 'Ubuntu', sans-serif;
-    background: rgb(0,19,15);
+    background: rgb(18, 0, 34);
 }
 div {
     box-sizing: border-box;
@@ -13,7 +13,8 @@ a, a:visited, a:active {
     color: inherit;
 }
 a:hover {
-    color: rgb(255, 195, 92);
+    /* color: rgb(255, 195, 92); */
+    color: rgb(189, 123, 255);
 }
 .btn {
     border-radius: 0;
