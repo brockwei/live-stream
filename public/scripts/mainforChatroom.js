@@ -17,42 +17,6 @@ $(function () {
         $('#input-field').val('');
         return false;
     });
-
-   //  Function to show a person is typing
-   $('#input-field').keypress(function() {
-    console.log('typing');
-   socket.emit('typing');
-    }); 
-
-    function debounce(fn, delay) {
-    var timer = null;
-    return function () {
-    var context = this, args = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        fn.apply(context, args);
-    }, delay);
-    };
-    }
-
-    socket.on('typing', function(data) {
-    console.log('someone else typing');
-    $('#typing').html("<em>" + data + " is typing a message... </em>");
-    });
-
-    socket.on('typing', debounce( function(data){
-    console.log('typinggggg');
-        $('#typing').empty();
-    },2000));
-  
-   
-
-    //Not needed: function to show online users in chat
-    socket.on('user data', function (data) {
-        $('#users').empty();
-        $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers == 1 ? "" : "s"} in chat.`));
-        for (var i in data.users) {
-            $('#users').append($('<li>').text(data.users[i]));
     //Load message function
     chatRoomConfig.loadMessages = function(message, scrollH){
         $('#chat-messages').empty();
@@ -211,6 +175,10 @@ $(function () {
     })
     socket.on('control friend delete',function(message){
         $('#control-search-display').empty();
+        if(message==chatRoomConfig.targetID){
+            $('#chat-friend').empty();
+            $('#chat-messages').empty();
+        }
     })
     //Friends List Javascript
     socket.on('control friend list',function(pending, friends, offline){
