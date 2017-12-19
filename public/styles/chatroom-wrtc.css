@@ -29,6 +29,9 @@
     justify-content: center;
     align-items: center;
 }
+.wrtc-button-start:hover {
+    background: orangered;
+}
 .wrtc-button-stop {
     background: red;
     border: 1px solid red;
