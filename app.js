@@ -33,6 +33,14 @@ io.set('heartbeat timeout', 40000);
 io.set('heartbeat interval', 20000);
 const websocket = require('./controller/websockets2')(io)
 const redis = require('redis');
+const exphbs = require('express-handlebars');
+var path = require('path');
+
+// View Engine
+app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', exphbs({ defaultLayout: 'layout' }));
+app.set('view engine', 'handlebars');
+
 app.use(express.static('public'));
 
 //Redis
@@ -58,9 +66,28 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Express Validator
-// app.use(cookieParser('keyboard cat'));
-// app.use(session({ cookie: { maxAge: 60000 }}));
-app.use(expressValidator())
+app.use(cookieParser('keyboard cat'));
+app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(expressValidator(
+
+    {
+        errorFormatter: function (param, msg, value) {
+            var namespace = param.split('.')
+                , root = namespace.shift()
+                , formParam = root;
+
+            while (namespace.length) {
+                formParam += '[' + namespace.shift() + ']';
+            }
+            return {
+                param: formParam,
+                msg: msg,
+                value: value
+            };
+        }
+    }
+
+))
 
 // Connect Flash
 app.use(flash());
@@ -73,6 +100,7 @@ app.use(flash());
 //     res.locals.user = req.user || null;
 //     next();
 // });
+
 
 app.use('/', router);
 

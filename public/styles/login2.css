@@ -63,6 +63,10 @@ html,body {
     transition-duration: 0.4s;
 }
 
+.field-red{
+    border-color:red;
+}
+
 @media screen and (max-width: 830px) {
     .first {
         margin-left:2vw;

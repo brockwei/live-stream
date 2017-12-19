@@ -1,0 +1,78 @@
+<div class="white-box">
+    <div class="content-box">
+        <h1 class="signupFor">Log In</h1>
+        <br>
+        <br>
+        <br>
+
+        <a class="btn btn-primary social fb" href="/auth/facebook">
+            <i class="fa fa-facebook-official" style="color:rgb(61,91,152)"></i>
+            <span id="with">Log In via</span> Facebook</a>
+        <a class="btn btn-danger social google" href="/auth/google">
+            <i class="fa fa-google-plus" style="color:rgb(219,76,63)"></i>
+            <span id="with">Log In via</span> Google</a>
+        <div id="divider">
+            <hr id="lefthr"> Or
+            <hr id="righthr">
+        </div>
+
+        <form action="/locallogin" method="post">
+            <div>
+                <input placeholder="Email" {{#if emailError}} class="field-red" {{/if}}type="email" name="email" /> 
+                {{#if emailError}} {{#each emailError}}
+
+                <div class="alert alert-danger">{{msg}}</div>
+                {{/each}} {{/if}}
+            </div>
+            <div>
+                <input placeholder="Password" {{#if passwordError}} class="field-red" {{/if}}type="password" name="password" /> 
+                {{#if passwordError}} {{#each passwordError}}
+                <div class="alert alert-danger">{{msg}}</div>
+                {{/each}} {{/if}}
+            </div>
+
+            <a href="/signup" class="signupNow">Not a member of GoChat? Sign up here now. </a>
+            <br>
+            <br>
+            <br>
+            <input class="loginNow" type="submit" value="Log In" />
+
+            <!-- <a href="/locallogin"><input class="loginNow" type="submit" value="Log In" /></a>           -->
+            {{!--
+            <input class="loginNow" type="submit" value="Log In" /> --}}
+
+        </form>
+
+        <!--           
+                    <h1 class="signupFor">Sign Up for IBM</h1>
+           
+            <a class="btn btn-primary social fb" href="/auth/facebook">
+                <i class="fa fa-facebook-official" style="color:rgb(61,91,152)"></i> <span id="with">With</span> Facebook</a>
+            <a class="btn btn-danger social google" href="/auth/google">
+                <i class="fa fa-google-plus" style="color:rgb(219,76,63)"></i> <span id="with">With</span> Google</a>
+            <hr>
+
+            <form action="/signup" method="post">
+                <div>
+                    <input placeholder="Email" type="text" name="email" />
+                </div>
+                <div>
+                    <input placeholder="Display Name" type="text" name="displayname" />
+                </div>
+                <div>
+                    <input placeholder="Password" type="password" name="password" />
+                </div>
+                <div>
+                    <input placeholder="Confirm Password" type="password" name="confirmPassword" />
+                </div>
+
+
+
+
+                <div>
+                    <input class="signup" type="submit" value="Sign up" />
+                </div>
+            </form> -->
+
+    </div>
+</div>
