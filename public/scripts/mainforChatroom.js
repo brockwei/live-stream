@@ -6,7 +6,9 @@ $(function () {
         'targetID': '',
         'deleteID': null
     }
-    //"start of messages"
+
+  
+  //"start of messages"
     //Chatroom Javascript
     $('#chat-messages').append($('<li class="welcoming">').text(`Welcome to Michelle's Mukbang`));
     //Send chat message on form submit
@@ -17,42 +19,6 @@ $(function () {
         $('#input-field').val('');
         return false;
     });
-
-   //  Function to show a person is typing
-   $('#input-field').keypress(function() {
-    console.log('typing');
-   socket.emit('typing');
-    }); 
-
-    function debounce(fn, delay) {
-    var timer = null;
-    return function () {
-    var context = this, args = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        fn.apply(context, args);
-    }, delay);
-    };
-    }
-
-    socket.on('typing', function(data) {
-    console.log('someone else typing');
-    $('#typing').html("<em>" + data + " is typing a message... </em>");
-    });
-
-    socket.on('typing', debounce( function(data){
-    console.log('typinggggg');
-        $('#typing').empty();
-    },2000));
-  
-   
-
-    //Not needed: function to show online users in chat
-    socket.on('user data', function (data) {
-        $('#users').empty();
-        $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers == 1 ? "" : "s"} in chat.`));
-        for (var i in data.users) {
-            $('#users').append($('<li>').text(data.users[i]));
     //Load message function
     chatRoomConfig.loadMessages = function(message, scrollH){
         $('#chat-messages').empty();

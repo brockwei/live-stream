@@ -125,7 +125,7 @@ module.exports = (express) => {
     }, passport.authenticate('local-login',
         // { session: false },
         {
-            successRedirect: '/test',
+            // successRedirect: '/test',
             failureRedirect: '/',
             failureFlash: true
         }), (req, res) => {
