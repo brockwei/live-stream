@@ -161,7 +161,7 @@ module.exports = (io) => {
                     if(socket.request.sessionStore.online.hasOwnProperty(username)){
                         let requestedSocket = socket.request.sessionStore.online[username];
                         // io.to(requestedSocket).emit('control user search',socket.request.session.userData.username,'');
-                        io.to(requestedSocket).emit('control friend delete',"Placeholder");
+                        io.to(requestedSocket).emit('control friend delete',socket.request.session.userData.username);
                         io.to(requestedSocket).emit('control notify online friends',"Placeholder");
                     }
                 }
