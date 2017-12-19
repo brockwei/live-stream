@@ -58,6 +58,13 @@ module.exports = (io) => {
                     io.to(socket.request.sessionStore.online[onlineFriends[i]]).emit('control notify online friends', socket.request.session.userData.username);
                 }
             });
+
+             // typing...
+        socket.on('typing',function(username){
+            // console.log(username);
+            io.to(socket.request.sessionStore.online[username]).emit('typing');
+        });
+
         }
         /*Experiment*/
         // socket.on('hehexd test', function(target){

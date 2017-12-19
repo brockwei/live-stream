@@ -80,3 +80,9 @@
     /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
     background: rgb(105,105,105);
 }
+
+#typing {
+    margin-top:2px;
+    font-size:10px;
+    color:white;
+    }

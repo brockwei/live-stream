@@ -56,6 +56,34 @@ $(function () {
             $(`[user-message=${friend}]`).addClass('control-friend-message-unread');
         }
     })
+
+    //  Function to show a person is typing
+    $('#input-field').keypress(function() {
+        // console.log('typing');
+       socket.emit('typing',chatRoomConfig.targetID);
+   });
+
+   function debounce(fn, delay) {
+    var timer = null;
+    return function () {
+      var context = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, delay);
+    };
+  }
+
+   socket.on('typing', function() {
+       console.log('someone else typing');
+       $('#typing').html(" &nbsp; <em>  is typing a message... </em>");
+   });
+
+   socket.on('typing', debounce( function(data){
+       console.log('typinggggg');
+        $('#typing').empty();
+   },2000));
+
     // //function to load chatroom message history
     // function loadMessages(data, scrollH) {
     //     if (JSON.parse(data[0])["email"] == chatRoomConfig.email) {
@@ -220,7 +248,7 @@ $(function () {
     $('body').on('click','.control-friend-message',function(){
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
-        $('#chat-friend').html(chatRoomConfig.targetID);
+        $('#chat-friend').html(chatRoomConfig.targetID +'<span id="typing"> </span>');
         socket.emit('control message target', chatRoomConfig.targetID);
         socket.emit('chat retrieve messages', chatRoomConfig.targetID);
     })
