@@ -7,9 +7,9 @@
 }
 
 .chat-group {
-    border: 1px solid orange;
+    border-left: 1px solid rgb(189, 123, 255);
     height: 100%;
-    width: 300px;
+    width: 350px;
     background: rgb(0,0,0);
     display: flex;
     flex-direction: column;
@@ -17,7 +17,7 @@
     align-items: center;
 }
 .chat-area {
-    background: linear-gradient(rgb(0,0,0),rgb(1,1,1));
+    background: rgb(230,230,230);
     margin: 0;
     height: 100%;
     overflow-y: scroll;
@@ -34,19 +34,35 @@
     padding: 0 30px;
     height: auto;
 }
-#chat-messages li {
-    /* width: 275px; */
+.chat-message {
+    min-width: 100px;
+    max-width: 200px;
+    /* max-width: 80%; */
     margin: 5px 0;
-    padding: 0;
+    padding: 10px;
+    border: 1px solid rgb(150,150,150);
+    background: white;
+    color: black;
+    border-radius: 10px;
+    display: block;
+    clear: both;
 }
 .chat-message-username {
-    color:greenyellow;
+    color: red;
 }
 .chat-message-friend {
-    color: white;
+    color: blue;
+}
+.chat-message-sent {
+    background: rgb(174, 255, 174);
+    float: left;
+}
+.chat-message-read {
+    float: left;
 }
 .chat-message-unread {
-    color: orange;
+    float: left;
+    background: rgb(255, 191, 123);
 }
 #input-field {
     width: 100%;
@@ -55,12 +71,16 @@
     /* text-decoration: none; */
     font-family: 'Ubuntu', sans-serif;    
 }
+#input-field:focus {
+    outline: none;
+}
 .chat-area::-webkit-scrollbar {
     width: 12px;
 }
 .chat-area::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); 
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);  */
 }
 .chat-area::-webkit-scrollbar-thumb {
-    background: linear-gradient(to left, rgb(231, 143, 0),orange);
+    /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
+    background: rgb(105,105,105);
 }

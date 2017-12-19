@@ -17,54 +17,18 @@ $(function () {
         $('#input-field').val('');
         return false;
     });
-
-   //  Function to show a person is typing
-   $('#input-field').keypress(function() {
-    console.log('typing');
-   socket.emit('typing');
-    }); 
-
-    function debounce(fn, delay) {
-    var timer = null;
-    return function () {
-    var context = this, args = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-        fn.apply(context, args);
-    }, delay);
-    };
-    }
-
-    socket.on('typing', function(data) {
-    console.log('someone else typing');
-    $('#typing').html("<em>" + data + " is typing a message... </em>");
-    });
-
-    socket.on('typing', debounce( function(data){
-    console.log('typinggggg');
-        $('#typing').empty();
-    },2000));
-  
-   
-
-    //Not needed: function to show online users in chat
-    socket.on('user data', function (data) {
-        $('#users').empty();
-        $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers == 1 ? "" : "s"} in chat.`));
-        for (var i in data.users) {
-            $('#users').append($('<li>').text(data.users[i]));
     //Load message function
     chatRoomConfig.loadMessages = function(message, scrollH){
         $('#chat-messages').empty();
         for(var i in message){
             if(message[i].type=="to"){
-                $('#chat-messages').append($('<li>').html(`<span class='chat-message-username'>${message[i].username}</span> : ${message[i].message}`));
+                $('#chat-messages').append($('<li class="chat-message chat-message-sent">').html(`<span class='chat-message-username'>${message[i].username}</span><br>${message[i].message}`));
             }
             else if (message[i].type=="read"){
-                $('#chat-messages').append($('<li>').html(`<span class='chat-message-friend'>${message[i].friend}</span> : ${message[i].message}`));    
+                $('#chat-messages').append($('<li class="chat-message chat-message-read">').html(`<span class='chat-message-friend'>${message[i].friend}</span><br>${message[i].message}`));    
             }
             else if (message[i].type=="from"){
-                $('#chat-messages').append($('<li>').html(`<span class='chat-message-friend'>${message[i].friend}</span> : <span class="chat-message-unread">${message[i].message}</span>`));    
+                $('#chat-messages').append($('<li class="chat-message chat-message-unread">').html(`<span class='chat-message-friend'>${message[i].friend}</span><br>${message[i].message}`));    
             }
             //Scrolls to the bottom of the page
             if (scrollH < 0) {
@@ -90,54 +54,6 @@ $(function () {
             $(`[user-message=${friend}]`).addClass('control-friend-message-unread');
         }
     })
-    // //function to load chatroom message history
-    // function loadMessages(data, scrollH) {
-    //     if (JSON.parse(data[0])["email"] == chatRoomConfig.email) {
-    //         $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(data[0])["user"] + "</span> : " + JSON.parse(data[0])["msg"]));
-    //     }
-    //     else {
-    //         $('#chat-messages').append($('<li>').text(JSON.parse(data[0])["user"] + " : " + JSON.parse(data[0])["msg"]));
-    //     }
-    //     if (scrollH < 0) {
-    //         $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
-    //     }
-    // }
-    // //Function to input messages in chatroom
-    // $('#chat-field').submit(function () {
-    //     if ($('#input-field').val() == "/clear") {
-    //         $('#messages').empty();
-    //     } else if ($('#input-field').val()) {
-    //         socket.emit('chat message', $('#input-field').val());
-    //         console.log($('#input-field').val());
-    //     }
-    //     $('#input-field').val('');
-    //     return false;
-    // });
-
-    // //Not needed: function to show online users in chat
-    // socket.on('user data', function (data) {
-    //     $('#users').empty();
-    //     $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers == 1 ? "" : "s"} online.`));
-    //     for (var i in data.users) {
-    //         $('#users').append($('<li>').text(data.users[i]));
-    //     }
-    // });
-
-    // //On chat message, scrolls to the bottom of page
-    // socket.on('chat message', function (data) {
-    //     let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
-    //     loadMessages(data, scrollH);
-    //     console.log(JSON.parse(data));
-    //     console.log(scrollH);
-    // });
-    // //Shows chat history
-    // socket.once('chat history', function (data) {
-    //     data.forEach(dataElement => {
-    //         $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(dataElement)["user"] + "</span> : " + JSON.parse(dataElement)["msg"]));
-    //     });
-    // })
-
-
 
     /*-1- Chat Timed Out */
     socket.on('chat timed out', function (destination) {
@@ -153,20 +69,6 @@ $(function () {
         $('#control-username').html(data.username+`&nbsp&nbsp<a href="/logout"><i class="fa fa-sign-out"></i></a>`);
     });
     /*-3- End */
-
-    /*Experimental */
-    $('#hehexd').on('click',function(){
-        // console.log('hahaha');
-        socket.emit('hehexd test', chatRoomConfig.targetID);
-    })
-    socket.on('chat test',function(name){
-        console.log(name + " sent you a nudge!");
-    })
-    $('.friend-button').on('click',function(){
-        console.log($(this).text());
-        chatRoomConfig.targetID = $(this).text();
-        $('#chat-friend').html('Target: '+chatRoomConfig.targetID);
-    })
 
     //Control Panel Javascript
     //Searches for user
@@ -211,6 +113,10 @@ $(function () {
     })
     socket.on('control friend delete',function(message){
         $('#control-search-display').empty();
+        if(message==chatRoomConfig.targetID){
+            $('#chat-friend').empty();
+            $('#chat-messages').empty();
+        }
     })
     //Friends List Javascript
     socket.on('control friend list',function(pending, friends, offline){
@@ -231,23 +137,13 @@ $(function () {
             $(`[user-message=${results[i]}]`).addClass('control-friend-message-unread');
         }
     })
-    socket.on('control friend pending list',function(array){
-        // $('#control-friends-pending-list').empty();
-        // for(var i in array){
-        //     $('#control-friends-pending-list').append(`<li class="control-friend"><span class="control-friend-online">${array[i]}</span><div class="control-friend-button-group"><div class="control-friend-message"><i class="fa fa-comment"></i></div><div class="control-friendlist-delete"><i class="fa fa-times"></i></div></li>`);
-        // }
-    })
     socket.on('control notify online friends',function(username){
         // console.log(username+" has just come online!");
         socket.emit('control request friends list', username);
     })
     //Chat Functionality Javascript
-    // $('.friend-button').on('click',function(){
-    //     console.log($(this).text());
-    //     chatRoomConfig.targetID = $(this).text();
-    //     $('#chat-friend').html('Target: '+chatRoomConfig.targetID);
-    // })
     $('body').on('click','.control-friend-message',function(){
+        grabWebCamVideo();
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         $('#chat-friend').html(chatRoomConfig.targetID);
@@ -258,7 +154,7 @@ $(function () {
     var localVideo;
     var remoteVideo;
     var peerConnection;
-    var peerConnectionConfig = {'iceServers': [{'url': 'stu=[ppppppppppppppp:stun.services.mozilla.com'}, {'url': 'stun:stun.l.google.com:19302'}]};
+    var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.services.mozilla.com'}, {'url': 'stun:stun.l.google.com:19302'}]};
     
     localVideo = document.getElementById('localVideo');
     remoteVideo = document.getElementById('remoteVideo');
@@ -278,11 +174,13 @@ $(function () {
     function muteWebCam(){
         if(localStream.getAudioTracks()[0].enabled){
             localStream.getAudioTracks()[0].enabled = false;
-            $('#mute').val('Unmute');
+            // $('#mute').val('Unmute');
+            $('.wrtc-button-mute').html('<i class="fa fa-microphone-slash"></i>');
         }
         else {
             localStream.getAudioTracks()[0].enabled = true;
-            $('#mute').val('Mute');
+            // $('#mute').val('Mute');
+            $('.wrtc-button-mute').html('<i class="fa fa-microphone"></i>');
         }
     }
     function start(isCaller){
@@ -299,12 +197,12 @@ $(function () {
     function gotDescription(description){
         console.log('got description');
         peerConnection.setLocalDescription(description, function(){
-            socket.emit('message', JSON.stringify({'sdp':description}));
+            socket.emit('message', JSON.stringify({'sdp':description}),chatRoomConfig.targetID);
         }, function(){console.log('set description error')});
     }
     function gotIceCandidate(event){
         if(event.candidate){
-            socket.emit('message', JSON.stringify({'ice':event.candidate}));
+            socket.emit('message', JSON.stringify({'ice':event.candidate}),chatRoomConfig.targetID);
         }
     }
     function gotRemoteStream(event){
@@ -336,6 +234,36 @@ $(function () {
     })
     $('.friend-button').on('click', function(){
         grabWebCamVideo();
+    })
+    
+    $('body').on('click','.wrtc-button-start', function(){
+        
+        socket.emit('wrtc connection request', chatRoomConfig.targetID);
+    })
+    socket.on('wrtc connection request',function(placeholder){
+        start(true);
+    })
+    $('body').on('click','.wrtc-button-mute', function(){
+        muteWebCam();
+    })
+    $('body').on('click','.wrtc-button-stop', function(){
+        if(peerConnection){
+            peerConnection.close();
+        }
+    })
+
+    /*Experimental */
+    $('#hehexd').on('click',function(){
+        // console.log('hahaha');
+        socket.emit('hehexd test', chatRoomConfig.targetID);
+    })
+    socket.on('chat test',function(name){
+        console.log(name + " sent you a nudge!");
+    })
+    $('.friend-button').on('click',function(){
+        console.log($(this).text());
+        chatRoomConfig.targetID = $(this).text();
+        $('#chat-friend').html('Target: '+chatRoomConfig.targetID);
     })
 
 });

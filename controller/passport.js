@@ -92,17 +92,17 @@ module.exports = (app) => {
     },
     (req, email, password, done) => {
 
-      // //use the express-validator to check input items
-      // req.checkBody('email', 'Email is required.').notEmpty();
-      // req.checkBody('email', 'Invalid email format.').isEmail();
+      //use the express-validator to check input items
+      req.checkBody('email', 'Email is required.').notEmpty();
+      req.checkBody('email', 'Please enter valid email').isEmail();
       // req.checkBody('password', 'Password is required.').notEmpty();
-      // req.checkBody('password', 'The password length must be between 1 and 100.').isLength({ min: 1, max: 100 });
+      req.checkBody('password', 'Password length must be between 2-20 letters').isLength({ min: 2, max: 20 });
 
-      // var err = req.validationErrors();
-      // if (err) {
-      //   return done(JSON.stringify(err.msg))
-      //   // return done(JSON.stringify(err), false, { success: false, error: err });
-      // }
+      var err = req.validationErrors();
+      if (err) {
+        return done(JSON.stringify(err.msg))
+        // return done(JSON.stringify(err), false, { success: false, error: err });
+      }
 
       Model.user.findOne({
         where: {

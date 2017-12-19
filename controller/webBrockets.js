@@ -59,19 +59,6 @@ module.exports = (io) => {
                 }
             });
         }
-        /*Experiment*/
-        // socket.on('hehexd test', function(target){
-        //     console.log(socket.request.sessionStore);
-        //     for(var i in socket.request.sessionStore.sessions){
-        //         if(JSON.parse(socket.request.sessionStore.sessions[i]).userData.username==target){
-        //             let targetSocket = JSON.parse(socket.request.sessionStore.sessions[i]).socketID;
-        //             // JSON.parse(socket.request.sessionStore.sessions[i]).userData.targetSocket = targetSocket;
-        //             socket.request.session.targetSocket = targetSocket;
-        //             io.to(targetSocket).emit('chat test', socket.request.session.userData.username);
-        //         }
-        //     }
-        // })
-        /*Experimental end */
 
         //Control panel
         socket.on('control user search',function(username){
@@ -161,7 +148,7 @@ module.exports = (io) => {
                     if(socket.request.sessionStore.online.hasOwnProperty(username)){
                         let requestedSocket = socket.request.sessionStore.online[username];
                         // io.to(requestedSocket).emit('control user search',socket.request.session.userData.username,'');
-                        io.to(requestedSocket).emit('control friend delete',"Placeholder");
+                        io.to(requestedSocket).emit('control friend delete',socket.request.session.userData.username);
                         io.to(requestedSocket).emit('control notify online friends',"Placeholder");
                     }
                 }
@@ -184,7 +171,6 @@ module.exports = (io) => {
                     }
                 }
                 io.to(socket.id).emit('control friend list', pendingFriends, onlineFriends, offlineFriends);
-                // io.to(socket.id).emit('control friend pending list', pendingFriends);
             });
         })
         //Logouting out
@@ -269,11 +255,28 @@ module.exports = (io) => {
             Messages.update({"type":"read"},constraints).then(()=>{});
         })
         //WebRTC connection
-        socket.on('message',function(message){
-            console.log(socket.request.session.targetSocket);
-            io.to(socket.request.session.targetSocket).emit('message', message);
+        socket.on('wrtc connection request', function(username){
+            let targetSocket = socket.request.sessionStore.online[username];
+            io.to(targetSocket).emit('wrtc connection request','Placeholder');
+        })
+        socket.on('message',function(message, username){
+            let targetSocket = socket.request.sessionStore.online[username];
+            console.log(targetSocket);
+            io.to(targetSocket).emit('message', message);
         })
         
-
+        /*Experiment*/
+        // socket.on('hehexd test', function(target){
+        //     console.log(socket.request.sessionStore);
+        //     for(var i in socket.request.sessionStore.sessions){
+        //         if(JSON.parse(socket.request.sessionStore.sessions[i]).userData.username==target){
+        //             let targetSocket = JSON.parse(socket.request.sessionStore.sessions[i]).socketID;
+        //             // JSON.parse(socket.request.sessionStore.sessions[i]).userData.targetSocket = targetSocket;
+        //             socket.request.session.targetSocket = targetSocket;
+        //             io.to(targetSocket).emit('chat test', socket.request.session.userData.username);
+        //         }
+        //     }
+        // })
+        /*Experimental end */
     });
 }

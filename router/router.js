@@ -97,31 +97,24 @@ module.exports = (express) => {
 
     router.post('/locallogin', function (req, res, next) {
         //use the express-validator to check input items
-        req.checkBody('email', 'Email is required.').notEmpty();
-        req.checkBody('email', 'Invalid email format.').isEmail();
-        req.checkBody('password', 'Password is required.').notEmpty();
-        req.checkBody('password', 'The password length must be between 1 and 100.').isLength({ min: 1, max: 100 });
-
+        // req.checkBody('email', 'Email is required.').notEmpty();
+        req.checkBody('email', 'Please enter valid email').isEmail();
+        // req.checkBody('password', 'Password is required.').notEmpty();
+        req.checkBody('password', 'Password length must be between 2-20 letters').isLength({ min: 2, max: 20 });
 
         var errors = req.validationErrors();
         if (errors) {
-
             var emailError = errors.filter(function (error) {
                 return error.param == 'email';
             })
-
             var passwordError = errors.filter(function (error) {
                 return error.param == 'password';
             })
-
             // res.json(errors);
             return res.render('login', {
                 emailError: emailError,
                 passwordError: passwordError
             });
-
-            // return res.redirect(JSON.stringify(err.msg))
-            // return done(JSON.stringify(err), false, { success: false, error: err });
         }
         next();
     }, passport.authenticate('local-login',
@@ -149,10 +142,10 @@ module.exports = (express) => {
     router.post('/signup', function (req, res, next) {
         //use the express-validator to check input items
         req.checkBody('email', 'Email is required.').notEmpty();
-        req.checkBody('email', 'Invalid email format.').isEmail();
-        req.checkBody('displayname', 'Display Name is required').notEmpty();
-        req.checkBody('displayname', 'Display Name must be between 2 and 100').isLength({ min: 2, max: 100 })
-        req.checkBody('password', 'Password is required.').notEmpty();
+        req.checkBody('email', 'Please enter valid Email').isEmail();
+        // req.checkBody('displayname', 'Display Name is required').notEmpty();
+        req.checkBody('displayname', 'Display name length must be between 2 and 20').isLength({ min: 2, max: 20 })
+        // req.checkBody('password', 'Password is required.').notEmpty();
         req.checkBody('password', 'The password length must be between 2 and 20.').isLength({ min: 2, max: 20 });
         req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
@@ -160,39 +153,29 @@ module.exports = (express) => {
         var errors = req.validationErrors();
         if (errors) {
             // return res.redirect(JSON.stringify(err))
-
             var emailError = errors.filter(function (error) {
                 return error.param == 'email';
             })
-
             var displayNameError = errors.filter(function (error) {
                 return error.param == 'displayname';
             })
-
             var passwordError = errors.filter(function (error) {
                 return error.param == 'password';
             })
-
             var password2Error = errors.filter(function (error) {
                 return error.param == 'password2';
             })
-
             return res.render('signup', {
                 emailError: emailError,
                 displayNameError: displayNameError,
                 passwordError: passwordError,
                 password2Error: password2Error
             });
-            // res.render('/',{
-            //     errors:errors
-            // });
-            // return done(err, false, { success: false, error: err });
         }
         next()
     }, passport.authenticate('local-signup',
         // { session: false },
         {
-            // successRedirect: '/test',
             failureRedirect: '/',
             failureFlash: true
         }), (req, res) => {
@@ -257,11 +240,6 @@ module.exports = (express) => {
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
     });
-
-    // router.get('/logout', (req, res) => {
-    //     req.logout();
-    //     res.redirect("/")
-    // });
 
     router.get('/logout', (req, res) => {
         req.session.destroy((err) => {
