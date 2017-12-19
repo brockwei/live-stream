@@ -96,6 +96,41 @@ div {
 .chat-area::-webkit-scrollbar-thumb {
     background: rgb(0,19,15);
 }
-
+#typing {
+    height:20px;
+    font-size:10px;
+    color:white;
+    margin-top:5px;
+}
 
 /*Mobile responsive styles*/
+
+
+
+#users {
+    list-style-type: none;
+    padding: 0;
+}
+
+#users li {
+    padding: 5px;
+}
+
+.welcoming {
+    color: lightgray;
+}
+
+.usersArea {
+    padding-top: 20px;
+    color: blanchedalmond;
+    
+}
+
+.currentUser {
+    color: darkblue;
+    font-weight:bold;
+}
+
+#chat-messages{
+    color: lightblue;
+}

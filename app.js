@@ -31,7 +31,7 @@ const io = require('socket.io')(http, {
 });
 io.set('heartbeat timeout', 40000);
 io.set('heartbeat interval', 20000);
-const websocket = require('./controller/websockets2')(io)
+const websocket =require('./controller/webBrockets')(io);
 const redis = require('redis');
 const exphbs = require('express-handlebars');
 var path = require('path');

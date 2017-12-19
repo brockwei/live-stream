@@ -1,0 +1,66 @@
+/*Right side styles (Video & Chat)*/
+#right-group {
+    /* background: red; */
+    flex: 1 1 auto;
+    height: 100%;
+    display: flex;
+}
+
+.chat-group {
+    border: 1px solid orange;
+    height: 100%;
+    width: 300px;
+    background: rgb(0,0,0);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.chat-area {
+    background: linear-gradient(rgb(0,0,0),rgb(1,1,1));
+    margin: 0;
+    height: 100%;
+    overflow-y: scroll;
+    width: 100%;
+    word-wrap: break-word;
+}
+#chat-field {
+    width: 100%;
+    display: flex;
+}
+#chat-messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 30px;
+    height: auto;
+}
+#chat-messages li {
+    /* width: 275px; */
+    margin: 5px 0;
+    padding: 0;
+}
+.chat-message-username {
+    color:greenyellow;
+}
+.chat-message-friend {
+    color: white;
+}
+.chat-message-unread {
+    color: orange;
+}
+#input-field {
+    width: 100%;
+    padding: 10px;
+    /* height: 20px; */
+    /* text-decoration: none; */
+    font-family: 'Ubuntu', sans-serif;    
+}
+.chat-area::-webkit-scrollbar {
+    width: 12px;
+}
+.chat-area::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); 
+}
+.chat-area::-webkit-scrollbar-thumb {
+    background: linear-gradient(to left, rgb(231, 143, 0),orange);
+}

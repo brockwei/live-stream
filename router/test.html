@@ -13,8 +13,12 @@
                 integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" 
                 integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <link href="/styles/skype.css" rel="stylesheet">
+    <link href="/styles/chatroom-global.css" rel="stylesheet">
+    <link href="/styles/chatroom-left.css" rel="stylesheet">
+    <link href="/styles/chatroom-wrtc.css" rel="stylesheet">
+    <link href="/styles/chatroom-chat.css" rel="stylesheet">
     <link href="/styles/chat.css" rel="stylesheet">
 </head>
 
@@ -23,44 +27,56 @@
         <a class="btn btn-primary" href="/logout">Logout</a> -->
     <div class="container">
         <!-- Left Group -->
-        <div id="left-group">
-            <!-- Control Panel -->
-            <div id="control-username">Placeholder</div>
-            <div class="usersArea">
-                <ul id="users"></ul>
+        <div>
+            <div id="left-group">
+                <!-- Control Panel -->
+                <div id="control-username" class="control-header">Placeholder</div>
+                <div id="control-user-search">
+                    <form id="control-search-form" action="">
+                        <div id="control-search-button"><img src="/images/icons8-delete-100.png" class="img-responsive" style="opacity:0.5"></div>
+                        <input id="control-search-field" placeholder="Search for user" autocomplete="off" />
+                    </form>
+                    <div id="control-search-display"></div>
+                </div>
+                <div class="usersArea">
+                    <ul id="users"></ul>
+                </div>
+                <b>ROOMS</b>
+                <div id="rooms">
+                </div>
+                <div id="control-friends-group">
+                    <div class="control-header">Friends</div>
+                    <ul id="control-friends-list">
+                        <!-- <li><button class="friend-button">aaa</button></li>
+                        <li><button class="friend-button">test</button></li>
+                        <li><button class="friend-button">haha</button></li>
+                        <li><button class="friend-button">bbb</button></li> -->
+                        <!-- <li class="control-friend"><span class="control-friend-online">aaa</span><div class="control-friend-button-group"><div class="control-friend-message"><i class="fa fa-comment"></i></div><div class="control-friendlist-delete"><i class="fa fa-times"></i></div></li>
+                        <li class="control-friend">bbb</li>
+                        <li class="control-friend">ccc</li> -->
+                    </ul>
+                </div>
+                <!-- <button id="hehexd">Hehexd</button> -->
             </div>
-            <b>ROOMS</b>
-            <div id="rooms">
-            </div>
-            <a class="btn btn-primary" href="/logout">Logout</a>
-            <!-- <div id="rooms-group">
-                <ul>
-                    <li><a href="/test/test1">test1</a></li>
-                    <li><a href="/test/test2">test2</a></li>
-                    <li><a href="/test/test3">test3</a></li>
-                </ul>
-            </div> -->
-            <div id="friends-list">
-                <ul>
-                    <li>Your friends</li>
-                    <li><button class="friend-button">aaa</button></li>
-                    <li><button class="friend-button">test</button></li>
-                    <li><button class="friend-button">haha</button></li>
-                    <li><button class="friend-button">bbb</button></li>
-                </ul>
-            </div>
-            <button id="hehexd">Hehexd</button>
         </div>
         <!-- Right Group -->
         <div id="right-group">
             <div class="video-group">
-                <video id="remoteVideo" autoplay style="width:90%;"></video><br>
-                <video id="localVideo" autoplay muted style="width:20%;position:relative;top:-15%;"></video>
+                <video id="remoteVideo" autoplay style="width:100%;"></video><br>
+                <video id="localVideo" autoplay muted style="width:100%;"></video>
                 <br />
-                <input type="button" id="start" value="Start Video">
+                <!-- <input type="button" id="start" value="Start Video"> -->
+                <div class="wrtc-button-group">
+                    <div class="wrtc-button"><i class="fa fa-phone fa-3x"></i></div>
+                    <div class="wrtc-button"><i class="fa fa-microphone-slash fa-3x"></i></div>
+                    <div class="wrtc-button wrtc-button-stop"><i class="fa fa-times fa-3x"></i></div>
+            
+                </div>
             </div>
+        </div>
+        <div>
             <div class="chat-group">
-                <div id="chat-friend"></div>
+                <div id="chat-friend" class="control-header"></div>
                 <div class="chat-area">
                     <ul id="chat-messages">
                     </ul>
@@ -69,6 +85,7 @@
                     <input id="input-field" placeholder="Type message here.." autocomplete="off" />
                     <button id='datasend'>Chat</button>
                 </form>
+                <div id="typing">  </div>
             </div>
         </div>
     </div>
@@ -76,7 +93,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="http://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="/scripts/mainforChatroom2.js"></script>
+<script src="/scripts/mainforChatroom.js"></script>
 <!-- <script src="/scripts/main.js"></script> -->
 <!-- <script type="text/javascript">
     pageReady();

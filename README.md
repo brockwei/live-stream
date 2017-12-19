@@ -44,6 +44,7 @@ Before using:
  - [Alex Lau](https://github.com/alexlau811) - For his guidance with this project
  - [Gordon Lau](https://github.com/gordonlau) - For his guidance with this project
  - [Michael Fung](https://github.com/MICFTK) - For his guidance with this project
+ - [Shane Tully](https://shanetully.com/2014/09/a-dead-simple-webrtc-example/) - For his WebRTC tutorial 
  - [Icons8](https://icons8.com/) - For use of their icons
 
 

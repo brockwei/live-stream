@@ -1,0 +1,31 @@
+/*Global Styles*/
+html,body {
+    margin: 0;
+    height: 100%;
+    /* overflow: hidden; */
+    font-family: 'Ubuntu', sans-serif;
+    background: rgb(0,19,15);
+}
+div {
+    box-sizing: border-box;
+}
+a, a:visited, a:active {
+    color: inherit;
+}
+a:hover {
+    color: rgb(255, 195, 92);
+}
+.btn {
+    border-radius: 0;
+}
+.img-responsive {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.container {
+    height: 100%;
+    display: flex;
+}
+
+/*Mobile responsive styles*/
