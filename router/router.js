@@ -30,11 +30,13 @@ module.exports = (express) => {
         res.render('login')
         // res.sendFile(__dirname + '/login2.html');
     });
+
     // Signup Page
     router.get('/signup', (req, res) => {
         res.render('signup')
         // res.sendFile(__dirname + '/login2.html');
     });
+    
     // router.get('/login2', (req, res) => {
     //     res.sendFile(__dirname + '/login2.html');
     // });
@@ -125,7 +127,7 @@ module.exports = (express) => {
     }, passport.authenticate('local-login',
         // { session: false },
         {
-            successRedirect: '/test',
+            // successRedirect: '/test',
             failureRedirect: '/',
             failureFlash: true
         }), (req, res) => {
