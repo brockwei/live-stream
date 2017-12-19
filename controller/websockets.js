@@ -48,7 +48,7 @@ module.exports = (io) => {
             email = socket.request.session.email;
         }
 
-        io.broadcast.emit('typing', JSON.parse(socket.request.sessionStore.sessions).name);
+        // io.broadcast.emit('typing', JSON.parse(socket.request.sessionStore.sessions).name);
 
         socket.on('disconnect', () => {
             chatroomData = {
