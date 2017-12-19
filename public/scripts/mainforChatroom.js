@@ -148,20 +148,6 @@ $(function () {
     });
     /*-3- End */
 
-    /*Experimental */
-    $('#hehexd').on('click',function(){
-        // console.log('hahaha');
-        socket.emit('hehexd test', chatRoomConfig.targetID);
-    })
-    socket.on('chat test',function(name){
-        console.log(name + " sent you a nudge!");
-    })
-    $('.friend-button').on('click',function(){
-        console.log($(this).text());
-        chatRoomConfig.targetID = $(this).text();
-        $('#chat-friend').html('Target: '+chatRoomConfig.targetID);
-    })
-
     //Control Panel Javascript
     //Searches for user
     $('#control-search-button').on('click',function(){
@@ -229,23 +215,13 @@ $(function () {
             $(`[user-message=${results[i]}]`).addClass('control-friend-message-unread');
         }
     })
-    socket.on('control friend pending list',function(array){
-        // $('#control-friends-pending-list').empty();
-        // for(var i in array){
-        //     $('#control-friends-pending-list').append(`<li class="control-friend"><span class="control-friend-online">${array[i]}</span><div class="control-friend-button-group"><div class="control-friend-message"><i class="fa fa-comment"></i></div><div class="control-friendlist-delete"><i class="fa fa-times"></i></div></li>`);
-        // }
-    })
     socket.on('control notify online friends',function(username){
         // console.log(username+" has just come online!");
         socket.emit('control request friends list', username);
     })
     //Chat Functionality Javascript
-    // $('.friend-button').on('click',function(){
-    //     console.log($(this).text());
-    //     chatRoomConfig.targetID = $(this).text();
-    //     $('#chat-friend').html('Target: '+chatRoomConfig.targetID);
-    // })
     $('body').on('click','.control-friend-message',function(){
+        grabWebCamVideo();
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         $('#chat-friend').html(chatRoomConfig.targetID +'<span id="typing"> </span>');
@@ -256,7 +232,7 @@ $(function () {
     var localVideo;
     var remoteVideo;
     var peerConnection;
-    var peerConnectionConfig = {'iceServers': [{'url': 'stu=[ppppppppppppppp:stun.services.mozilla.com'}, {'url': 'stun:stun.l.google.com:19302'}]};
+    var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.services.mozilla.com'}, {'url': 'stun:stun.l.google.com:19302'}]};
     
     localVideo = document.getElementById('localVideo');
     remoteVideo = document.getElementById('remoteVideo');
@@ -299,12 +275,12 @@ $(function () {
     function gotDescription(description){
         console.log('got description');
         peerConnection.setLocalDescription(description, function(){
-            socket.emit('message', JSON.stringify({'sdp':description}));
+            socket.emit('message', JSON.stringify({'sdp':description}),chatRoomConfig.targetID);
         }, function(){console.log('set description error')});
     }
     function gotIceCandidate(event){
         if(event.candidate){
-            socket.emit('message', JSON.stringify({'ice':event.candidate}));
+            socket.emit('message', JSON.stringify({'ice':event.candidate}),chatRoomConfig.targetID);
         }
     }
     function gotRemoteStream(event){
@@ -342,8 +318,32 @@ $(function () {
     
     $('body').on('click','.wrtc-button-start', function(){
         
+        socket.emit('wrtc connection request', chatRoomConfig.targetID);
+    })
+    socket.on('wrtc connection request',function(placeholder){
+        start(true);
     })
     $('body').on('click','.wrtc-button-mute', function(){
         muteWebCam();
     })
+    $('body').on('click','.wrtc-button-stop', function(){
+        if(peerConnection){
+            peerConnection.close();
+        }
+    })
+
+    /*Experimental */
+    $('#hehexd').on('click',function(){
+        // console.log('hahaha');
+        socket.emit('hehexd test', chatRoomConfig.targetID);
+    })
+    socket.on('chat test',function(name){
+        console.log(name + " sent you a nudge!");
+    })
+    $('.friend-button').on('click',function(){
+        console.log($(this).text());
+        chatRoomConfig.targetID = $(this).text();
+        $('#chat-friend').html('Target: '+chatRoomConfig.targetID);
+    })
+
 });

@@ -2,15 +2,15 @@
 .video-group {
     height: 100%;
     width: 100%;
-    background: rgb(0,0,0);
+    background: rgb(18, 0, 34);
     text-align: center;
 }
 #remoteVideo {
-    max-width: 500px;
+    max-width: 400px;
     border: 1px solid white;
 }
 #localVideo {
-    max-width: 500px;
+    max-width: 400px;
     border: 1px dotted orange;
 }
 .wrtc-button-group {
@@ -28,6 +28,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.wrtc-button-start:hover {
+    background: orangered;
 }
 .wrtc-button-stop {
     background: red;
