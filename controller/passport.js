@@ -8,8 +8,8 @@ require('dotenv').config();
 const sequelize = require('sequelize');
 const bcrypt = require('./bcrypt');
 
-const Model = require('../models')
-const User = Model.user
+const Model = require('../models');
+const User = Model.user;
 // const Email = Model.user.email
 // const FacebookID = Model.user.facebookID
 // const FacebookDisplayName = Model.user.facebookDisplayName
@@ -92,17 +92,17 @@ module.exports = (app) => {
     },
     (req, email, password, done) => {
 
-      //use the express-validator to check input items
-      req.checkBody('email', 'Email is required.').notEmpty();
-      req.checkBody('email', 'Invalid email format.').isEmail();
-      req.checkBody('password', 'Password is required.').notEmpty();
-      req.checkBody('password', 'The password length must be between 1 and 100.').isLength({ min: 1, max: 100 });
+      // //use the express-validator to check input items
+      // req.checkBody('email', 'Email is required.').notEmpty();
+      // req.checkBody('email', 'Invalid email format.').isEmail();
+      // req.checkBody('password', 'Password is required.').notEmpty();
+      // req.checkBody('password', 'The password length must be between 1 and 100.').isLength({ min: 1, max: 100 });
 
-      var err = req.validationErrors();
-      if (err) {
-        return done(JSON.stringify(err.msg))
-        // return done(JSON.stringify(err), false, { success: false, error: err });
-      }
+      // var err = req.validationErrors();
+      // if (err) {
+      //   return done(JSON.stringify(err.msg))
+      //   // return done(JSON.stringify(err), false, { success: false, error: err });
+      // }
 
       Model.user.findOne({
         where: {
@@ -137,19 +137,19 @@ module.exports = (app) => {
     },
     (req, email, password, done) => {
 
-      //use the express-validator to check input items
-      req.checkBody('email', 'Email is required.').notEmpty();
-      req.checkBody('email', 'Invalid email format.').isEmail();
-      req.checkBody('password', 'Password is required.').notEmpty();
-      req.checkBody('password', 'The password length must be between 2 and 20.').isLength({ min: 2, max: 20 });
-      req.checkBody('displayname', 'Display Name is required').notEmpty();
-      req.checkBody('displayname', 'Display Name must be between 2 and 100').isLength({ min: 2, max: 100 })
+      // //use the express-validator to check input items
+      // req.checkBody('email', 'Email is required.').notEmpty();
+      // req.checkBody('email', 'Invalid email format.').isEmail();
+      // req.checkBody('password', 'Password is required.').notEmpty();
+      // req.checkBody('password', 'The password length must be between 2 and 20.').isLength({ min: 2, max: 20 });
+      // req.checkBody('displayname', 'Display Name is required').notEmpty();
+      // req.checkBody('displayname', 'Display Name must be between 2 and 100').isLength({ min: 2, max: 100 })
 
-      var err = req.validationErrors();
-      if (err) {
-        return done(JSON.stringify(err))
-        // return done(err, false, { success: false, error: err });
-      }
+      // var err = req.validationErrors();
+      // if (err) {
+      //   return done(JSON.stringify(err))
+      //   // return done(err, false, { success: false, error: err });
+      // }
 
       Model.user.findOne({
         where: {
