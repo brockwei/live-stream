@@ -31,11 +31,7 @@ const io = require('socket.io')(http, {
 });
 io.set('heartbeat timeout', 40000);
 io.set('heartbeat interval', 20000);
-<<<<<<< HEAD
-const websocket =require('./controller/websockets2')(io);
-=======
 const websocket = require('./controller/websockets2')(io)
->>>>>>> 6d2574b0c515891a6f82de61ea1865e736a81166
 const redis = require('redis');
 app.use(express.static('public'));
 

@@ -37,6 +37,34 @@ $(function () {
         return false;
     });
 
+
+    //  Function to show a person is typing
+    $('#input-field').keypress(function() {
+        console.log('typing');
+       socket.emit('typing');
+   });
+
+   function debounce(fn, delay) {
+    var timer = null;
+    return function () {
+      var context = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, delay);
+    };
+  }
+
+   socket.on('typing', function(data) {
+       console.log('someone else typing');
+       $('#typing').html("<em>" + data + " is typing a message... </em>");
+   });
+
+   socket.on('typing', debounce( function(data){
+       console.log('typinggggg');
+        $('#typing').empty();
+   },2000));
+ 
     //socket io starts
     // socket.once('connect', function () {
     socket.on('connect', function () {
@@ -95,13 +123,14 @@ $(function () {
     });
 
     socket.on('chat message', function (data) {
-
+        // $('#typing').empty();
         //let scrollH = $('.chatArea').scrollTop();
         let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
         //$('#messages').empty();
         loadMessages(data, scrollH);
 
     });
+
 
     socket.on('updatechat', function (username, data) {
         $('#chat-messages').append('<b>' + username + ':</b> ' + data + '<br>');

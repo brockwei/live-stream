@@ -20,15 +20,15 @@ module.exports = (io) => {
 
             socket.room = obj.roomname;
 
-            console.log('socket .room ' + socket.room);
+            console.log('socket.room ' + socket.room);
             // send client to the room
             socket.join(socket.room);
 
             client.lrange(`${socket.room}`, 0, -1, function (err, data) {
                 // console.log('socket.room ' + socket.room)
-                // console.log('chathisotry '+ data)
+                // console.log('chathistory '+ data)
                 io.emit('chat history', data)
-            })
+            });
 
             // send client to room 1
             // echo to client they've connected
@@ -42,6 +42,8 @@ module.exports = (io) => {
             // echo to room 1 that a person has connected to their room
             socket.broadcast.to(`${socket.room}`).emit('updatechat', 'SERVER', socket.username + ' has connected to this room');
             console.log('emailsssss ' + socket.request.session.email);
+
+
 
             let emailAndName = {
                 email: socket.request.session.email,
@@ -64,10 +66,15 @@ module.exports = (io) => {
 
                 });
 
-            })
+            });
 
         });
 
+    // typing...
+        socket.on('typing',function(){
+            console.log('someone typing');
+            socket.broadcast.emit('typing', socket.username);
+        });
 
 
         //('email id')send the email address received in the backend to the frontend

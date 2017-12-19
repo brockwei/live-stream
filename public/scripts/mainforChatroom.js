@@ -31,15 +31,16 @@ $(function () {
         return false;
     });
 
-     //Function to show a person is typing
-    //  $('#input-field').keydown(function() {
-    //     socket.emit('typing', $('.currentUser'));
-    // });
+    //  Function to show a person is typing
+     $('#input-field').keydown(function() {
+         console.log('typing');
+        socket.emit('typing');
+    });
 
     socket.on('typing', function(data) {
-         $('#input-field').keydown(function() {
-            $('#typing').text("<em>" + data + "is typing a message... </em>");
-        });
+        console.log('someone else typing');
+        $('#typing').empty();
+        $('#typing').text("<em>" + data + "is typing a message... </em>");
     });
   
    
