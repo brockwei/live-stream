@@ -22,13 +22,13 @@ $(function () {
         $('#chat-messages').empty();
         for(var i in message){
             if(message[i].type=="to"){
-                $('#chat-messages').append($('<li>').html(`<span class='chat-message-username'>${message[i].username}</span> : ${message[i].message}`));
+                $('#chat-messages').append($('<li class="chat-message chat-message-sent">').html(`<span class='chat-message-username'>${message[i].username}</span><br>${message[i].message}`));
             }
             else if (message[i].type=="read"){
-                $('#chat-messages').append($('<li>').html(`<span class='chat-message-friend'>${message[i].friend}</span> : ${message[i].message}`));    
+                $('#chat-messages').append($('<li class="chat-message chat-message-read">').html(`<span class='chat-message-friend'>${message[i].friend}</span><br>${message[i].message}`));    
             }
             else if (message[i].type=="from"){
-                $('#chat-messages').append($('<li>').html(`<span class='chat-message-friend'>${message[i].friend}</span> : <span class="chat-message-unread">${message[i].message}</span>`));    
+                $('#chat-messages').append($('<li class="chat-message chat-message-unread">').html(`<span class='chat-message-friend'>${message[i].friend}</span><br>${message[i].message}`));    
             }
             //Scrolls to the bottom of the page
             if (scrollH < 0) {
@@ -242,11 +242,13 @@ $(function () {
     function muteWebCam(){
         if(localStream.getAudioTracks()[0].enabled){
             localStream.getAudioTracks()[0].enabled = false;
-            $('#mute').val('Unmute');
+            // $('#mute').val('Unmute');
+            $('.wrtc-button-mute').html('<i class="fa fa-microphone-slash"></i>');
         }
         else {
             localStream.getAudioTracks()[0].enabled = true;
-            $('#mute').val('Mute');
+            // $('#mute').val('Mute');
+            $('.wrtc-button-mute').html('<i class="fa fa-microphone"></i>');
         }
     }
     function start(isCaller){
@@ -301,5 +303,11 @@ $(function () {
     $('.friend-button').on('click', function(){
         grabWebCamVideo();
     })
-
+    
+    $('body').on('click','.wrtc-button-start', function(){
+        
+    })
+    $('body').on('click','.wrtc-button-mute', function(){
+        muteWebCam();
+    })
 });
