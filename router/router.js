@@ -151,39 +151,29 @@ module.exports = (express) => {
         var errors = req.validationErrors();
         if (errors) {
             // return res.redirect(JSON.stringify(err))
-
             var emailError = errors.filter(function (error) {
                 return error.param == 'email';
             })
-
             var displayNameError = errors.filter(function (error) {
                 return error.param == 'displayname';
             })
-
             var passwordError = errors.filter(function (error) {
                 return error.param == 'password';
             })
-
             var password2Error = errors.filter(function (error) {
                 return error.param == 'password2';
             })
-
             return res.render('signup', {
                 emailError: emailError,
                 displayNameError: displayNameError,
                 passwordError: passwordError,
                 password2Error: password2Error
             });
-            // res.render('/',{
-            //     errors:errors
-            // });
-            // return done(err, false, { success: false, error: err });
         }
         next()
     }, passport.authenticate('local-signup',
         // { session: false },
         {
-            // successRedirect: '/test',
             failureRedirect: '/',
             failureFlash: true
         }), (req, res) => {
@@ -248,11 +238,6 @@ module.exports = (express) => {
     router.get('/error', (req, res) => {
         res.send('You are not logged in!');
     });
-
-    // router.get('/logout', (req, res) => {
-    //     req.logout();
-    //     res.redirect("/")
-    // });
 
     router.get('/logout', (req, res) => {
         req.session.destroy((err) => {
