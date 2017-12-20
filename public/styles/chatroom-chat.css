@@ -115,6 +115,9 @@
     /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
     background: rgb(105,105,105);
 }
+.chat-field-hidden {
+    display: none;
+}
 
 #typing {
     margin-top:2px;

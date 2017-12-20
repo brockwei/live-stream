@@ -172,6 +172,8 @@ $(function () {
             $('#chat-messages').empty();
         }
         socket.emit('control friend delete', chatRoomConfig.deleteID);
+        // 
+        $('#chat-field').parent().addClass('chat-field-hidden');
     })
     socket.on('control friend delete',function(message){
         $('#control-search-display').empty();
@@ -224,6 +226,7 @@ $(function () {
         $('.control-friend').removeClass('control-message-highlighted');
         $('.control-group').removeClass('control-message-highlighted');
         $(this).parent().parent().addClass('control-message-highlighted');
+        $('#chat-field').parent().removeClass('chat-field-hidden');
     })
     //WebRTC JavaScript
     var localVideo;
@@ -354,6 +357,8 @@ $(function () {
             $('#control-groupchat-list').append(`<li class="control-group control-message-highlighted"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
             $('#chat-ggroup').addClass('mobile-show');
             $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
+            // 
+            $('#chat-field').parent().removeClass('chat-field-hidden');
         }
     })
     // Group chat Javascript
@@ -384,6 +389,8 @@ $(function () {
             $('#chat-messages').empty();
         }
         chatRoomConfig.groupChatRoom = null;
+        // 
+        $('#chat-field').parent().addClass('chat-field-hidden');
     })
     $('body').on('click', '.control-group-message', function(){
         // console.log($(this).parent().parent().children().text());
@@ -397,6 +404,8 @@ $(function () {
         $('.control-friend').removeClass('control-message-highlighted');
         $('.control-group').removeClass('control-message-highlighted');
         $(this).parent().parent().addClass('control-message-highlighted');
+        // 
+        $('#chat-field').parent().removeClass('chat-field-hidden');
     })
 
     //Copy Paste:
