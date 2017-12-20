@@ -35,6 +35,7 @@
 #control-search-field {
     background: rgb(67, 0, 134);
     color: white;
+    font-weight: 700;
     width: 100%;
     padding: 5px;
     border: 0px;
@@ -119,6 +120,7 @@
 }
 #control-friends-list,#control-friends-pending-list {
     list-style-type: none;
+    font-weight: 700;
     margin: 0;
     padding: 0;
 }
@@ -196,6 +198,7 @@
     height: 50px;
     padding: 0 5px 0 5px;
     color: rgb(123, 169, 255);
+    font-weight: 700;
     /* border-top: 1px solid rgb(189, 123, 255); */
     /* border-bottom: 1px solid rgb(123, 169, 255); */
     /* background: rgb(18, 0, 34); */

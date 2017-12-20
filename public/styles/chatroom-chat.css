@@ -96,6 +96,7 @@
     background: rgb(255, 191, 123);
 }
 #input-field {
+    border: none;
     width: 100%;
     padding: 10px;
     /* height: 20px; */
@@ -113,10 +114,25 @@
 }
 .chat-area::-webkit-scrollbar-thumb {
     /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
-    background: rgb(105,105,105);
+    background: rgb(37, 0, 73);
 }
 .chat-field-hidden {
     display: none;
+}
+#datasend {
+    color: white;
+    font-weight: 700;
+    background: rgb(37, 0, 73);
+    border: none;
+}
+#datasend:focus {
+    outline: none;
+}
+#datasend:hover {
+    background: rgb(86, 0, 172);
+}
+#datasend:active {
+    background: rgb(67, 0, 134);
 }
 
 #typing {
