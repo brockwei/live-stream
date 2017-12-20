@@ -84,11 +84,13 @@ $(function () {
    socket.on('typing', function() {
        console.log('someone else typing');
        $('#typing').html(" &nbsp; <em>  is typing a message... </em>");
-   });
+    //    $("#typing").html("is typing a message... ");
+       
+    });
 
    socket.on('typing', debounce( function(data){
        console.log('typinggggg');
-        $('#typing').empty();
+        $("#typing").empty();
    },2000));
 
     // //function to load chatroom message history
@@ -231,13 +233,13 @@ $(function () {
         grabWebCamVideo();
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
-        $('#chat-friend').html(chatRoomConfig.targetID +'<span id="typing"> </span>');
+        $('#chat-friend').html(chatRoomConfig.targetID +'<div id="typing"> </div>');
         console.log();
         if($(this).parent().parent().children().hasClass('control-friend-online')){
-            $('#chat-friend').html(`${chatRoomConfig.targetID} <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
+            $('#chat-friend').html(`${chatRoomConfig.targetID} <div id="typing"> </div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
         }
         else if($(this).parent().parent().children().hasClass('control-friend-offline')){
-            $('#chat-friend').html(`${chatRoomConfig.targetID}`);    
+            $('#chat-friend').html(`${chatRoomConfig.targetID} <div id="typing"> </div>`);    
         }
         socket.emit('control message target', chatRoomConfig.targetID);
         socket.emit('chat retrieve messages', chatRoomConfig.targetID);
