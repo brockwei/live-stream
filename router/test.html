@@ -26,6 +26,17 @@
     <!-- <h1>Dashboard</h1>
         <a class="btn btn-primary" href="/logout">Logout</a> -->
     <div class="container">
+        <div id="special-correction">
+            <div id="special-welcome">
+                <div style="text-align:center">
+                    <div>Welcome to Go Chat Web App! Please choose a username!</div><br>
+                    <form id="special-form" action="">
+                        <input id="special-username" placeholder="Please choose a username!" autocomplete="off" />
+                    </form>
+                    <div id="special-username-taken"> </div>
+                </div>
+            </div>
+        </div>
         <!-- Left Group -->
         <div>
             <div id="left-group">
@@ -93,9 +104,9 @@
         </div> -->
         <div style="width:100%;">
             <div class="chat-group">
-                <div id="chat-friend" class="control-header">
+                <!-- <div id="chat-friend" class="control-header">
                     <span id="typing"></span>
-                </div>
+                </div> -->
                 <div id="chat-group-header"><div id="chat-friend"></div></div>
                     <!--  -->
                     <div id="right-group">
@@ -139,7 +150,7 @@
                         <input id="input-field" placeholder="Type message here.." autocomplete="off" />
                         <button id='datasend'>Chat</button>
                     </form>
-                    <div id="typing"> </div>
+                    <!-- <div id="typing"> </div> -->
                 </div>
             </div>
         </div>

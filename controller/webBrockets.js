@@ -23,7 +23,31 @@ module.exports = (io) => {
         }
         /*-3- On socket connection, emit to client some information about the user*/
             io.to(socket.id).emit('config user data', socket.request.session.userData);
-        /*-4- On login, adds user and its corresponding socketID to online list in external session store*/
+        /*-4- For facebook login, if username = null, requests username*/
+            if(socket.request.session.userData){
+                if(socket.request.session.userData.username==null){
+                    io.to(socket.id).emit('config require username', 'Placeholder');
+                }
+            }
+        /*-5- */ 
+        socket.on('config submit username', function(username){
+            User.findAll({where: {"username":username}}).then(user=>{
+                if(user[0]){
+                    io.to(socket.id).emit('config require username failed', 'Placeholder');
+                }
+                else {
+                    User.update({"username":username},{where:{"email":socket.request.session.userData.email}}).then(()=>{
+                        io.to(socket.id).emit('config oauth username created', username);
+                    });
+                }
+            })
+        })
+        /*-6- */ 
+        socket.on('config oauth username created', function(username){
+            socket.request.session.userData.username = username;
+            io.to(socket.id).emit('config user data', socket.request.session.userData);
+        })
+        /*-7- On login, adds user and its corresponding socketID to online list in external session store*/
         if(socket.request.session.userData){
             socket.request.sessionStore.online = {};
             // socket.request.sessionStore.online[socket.request.session.userData.username] = socket.id;
@@ -35,7 +59,7 @@ module.exports = (io) => {
             }
             // console.log(socket.request.sessionStore.online);
         }
-        /*-5- On login, loads online friends list*/
+        /*-8- On login, loads online friends list*/
         if(socket.request.session.userData){
             let loadFriends = {where: {"username":socket.request.session.userData.username}};
             Relations.findAll(loadFriends).then(status=>{
