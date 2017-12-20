@@ -5,16 +5,17 @@
     max-width: 200px; */
     width: 300px;
     height: 100%;
-    border-right: 1px solid rgb(189, 123, 255);
+    /* border-right: 1px solid rgb(189, 123, 255); */
     text-align:center;
 }
 .control-header {
     font-weight: 700;
     width: 100%;
-    height: 50px;
+    height: 70px;
     padding: 0 5px 0 5px;
     color: white;
-    border-bottom: 1px solid rgb(189, 123, 255);
+    font-size: 1.2em;
+    /* border-bottom: 1px solid rgb(189, 123, 255); */
     background: rgb(18, 0, 34);
     display: flex;
     justify-content: center;
@@ -26,7 +27,7 @@
 }
 #control-search-form{
     /* border: 1px solid white; */
-    border-bottom: 1px solid rgb(189, 123, 255);
+    border-top: 1px solid rgb(189, 123, 255);
     display: flex;
     justify-content: flex-end;
 }
@@ -54,7 +55,7 @@
 #control-search-display {
     height: 33px;
     padding: 0 5px 0 5px;
-    color: rgb(189, 123, 255);
+    color: white;
     /* border-bottom: rgb(189, 123, 255); */
     background: rgb(18, 0, 34);
     display: flex;
@@ -72,11 +73,12 @@
     height: 20px;
     width: 20px;
     border: 1px solid rgb(189, 123, 255);
+    color: rgb(189, 123, 255);
 }
-.control-friend-add:hover,.control-friend-message:hover,.control-friend-delete:hover {
+.control-friend-add:hover,.control-friend-message:hover,.control-friend-delete:hover{
     border: 1px solid white;
     color: white;
-    background: rgb(80, 51, 0);
+    background: rgb(35, 0, 68);
 }
 .control-friend-message-unread { /* Unread messages */
     color: greenyellow;
@@ -103,15 +105,15 @@
 .control-friend-added,.control-friend-message-no{
     height: 20px;
     width: 20px;
-    color: rgb(46, 30, 1);
-    background: rgb(80, 51, 0);
-    border: 1px solid rgb(80, 51, 0);
+    color: rgb(18, 0, 34);
+    background: rgb(82, 0, 163);
+    border: 1px solid rgb(82, 0, 163);
 }
 
 /* Control Friends list styles */
 #control-friends-group {
     border-top: 1px solid rgb(189, 123, 255);
-    border-bottom: 1px solid rgb(189, 123, 255);
+    border-bottom: 1px solid rgb(123, 169, 255);
 }
 #control-friends-list,#control-friends-pending-list {
     list-style-type: none;
@@ -132,10 +134,11 @@
 #control-friends-list::-webkit-scrollbar-thumb {
     background: linear-gradient(to left, rgb(189, 123, 255),rgb(189,123,255));
 }
-.control-friend {
+.control-friend,.control-group {
     height: 33px;
     padding: 0 5px 0 5px;
     color: rgb(189, 123, 255);
+    /* border-top: 1px solid rgb(189, 123, 255); */
     border-bottom: 1px solid rgb(189, 123, 255);
     /* background: rgb(18, 0, 34); */
     background: linear-gradient(to bottom right,rgb(18, 0, 34),rgb(22, 0, 40));
@@ -152,7 +155,7 @@
 .control-friend-pending {
     color: rgb(0, 255, 255);
 }
-.control-friendlist-delete {
+/* .control-friendlist-delete {
     height: 20px;
     width: 20px;
     border: 1px solid rgb(189, 123, 255);
@@ -161,4 +164,52 @@
     border: 1px solid rgb(255, 195, 92);
     color: rgb(255, 195, 92);
     background: rgb(80, 51, 0);
+} */
+/* Group Chat styles */
+#control-groupchat-group {
+    /* border-top: 1px solid rgb(123, 169, 255); */
+    border-bottom: 1px solid rgb(123, 169, 255);
+}
+#control-groupchat-list/*,#control-friends-pending-list*/ {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#control-groupchat-list{
+    height: 100px;
+    overflow-y: auto;
+}
+#control-groupchat-list::-webkit-scrollbar {
+    width: 12px;
+}
+#control-groupchat-list::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); 
+    background: transparent;
+}
+#control-groupchat-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(to left, rgb(123, 169, 255),rgb(123, 169, 255));
+}
+
+.control-group {
+    height: 33px;
+    padding: 0 5px 0 5px;
+    color: rgb(123, 169, 255);
+    /* border-top: 1px solid rgb(189, 123, 255); */
+    border-bottom: 1px solid rgb(123, 169, 255);
+    /* background: rgb(18, 0, 34); */
+    background: linear-gradient(to bottom right,rgb(18, 0, 34),rgb(0, 7, 68));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.control-group-message,.control-group-delete {
+    height: 20px;
+    width: 20px;
+    border: 1px solid rgb(123, 169, 255);
+    color: rgb(123, 169, 255);
+}
+.control-group-message:hover,.control-group-delete:hover {
+    border: 1px solid white;
+    color: white;
+    background: rgb(0, 7, 68);
 }

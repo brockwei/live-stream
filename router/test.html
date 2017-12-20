@@ -46,21 +46,17 @@
                 </div> -->
                 <div id="control-friends-group">
                     <div class="control-header">Friends</div>
-                    <ul id="control-friends-list">
-                        <!-- <li><button class="friend-button">aaa</button></li>
-                        <li><button class="friend-button">test</button></li>
-                        <li><button class="friend-button">haha</button></li>
-                        <li><button class="friend-button">bbb</button></li> -->
-                        <!-- <li class="control-friend"><span class="control-friend-online">aaa</span><div class="control-friend-button-group"><div class="control-friend-message"><i class="fa fa-comment"></i></div><div class="control-friendlist-delete"><i class="fa fa-times"></i></div></li>
-                        <li class="control-friend">bbb</li>
-                        <li class="control-friend">ccc</li> -->
-                    </ul>
+                    <ul id="control-friends-list"></ul>
+                </div>
+                <div id="control-groupchat-group">
+                    <div class="control-header">Chat Rooms&nbsp&nbsp<div id="control-group-create"><i class="fa fa-plus"></i></div></div>
+                    <ul id="control-groupchat-list"></ul>
                 </div>
                 <!-- <button id="hehexd">Hehexd</button> -->
             </div>
         </div>
         <!-- Right Group -->
-        <div id="right-group">
+        <!-- <div id="right-group">
             <div class="video-group">
                 <video id="remoteVideo" autoplay style="width:100%;"></video><br>
                 <video id="localVideo" autoplay muted style="width:100%;"></video>
@@ -69,22 +65,36 @@
                     <div class="wrtc-button wrtc-button-start"><i class="fa fa-phone fa-2x"></i></div>
                     <div class="wrtc-button wrtc-button-mute"><i class="fa fa-microphone fa-2x"></i></div>
                     <div class="wrtc-button wrtc-button-stop"><i class="fa fa-times fa-2x"></i></div>
-            
                 </div>
             </div>
-        </div>
-        <div>
+        </div> -->
+        <div style="width:100%;">
             <div class="chat-group">
-                <div id="chat-friend" class="control-header"></div>
+                <div id="chat-group-header"><div id="chat-friend"></div></div>
+                    <!--  -->
+                    <div id="right-group">
+                        <div class="video-group">
+                            <video id="remoteVideo" autoplay style="width:40%;"></video>
+                            <video id="localVideo" autoplay muted style="width:40%;"></video>
+                        </div>
+                        <div class="wrtc-button-group">
+                            <div class="wrtc-button wrtc-button-start"><i class="fa fa-phone fa-2x"></i></div>
+                            <div class="wrtc-button wrtc-button-mute"><i class="fa fa-microphone fa-2x"></i></div>
+                            <div class="wrtc-button wrtc-button-stop"><i class="fa fa-times fa-2x"></i></div>
+                        </div>
+                    </div>
+                    <!--  -->
                 <div class="chat-area">
                     <ul id="chat-messages">
                     </ul>
                 </div>
-                <form id="chat-field" action="">
-                    <input id="input-field" placeholder="Type message here.." autocomplete="off" />
-                    <button id='datasend'>Chat</button>
-                </form>
-                <div id="typing"> </div>
+                <div style="width:100%">
+                    <form id="chat-field" action="">
+                        <input id="input-field" placeholder="Type message here.." autocomplete="off" />
+                        <button id='datasend'>Chat</button>
+                    </form>
+                    <div id="typing"> </div>
+                </div>
             </div>
         </div>
     </div>

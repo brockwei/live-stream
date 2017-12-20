@@ -71,10 +71,10 @@ module.exports = (io) => {
         });
 
     // typing...
-        socket.on('typing',function(){
-            console.log('someone typing');
-            socket.broadcast.emit('typing', socket.username);
-        });
+        // socket.on('typing',function(){
+        //     console.log('someone typing');
+        //     socket.broadcast.emit('typing', socket.username);
+        // });
 
 
         //('email id')send the email address received in the backend to the frontend

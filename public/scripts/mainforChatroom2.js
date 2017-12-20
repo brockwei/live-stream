@@ -18,12 +18,12 @@ $(function () {
         }
     }
 
-    $('#input-field').keypress(function (e) {
-        if (e.which == 13) { //press the enter key
-            $(this).blur();
-            $('#datasend').focus().click();
-        }
-    });
+    // $('#input-field').keypress(function (e) {
+    //     if (e.which == 13) { //press the enter key
+    //         $(this).blur();
+    //         $('#datasend').focus().click();
+    //     }
+    // });
 
     $('form').submit(function () {
         if ($('#input-field').val() == "/clear") {
@@ -38,32 +38,32 @@ $(function () {
     });
 
 
-    //  Function to show a person is typing
-    $('#input-field').keypress(function() {
-        console.log('typing');
-       socket.emit('typing');
-   });
+//     //  Function to show a person is typing
+//     $('#input-field').keypress(function() {
+//         console.log('typing');
+//        socket.emit('typing');
+//    });
 
-   function debounce(fn, delay) {
-    var timer = null;
-    return function () {
-      var context = this, args = arguments;
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        fn.apply(context, args);
-      }, delay);
-    };
-  }
+//    function debounce(fn, delay) {
+//     var timer = null;
+//     return function () {
+//       var context = this, args = arguments;
+//       clearTimeout(timer);
+//       timer = setTimeout(function () {
+//         fn.apply(context, args);
+//       }, delay);
+//     };
+//   }
 
-   socket.on('typing', function(data) {
-       console.log('someone else typing');
-       $('#typing').html("<em>" + data + " is typing a message... </em>");
-   });
+//    socket.on('typing', function(data) {
+//        console.log('someone else typing');
+//        $('#typing').html("<em>" + data + " is typing a message... </em>");
+//    });
 
-   socket.on('typing', debounce( function(data){
-       console.log('typinggggg');
-        $('#typing').empty();
-   },2000));
+//    socket.on('typing', debounce( function(data){
+//        console.log('typinggggg');
+//         $('#typing').empty();
+//    },2000));
  
     //socket io starts
     // socket.once('connect', function () {
@@ -138,10 +138,10 @@ $(function () {
 
 
 
-    $('#input-field').keypress(function (e) {
-        if (e.which == 13) { //press the enter key
-            $(this).blur();
-            $('#datasend').focus().click();
-        }
-    });
+    // $('#input-field').keypress(function (e) {
+    //     if (e.which == 13) { //press the enter key
+    //         $(this).blur();
+    //         $('#datasend').focus().click();
+    //     }
+    // });
 });
