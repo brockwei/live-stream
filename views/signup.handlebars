@@ -19,6 +19,12 @@
                     <div class="alert alert-danger">{{msg}}</div>
                 {{/each}}
             {{/if}}
+            
+            {{#if repeatedEmail}}
+                <div class="alert alert-danger">{{repeatedEmail}}</div>
+            {{/if }}
+
+
             </div>
             <div>
                 <input placeholder="Display Name" {{#if displayNameError}} class="field-red" {{/if}} type="text" name="displayname" />

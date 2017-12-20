@@ -159,6 +159,7 @@ module.exports = (app) => {
       }).then((user) => {
         console.log(req.body);
         if (user) {
+          req.session.repeatedEmail =  'Email already taken' 
           return done(null, false, { message: 'Email already taken' });
         } else {
           bcrypt.hashPassword(password)
