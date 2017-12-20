@@ -203,15 +203,16 @@ $(function () {
         $('#chat-friend').html(chatRoomConfig.targetID +'<span id="typing"> </span>');
         console.log();
         if($(this).parent().parent().children().hasClass('control-friend-online')){
-            $('#chat-friend').html(`<div>${chatRoomConfig.targetID}<span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
+            $('#chat-friend').html(`<div>${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
         }
         else if($(this).parent().parent().children().hasClass('control-friend-offline')){
-            $('#chat-friend').html(`<div>${chatRoomConfig.targetID}<span id="typing"></span></div>`);    
+            $('#chat-friend').html(`<div>${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div>`);    
         }
         socket.emit('control message target', chatRoomConfig.targetID);
         socket.emit('chat retrieve messages', chatRoomConfig.targetID);
         // 
         chatRoomConfig.groupChatRoom = null;
+        $('#chat-ggroup').addClass('mobile-show');
     })
     //WebRTC JavaScript
     var localVideo;
@@ -334,6 +335,8 @@ $(function () {
         socket.emit('control group add user', data);
         $('#chat-messages').empty();
         $('#control-groupchat-list').append(`<li class="control-group"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
+        $('#chat-ggroup').addClass('mobile-show');
+        $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
     })
     $('body').on('click','#chat-call-friend',function(){
         grabWebCamVideo();
@@ -374,6 +377,8 @@ $(function () {
         socket.emit('control group add user', data); 
         $('#chat-messages').empty();
         $('#chat-friend').empty();
+        $('#chat-ggroup').addClass('mobile-show');
+        $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
     })
 
     //Copy Paste:
@@ -401,5 +406,7 @@ $(function () {
         $('#chat-messages').append('<b>' + username + ':</b> ' + data + '<br>');
     });
 
-    
+    $('body').on('click','#mobile-return',function(){
+        $('#chat-ggroup').removeClass('mobile-show');
+    })
 });
