@@ -18,17 +18,24 @@
 
         <form action="/locallogin" method="post">
             <div>
-                <input placeholder="Email" {{#if emailError}} class="field-red" {{/if}}type="email" name="email" /> 
-                {{#if emailError}} {{#each emailError}}
+                <input placeholder="Email" {{#if emailError }} class="field-red" {{/if}}{{#if invalidUserMessage }} class="field-red" {{/if}}type="email" name="email"/> 
+                {{#if emailError }} {{#each emailError }} 
 
                 <div class="alert alert-danger">{{msg}}</div>
                 {{/each}} {{/if}}
+
+                 {{#if invalidUserMessage }}
+                                 <div class="alert alert-danger"><p>{{invalidUserMessage}}</p></div>
+                    {{/if}}
+
             </div>
             <div>
-                <input placeholder="Password" {{#if passwordError}} class="field-red" {{/if}}type="password" name="password" /> 
-                {{#if passwordError}} {{#each passwordError}}
+                <input placeholder="Password" {{#if passwordError }} class="field-red" {{/if}}{{#if invalidPasswordMessage }}class="field-red" {{/if}}type="password" name="password" /> {{#if passwordError }}{{#each passwordError}}
                 <div class="alert alert-danger">{{msg}}</div>
                 {{/each}} {{/if}}
+                {{#if invalidPasswordMessage }}  
+                <div class="alert alert-danger"><p>{{invalidPasswordMessage}}</p></div>
+                {{/if}}
             </div>
 
             <a href="/signup" class="signupNow">Not a member of GoChat? Sign up here now. </a>

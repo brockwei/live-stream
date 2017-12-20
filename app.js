@@ -60,6 +60,8 @@ app.use(sessionMiddleware);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(flash());
+
 setupPassport(app);
 
 app.use(passport.initialize());
@@ -90,7 +92,6 @@ app.use(expressValidator(
 ))
 
 // Connect Flash
-app.use(flash());
 
 // Global Vars
 // app.use(function (req, res, next) {

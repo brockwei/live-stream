@@ -25,10 +25,15 @@ module.exports = (express) => {
         res.redirect('/test');
     }
     // Login Page
-    router.get('/', isNotLoggedIn, (req, res) => {
+    router.get('/', (req, res) => {
         // console.log('test');
-        res.render('login')
+        var a = req.session.invalidUserMessage
+        // var a = req.flash('invalidUserMessage')
+        // var b = req.flash('invalidPasswordMessage')
+        var b = req.session.invalidPasswordMessage
+        res.render('login', { invalidUserMessage: a, invalidPasswordMessage: b})
         // res.sendFile(__dirname + '/login2.html');
+        console.log('invalid '+ a+ b);
     });
 
     // Signup Page
@@ -36,7 +41,7 @@ module.exports = (express) => {
         res.render('signup')
         // res.sendFile(__dirname + '/login2.html');
     });
-    
+
     // router.get('/login2', (req, res) => {
     //     res.sendFile(__dirname + '/login2.html');
     // });
@@ -69,6 +74,7 @@ module.exports = (express) => {
             res.redirect('/test');
         });
     });
+
     // Google+ OAuthentication
     router.get('/auth/google', passport.authenticate('google', {
         scope: ['profile', 'email']
@@ -122,6 +128,7 @@ module.exports = (express) => {
         {
             // successRedirect: '/test',
             failureRedirect: '/',
+            // failureMessage: "Invalid username or password",
             failureFlash: true
         }), (req, res) => {
             // req.session.userData = {
@@ -137,6 +144,24 @@ module.exports = (express) => {
             res.redirect('/test');
         }
     );
+
+    router.post('/login', function (req, res, next) {
+        passport.authenticate('local', function (err, user, info) {
+            if (err) {
+                return next(err); // will generate a 500 error
+            }
+            // Generate a JSON response reflecting authentication status
+            if (!user) {
+                return res.send(401, { success: false, message: 'authentication failed' });
+            }
+            req.login(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send({ success: true, message: 'authentication succeeded' });
+            });
+        })(req, res, next);
+    });
 
 
     router.post('/signup', function (req, res, next) {
