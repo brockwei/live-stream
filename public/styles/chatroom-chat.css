@@ -39,8 +39,8 @@
 #chat-call-friend {
     height: 70px;
     width: 70px;
-    border-left: 1px solid rgb(189, 123, 255);
-    border-bottom: 1px solid rgb(189, 123, 255);
+    /* border-left: 1px solid rgb(189, 123, 255);
+    border-bottom: 1px solid rgb(189, 123, 255); */
     color: white;
     display: flex;
     justify-content: center;

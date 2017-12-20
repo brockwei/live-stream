@@ -342,6 +342,7 @@ $(function () {
         if(peerConnection){
             peerConnection.close();
         }
+        $('#chat-call-friend').toggleClass('control-message-highlighted');
     })
 
     $('body').on('click','#control-group-create', function(){
