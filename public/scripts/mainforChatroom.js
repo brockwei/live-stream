@@ -58,7 +58,8 @@ $(function () {
             // if (scrollH < 0) {
             if ($('.chat-message').last().offset().top <700){
                 // $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
-                $('.chat-area').scrollTop($('.chat-message').last().offset().top+1000);
+                $('.chat-area').scrollTop(0);
+                $('.chat-area').scrollTop($('.chat-message').last().offset().top);
             }
         }
     }
@@ -80,6 +81,10 @@ $(function () {
         else {
             $(`[user-message=${friend}]`).addClass('control-friend-message-unread');
         }
+        $('#right-group').hide();
+        if(peerConnection){
+            peerConnection.close();
+        }
     })
 
     //  Function to show a person is typing
@@ -99,10 +104,13 @@ $(function () {
     };
   }
 
-   socket.on('typing', function() {
-       console.log('someone else typing');
-       $('#typing').html(" &nbsp; <em>  is typing a message... </em>");
-   });
+    socket.on('typing', function(username) {
+        // console.log('someone else typing');
+        console.log(chatRoomConfig.targetID+":"+username);
+        if(chatRoomConfig.targetID==username){
+            $('#typing').html(" &nbsp; <em>  is typing a message... </em>");
+        }
+    });
 
    socket.on('typing', debounce( function(data){
        console.log('typinggggg');
@@ -140,7 +148,7 @@ $(function () {
         // let result = username==='User not found'||username==='This is you'?`<span style="margin:0 auto;">${username}</span>`:`<span>${username}</span><div class="control-friend-button-group"><div class="${sent}"><i class="fa fa-plus"></i></div><div class="${status=="pending"?"control-friend-delete":messageable}"><i class="fa ${status=="pending"?"fa-times":"fa-comment"}"></i></div></div>`;
         let firstClass = status=="friends"?"control-friend-message":status=="sent"?"control-friend-added":"control-friend-add";
         let secondClass= status=="pending"||status=="friends"?"control-friend-delete":"control-friend-message-no";
-        let firstIcon  = status=="friends"?"fa-comment":"fa-plus";
+        let firstIcon  = status=="friends"?"fa-comment":"fa-user-plus";
         let secondIcon = status=="pending"||status=="friends"?"fa-times":"fa-comment";
         let result = username==='User not found'||username==='This is you'?`<span style="margin:0 auto;">${username}</span>`:`<span>${username}</span><div class="control-friend-button-group"><div class="${firstClass}"><i class="fa ${firstIcon}"></i></div><div class="${secondClass}"><i class="fa ${secondIcon}"></i></div></div>`;
         $('#control-search-display').html(result);
@@ -164,6 +172,8 @@ $(function () {
             $('#chat-messages').empty();
         }
         socket.emit('control friend delete', chatRoomConfig.deleteID);
+        // 
+        $('#chat-field').parent().addClass('chat-field-hidden');
     })
     socket.on('control friend delete',function(message){
         $('#control-search-display').empty();
@@ -176,7 +186,7 @@ $(function () {
     socket.on('control friend list',function(pending, friends, offline){
         $('#control-friends-list').empty();
         for(var i in pending){
-            $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-pending">${pending[i]}</span><div class="control-friend-button-group"><div class="control-friend-add"><i class="fa fa-plus"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
+            $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-pending">${pending[i]}</span><div class="control-friend-button-group"><div class="control-friend-add"><i class="fa fa-user-plus"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
         }
         for(var i in friends){
             $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-online">${friends[i]}</span><div class="control-friend-button-group"><div class="control-friend-message" user-message="${friends[i]}"><i class="fa fa-comment"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
@@ -201,7 +211,7 @@ $(function () {
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         $('#chat-friend').html(chatRoomConfig.targetID +'<span id="typing"> </span>');
-        console.log();
+        // console.log();
         if($(this).parent().parent().children().hasClass('control-friend-online')){
             $('#chat-friend').html(`<div>${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
         }
@@ -216,6 +226,7 @@ $(function () {
         $('.control-friend').removeClass('control-message-highlighted');
         $('.control-group').removeClass('control-message-highlighted');
         $(this).parent().parent().addClass('control-message-highlighted');
+        $('#chat-field').parent().removeClass('chat-field-hidden');
     })
     //WebRTC JavaScript
     var localVideo;
@@ -329,7 +340,12 @@ $(function () {
     })
     //Webcam Basic Javascript
     $('body').on('click','#chat-call-friend', function(){
+        grabWebCamVideo();
         $('#right-group').slideToggle('fast');
+        if(peerConnection){
+            peerConnection.close();
+        }
+        $('#chat-call-friend').toggleClass('control-message-highlighted');
     })
 
     $('body').on('click','#control-group-create', function(){
@@ -340,13 +356,12 @@ $(function () {
             $('#chat-messages').empty();
             $('#control-groupchat-list').append(`<li class="control-group control-message-highlighted"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
             $('#chat-ggroup').addClass('mobile-show');
+            $('.control-friend').removeClass('control-message-highlighted');
             $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
+            // 
+            $('#chat-field').parent().removeClass('chat-field-hidden');
         }
     })
-    $('body').on('click','#chat-call-friend',function(){
-        grabWebCamVideo();
-    })
-
     // Group chat Javascript
     chatRoomConfig.loadGroupMessages = function(data, scrollH){
         // console.log(JSON.parse(data[0]));
@@ -359,7 +374,8 @@ $(function () {
         }
         if ($('.chat-message').last().offset().top <700){
             // $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
-            $('.chat-area').scrollTop($('.chat-message').last().offset().top+1000);
+            $('.chat-area').scrollTop(0);
+            $('.chat-area').scrollTop($('.chat-message').last().offset().top);
         }
     }
 
@@ -374,6 +390,8 @@ $(function () {
             $('#chat-messages').empty();
         }
         chatRoomConfig.groupChatRoom = null;
+        // 
+        $('#chat-field').parent().addClass('chat-field-hidden');
     })
     $('body').on('click', '.control-group-message', function(){
         // console.log($(this).parent().parent().children().text());
@@ -387,6 +405,8 @@ $(function () {
         $('.control-friend').removeClass('control-message-highlighted');
         $('.control-group').removeClass('control-message-highlighted');
         $(this).parent().parent().addClass('control-message-highlighted');
+        // 
+        $('#chat-field').parent().removeClass('chat-field-hidden');
     })
 
     //Copy Paste:

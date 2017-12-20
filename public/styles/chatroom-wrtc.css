@@ -8,12 +8,12 @@
 #remoteVideo {
     width: 35%;
     max-width: 350px;
-    border: 1px solid white;
+    border: 1px solid rgb(189, 123, 255);
 }
 #localVideo {
     width: 35%;
     max-width: 350px;
-    border: 1px dotted orange;
+    border: 1px solid rgb(189, 123, 255);
 }
 .wrtc-button-group {
     display: flex;

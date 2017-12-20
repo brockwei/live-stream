@@ -45,6 +45,10 @@ module.exports = (io) => {
         /*-6- */ 
         socket.on('config oauth username created', function(username){
             socket.request.session.userData.username = username;
+            // 
+            socket.request.sessionStore.online[username] = socket.id;
+            // 
+            console.log(socket.request.sessionStore.online);
             io.to(socket.id).emit('config user data', socket.request.session.userData);
         })
         /*-7- On login, adds user and its corresponding socketID to online list in external session store*/
@@ -86,7 +90,7 @@ module.exports = (io) => {
              // typing...
         socket.on('typing',function(username){
             // console.log(username);
-            io.to(socket.request.sessionStore.online[username]).emit('typing');
+            io.to(socket.request.sessionStore.online[username]).emit('typing',socket.request.session.userData.username);
         });
 
         }

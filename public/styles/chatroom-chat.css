@@ -19,7 +19,7 @@
     align-items: center;
 }
 #chat-group-header {
-    border-left: 1px solid rgb(189, 123, 255);
+    /* border-left: 1px solid rgb(189, 123, 255); */
     background: rgb(0,0,0);
     width: 100%;
 }
@@ -31,7 +31,7 @@
     color: white;
     font-size: 1.2em;
     /* border-bottom: 1px solid rgb(189, 123, 255); */
-    background: rgb(18, 0, 34);
+    background: rgb(37, 0, 73);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,8 +39,8 @@
 #chat-call-friend {
     height: 70px;
     width: 70px;
-    border-left: 1px solid rgb(189, 123, 255);
-    border-bottom: 1px solid rgb(189, 123, 255);
+    /* border-left: 1px solid rgb(189, 123, 255);
+    border-bottom: 1px solid rgb(189, 123, 255); */
     color: white;
     display: flex;
     justify-content: center;
@@ -70,7 +70,7 @@
     max-width: 80%;
     margin: 5px 0;
     padding: 10px;
-    border: 1px solid rgb(150,150,150);
+    /* border: 1px solid rgb(150,150,150); */
     background: white;
     color: black;
     border-radius: 10px;
@@ -78,13 +78,14 @@
     clear: both;
 }
 .chat-message-username {
-    color: red;
+    color: yellow;
 }
 .chat-message-friend {
     color: blue;
 }
 .chat-message-sent {
-    background: rgb(174, 255, 174);
+    background: rgb(98, 0, 202);
+    color: white;
     float: left;
 }
 .chat-message-read {
@@ -95,6 +96,7 @@
     background: rgb(255, 191, 123);
 }
 #input-field {
+    border: none;
     width: 100%;
     padding: 10px;
     /* height: 20px; */
@@ -112,7 +114,25 @@
 }
 .chat-area::-webkit-scrollbar-thumb {
     /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
-    background: rgb(105,105,105);
+    background: rgb(37, 0, 73);
+}
+.chat-field-hidden {
+    display: none;
+}
+#datasend {
+    color: white;
+    font-weight: 700;
+    background: rgb(37, 0, 73);
+    border: none;
+}
+#datasend:focus {
+    outline: none;
+}
+#datasend:hover {
+    background: rgb(86, 0, 172);
+}
+#datasend:active {
+    background: rgb(67, 0, 134);
 }
 
 #typing {
