@@ -9,7 +9,7 @@ $(function () {
     }
     //"start of messages"
     //Chatroom Javascript
-    $('#chat-messages').append($('<li class="welcoming">').text(`Welcome to Michelle's Mukbang`));
+    $('#chat-messages').append($('<li class="welcoming">').text(`Welcome to Go Chat web app`));
     //Send chat message on form submit
     $('#chat-field').submit(function () {
         if ($('#input-field').val()&&chatRoomConfig.groupChatRoom==null) {
@@ -150,7 +150,7 @@ $(function () {
     })
     //Chat Functionality Javascript
     $('body').on('click','.control-friend-message',function(){
-        grabWebCamVideo();
+        // grabWebCamVideo();chat-call-friend
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         console.log();
@@ -268,7 +268,7 @@ $(function () {
     })
     //Webcam Basic Javascript
     $('body').on('click','#chat-call-friend', function(){
-        $('#right-group').slideToggle();
+        $('#right-group').slideToggle('fast');
     })
 
     $('body').on('click','#control-group-create', function(){
@@ -278,6 +278,10 @@ $(function () {
         $('#chat-messages').empty();
         $('#control-groupchat-list').append(`<li class="control-group"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
     })
+    $('body').on('click','#chat-call-friend',function(){
+        grabWebCamVideo();
+    })
+
     // Group chat Javascript
     chatRoomConfig.loadGroupMessages = function(data, scrollH){
         // console.log(JSON.parse(data[0]));

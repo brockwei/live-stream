@@ -62,10 +62,12 @@ module.exports = (express) => {
             // let name = req.user.profile.name.givenName;
             // req.session.name = name;
             // req.session.email = req.user.profile._json.email;
+            
             req.session.userData = {
-                username: req.user.profile._json.email,
-                email: req.user.profile._json.email
+                username: user[0].dataValues.username,
+                email: user[0].dataValues.email
             }
+            console.log(req.session.userData);
             res.redirect('/test');
         });
     });
