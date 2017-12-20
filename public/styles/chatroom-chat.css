@@ -114,3 +114,19 @@
     /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
     background: rgb(105,105,105);
 }
+
+#typing {
+    margin-top:2px;
+    font-size:10px;
+    color:white;
+    }
+    .localCaption {
+        color:white;
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:14px;
+    }
+    .remoteCaption {
+        color:white;
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:14px;
+    }

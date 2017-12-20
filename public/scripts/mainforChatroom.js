@@ -7,7 +7,9 @@ $(function () {
         'deleteID'     : null,
         'groupChatRoom': null,
     }
-    //"start of messages"
+
+  
+  //"start of messages"
     //Chatroom Javascript
     $('#chat-messages').append($('<li class="welcoming">').text(`Welcome to Go Chat web app`));
     //Send chat message on form submit
@@ -61,6 +63,82 @@ $(function () {
             $(`[user-message=${friend}]`).addClass('control-friend-message-unread');
         }
     })
+
+    //  Function to show a person is typing
+    $('#input-field').keypress(function() {
+        // console.log('typing');
+       socket.emit('typing',chatRoomConfig.targetID);
+   });
+
+   function debounce(fn, delay) {
+    var timer = null;
+    return function () {
+      var context = this, args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, delay);
+    };
+  }
+
+   socket.on('typing', function() {
+       console.log('someone else typing');
+       $('#typing').html(" &nbsp; <em>  is typing a message... </em>");
+   });
+
+   socket.on('typing', debounce( function(data){
+       console.log('typinggggg');
+        $('#typing').empty();
+   },2000));
+
+    // //function to load chatroom message history
+    // function loadMessages(data, scrollH) {
+    //     if (JSON.parse(data[0])["email"] == chatRoomConfig.email) {
+    //         $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(data[0])["user"] + "</span> : " + JSON.parse(data[0])["msg"]));
+    //     }
+    //     else {
+    //         $('#chat-messages').append($('<li>').text(JSON.parse(data[0])["user"] + " : " + JSON.parse(data[0])["msg"]));
+    //     }
+    //     if (scrollH < 0) {
+    //         $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
+    //     }
+    // }
+    // //Function to input messages in chatroom
+    // $('#chat-field').submit(function () {
+    //     if ($('#input-field').val() == "/clear") {
+    //         $('#messages').empty();
+    //     } else if ($('#input-field').val()) {
+    //         socket.emit('chat message', $('#input-field').val());
+    //         console.log($('#input-field').val());
+    //     }
+    //     $('#input-field').val('');
+    //     return false;
+    // });
+
+    // //Not needed: function to show online users in chat
+    // socket.on('user data', function (data) {
+    //     $('#users').empty();
+    //     $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers == 1 ? "" : "s"} online.`));
+    //     for (var i in data.users) {
+    //         $('#users').append($('<li>').text(data.users[i]));
+    //     }
+    // });
+
+    // //On chat message, scrolls to the bottom of page
+    // socket.on('chat message', function (data) {
+    //     let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
+    //     loadMessages(data, scrollH);
+    //     console.log(JSON.parse(data));
+    //     console.log(scrollH);
+    // });
+    // //Shows chat history
+    // socket.once('chat history', function (data) {
+    //     data.forEach(dataElement => {
+    //         $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(dataElement)["user"] + "</span> : " + JSON.parse(dataElement)["msg"]));
+    //     });
+    // })
+
+
 
     /*-1- Chat Timed Out */
     socket.on('chat timed out', function (destination) {
@@ -153,6 +231,7 @@ $(function () {
         // grabWebCamVideo();chat-call-friend
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
+        $('#chat-friend').html(chatRoomConfig.targetID +'<span id="typing"> </span>');
         console.log();
         if($(this).parent().parent().children().hasClass('control-friend-online')){
             $('#chat-friend').html(`${chatRoomConfig.targetID} <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
@@ -244,6 +323,15 @@ $(function () {
         }
     }
 
+    $('#start').on('click', function(){
+        start(true);
+    })
+    $('.friend-button').on('click', function(){
+        grabWebCamVideo();
+    })
+
+
+    
     // $('#start').on('click', function(){
     //     start(true);
     // })

@@ -58,6 +58,13 @@ module.exports = (io) => {
                     io.to(socket.request.sessionStore.online[onlineFriends[i]]).emit('control notify online friends', socket.request.session.userData.username);
                 }
             });
+
+             // typing...
+        socket.on('typing',function(username){
+            // console.log(username);
+            io.to(socket.request.sessionStore.online[username]).emit('typing');
+        });
+
         }
 
         //Control panel
@@ -278,7 +285,7 @@ module.exports = (io) => {
         //     }
         // })
         /*Experimental end */
-        
+
         // Group Chat - Javascript
         let rooms = [];
         let groupChatData = {
@@ -366,6 +373,13 @@ module.exports = (io) => {
         });
 
 
-        // 
+        // Caption
+        socket.on('video interim message', function(message) {
+            io.to(targetSocket).emit('video voice message', message);
+        });
+        socket.on('video voice final message', function(message) {
+            io.to(targetSocket).emit('video voice final message', message);
+        });
+        
     });
 }
