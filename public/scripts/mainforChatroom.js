@@ -201,7 +201,7 @@ $(function () {
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         $('#chat-friend').html(chatRoomConfig.targetID +'<span id="typing"> </span>');
-        console.log();
+        // console.log();
         if($(this).parent().parent().children().hasClass('control-friend-online')){
             $('#chat-friend').html(`<div>${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
         }

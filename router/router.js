@@ -62,10 +62,17 @@ module.exports = (express) => {
             // let name = req.user.profile.name.givenName;
             // req.session.name = name;
             // req.session.email = req.user.profile._json.email;
-            
-            req.session.userData = {
-                username: user[0].dataValues.username,
-                email: user[0].dataValues.email
+            if(user[0]){
+                req.session.userData = {
+                    username: user[0].dataValues.username,
+                    email: user[0].dataValues.email
+                }
+            }
+            else {
+                req.session.userData = {
+                    username: null,
+                    email: req.user.profile._json.email
+                }
             }
             console.log(req.session.userData);
             res.redirect('/test');
@@ -85,11 +92,18 @@ module.exports = (express) => {
         // console.log('google router'+req.user);
         // console.log(req.user)     
         User.findAll({ where: { "email": req.user.profile.emails[0].value } }).then(user => {
-            req.session.userData = {
-                username: user[0].dataValues.username,
-                email: user[0].dataValues.email
+            if(user[0]){
+                req.session.userData = {
+                    username: user[0].dataValues.username,
+                    email: user[0].dataValues.email
+                }
             }
-            console.log(req.session.userData);
+            else {
+                req.session.userData = {
+                    username: null,
+                    email: req.user.profile.emails[0].value
+                }
+            }
             res.redirect('/test');
         });   
     });

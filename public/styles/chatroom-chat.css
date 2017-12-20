@@ -19,7 +19,7 @@
     align-items: center;
 }
 #chat-group-header {
-    border-left: 1px solid rgb(189, 123, 255);
+    /* border-left: 1px solid rgb(189, 123, 255); */
     background: rgb(0,0,0);
     width: 100%;
 }
