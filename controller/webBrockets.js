@@ -403,10 +403,10 @@ module.exports = (io) => {
 
         // Caption
         socket.on('video interim message', function(message) {
-            io.to(targetSocket).emit('video voice message', message);
+            io.to(targetSocket).emit('video voice remote message', message);
         });
         socket.on('video voice final message', function(message) {
-            io.to(targetSocket).emit('video voice final message', message);
+            io.to(targetSocket).emit('video voice final remote message', message);
         });
         
     });

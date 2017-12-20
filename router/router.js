@@ -25,15 +25,21 @@ module.exports = (express) => {
         res.redirect('/test');
     }
     // Login Page
-    router.get('/', isNotLoggedIn, (req, res) => {
+    router.get('/', (req, res) => {
         // console.log('test');
-        res.render('login')
+        var a = req.session.invalidUserMessage
+        // var a = req.flash('invalidUserMessage')
+        // var b = req.flash('invalidPasswordMessage')
+        var b = req.session.invalidPasswordMessage
+        res.render('login', { invalidUserMessage: a, invalidPasswordMessage: b })
         // res.sendFile(__dirname + '/login2.html');
+
     });
 
     // Signup Page
     router.get('/signup', (req, res) => {
-        res.render('signup')
+        var c = req.session.repeatedEmail
+        res.render('signup', { repeatedEmail: c })
         // res.sendFile(__dirname + '/login2.html');
     });
     

@@ -92,17 +92,17 @@ module.exports = (app) => {
     },
     (req, email, password, done) => {
 
-      //use the express-validator to check input items
-      req.checkBody('email', 'Email is required.').notEmpty();
-      req.checkBody('email', 'Please enter valid email').isEmail();
-      // req.checkBody('password', 'Password is required.').notEmpty();
-      req.checkBody('password', 'Password length must be between 2-20 letters').isLength({ min: 2, max: 20 });
+      // //use the express-validator to check input items
+      // req.checkBody('email', 'Email is required.').notEmpty();
+      // req.checkBody('email', 'Please enter valid email').isEmail();
+      // // req.checkBody('password', 'Password is required.').notEmpty();
+      // req.checkBody('password', 'Password length must be between 2-20 letters').isLength({ min: 2, max: 20 });
 
-      var err = req.validationErrors();
-      if (err) {
-        return done(JSON.stringify(err.msg))
-        // return done(JSON.stringify(err), false, { success: false, error: err });
-      }
+      // var err = req.validationErrors();
+      // if (err) {
+      //   return done(JSON.stringify(err.msg))
+      //   // return done(JSON.stringify(err), false, { success: false, error: err });
+      // }
 
       Model.user.findOne({
         where: {
@@ -111,8 +111,8 @@ module.exports = (app) => {
       }).then((user) => {
         if (user == null) {
           // return done(null, false, req.flash('signupMessage', 'Incorrect credentials.'));
-
-          return done(null, false, { message: 'Incorrect credentials.' });
+          req.session.invalidUserMessage =  'User Not found.';
+          return done(null, false, req.flash('invalidUserMessage', 'User Not found.'));
         }
 
         bcrypt.checkPassword(password, user.password)
@@ -120,7 +120,8 @@ module.exports = (app) => {
             if (result) {
               return done(null, user);
             } else {
-              return done(null, false, { message: 'Incorrect credentials' });
+              req.session.invalidPasswordMessage =  'Invalid Password'
+              return done(null, false, req.flash('invalidPasswordMessage', 'Invalid Password'));
             }
           })
           .catch(err => console.log(err));
@@ -158,6 +159,7 @@ module.exports = (app) => {
       }).then((user) => {
         console.log(req.body);
         if (user) {
+          req.session.repeatedEmail =  'Email already taken' 
           return done(null, false, { message: 'Email already taken' });
         } else {
           bcrypt.hashPassword(password)
