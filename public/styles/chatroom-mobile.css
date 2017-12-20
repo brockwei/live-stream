@@ -1,0 +1,22 @@
+@media (max-width: 767px){
+    .mobile-show {
+        display: block !important;
+    }
+    #mobile-return {
+        display: block;
+    }
+    #left-ggroup {
+        width: 100%;
+    }
+    #left-group {
+        width: 100%;
+    }
+    #chat-ggroup {
+        position: absolute;
+        height: 100%;
+        display: none;
+    }
+    .chat-message-read,.chat-message-unread {
+        float: right;
+    }
+}

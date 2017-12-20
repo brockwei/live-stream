@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Michelles Mukbang</title>
+    <title>Go Chat web app</title>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
@@ -19,6 +19,7 @@
     <link href="/styles/chatroom-left.css" rel="stylesheet">
     <link href="/styles/chatroom-wrtc.css" rel="stylesheet">
     <link href="/styles/chatroom-chat.css" rel="stylesheet">
+    <link href="/styles/chatroom-mobile.css" rel="stylesheet">
     <link href="/styles/chat.css" rel="stylesheet">
 </head>
 
@@ -26,8 +27,19 @@
     <!-- <h1>Dashboard</h1>
         <a class="btn btn-primary" href="/logout">Logout</a> -->
     <div class="container">
+        <div id="special-correction">
+            <div id="special-welcome">
+                <div style="text-align:center">
+                    <div>Welcome to Go Chat Web App! Please choose a username!</div><br>
+                    <form id="special-form" action="">
+                        <input id="special-username" placeholder="Please choose a username!" autocomplete="off" />
+                    </form>
+                    <div id="special-username-taken"> </div>
+                </div>
+            </div>
+        </div>
         <!-- Left Group -->
-        <div>
+        <div id="left-ggroup">
             <div id="left-group">
                 <!-- Control Panel -->
                 <div id="control-username" class="control-header">Placeholder</div>
@@ -91,17 +103,17 @@
                 </div>
             </div>
         </div> -->
-        <div style="width:100%;">
+        <div id="chat-ggroup" style="width:100%;">
             <div class="chat-group">
-                <div id="chat-friend" class="control-header">
+                <!-- <div id="chat-friend" class="control-header">
                     <span id="typing"></span>
-                </div>
+                </div> -->
                 <div id="chat-group-header"><div id="chat-friend"></div></div>
                     <!--  -->
                     <div id="right-group">
                         <div class="video-group">
-                            <video id="remoteVideo" autoplay style="width:40%;"></video>
-                            <video id="localVideo" autoplay muted style="width:40%;"></video>
+                            <video id="remoteVideo" autoplay></video>
+                            <video id="localVideo" autoplay muted></video>
                         </div>
                         <div class="wrtc-button-group">
                             <div class="wrtc-button wrtc-button-start"><i class="fa fa-phone fa-2x"></i></div>
@@ -139,7 +151,7 @@
                         <input id="input-field" placeholder="Type message here.." autocomplete="off" />
                         <button id='datasend'>Chat</button>
                     </form>
-                    <div id="typing"> </div>
+                    <!-- <div id="typing"> </div> -->
                 </div>
             </div>
         </div>
