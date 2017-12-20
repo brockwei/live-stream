@@ -29,7 +29,7 @@ $(function () {
     }) 
     //"start of messages"
     //Chatroom Javascript
-    $('#chat-messages').append($('<li class="welcoming">').text(`Welcome to Go Chat web app`));
+    // $('#chat-messages').append($('<li class="welcoming">').text(`Welcome to Go Chat web app`));
     //Send chat message on form submit
     $('#chat-field').submit(function () {
         if ($('#input-field').val()&&chatRoomConfig.groupChatRoom==null) {
@@ -173,6 +173,7 @@ $(function () {
         }
         socket.emit('control friend delete', chatRoomConfig.deleteID);
         // 
+        $('#chat-messages').html(`<br><li style="color:black;">Welcome to Go Chat instant messenging app!</li>`);
         $('#chat-field').parent().addClass('chat-field-hidden');
     })
     socket.on('control friend delete',function(message){
@@ -210,13 +211,13 @@ $(function () {
         // grabWebCamVideo();chat-call-friend
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
-        $('#chat-friend').html(chatRoomConfig.targetID +'<span id="typing"> </span>');
+        $('#chat-friend').html(`@${chatRoomConfig.targetID}` +'<span id="typing"> </span>');
         // console.log();
         if($(this).parent().parent().children().hasClass('control-friend-online')){
-            $('#chat-friend').html(`<div>${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
+            $('#chat-friend').html(`<div>@${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
         }
         else if($(this).parent().parent().children().hasClass('control-friend-offline')){
-            $('#chat-friend').html(`<div>${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div>`);    
+            $('#chat-friend').html(`<div>@${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div>`);    
         }
         socket.emit('control message target', chatRoomConfig.targetID);
         socket.emit('chat retrieve messages', chatRoomConfig.targetID);
@@ -354,8 +355,10 @@ $(function () {
             let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
             socket.emit('control group add user', data);
             $('#chat-messages').empty();
+            $('.control-group').removeClass('control-message-highlighted');
             $('#control-groupchat-list').append(`<li class="control-group control-message-highlighted"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
             $('#chat-ggroup').addClass('mobile-show');
+            
             $('.control-friend').removeClass('control-message-highlighted');
             $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
             // 
@@ -391,6 +394,8 @@ $(function () {
         }
         chatRoomConfig.groupChatRoom = null;
         // 
+
+        $('#chat-messages').html(`<br><li style="color:black;">Welcome to Go Chat instant messenging app!</li>`);
         $('#chat-field').parent().addClass('chat-field-hidden');
     })
     $('body').on('click', '.control-group-message', function(){

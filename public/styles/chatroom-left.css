@@ -48,15 +48,15 @@
 }
 #control-search-button {
     background: rgb(67, 0, 134);
-    width: 33px;
-    height: 33px;
+    width: 50px;
+    height: 50px;
     color: rgba(189, 123, 255, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 #control-search-display {
-    height: 33px;
+    height: 50px;
     padding: 0 5px 0 5px;
     color: white;
     /* border-bottom: rgb(189, 123, 255); */
@@ -125,7 +125,7 @@
     padding: 0;
 }
 #control-friends-list{
-    height: 200px;
+    height: 150px;
     overflow-y: auto;
 }
 #control-friends-list::-webkit-scrollbar {
@@ -154,7 +154,7 @@
     color:greenyellow;
 }
 .control-friend-offline {
-    color: red;
+    color: rgb(255, 77, 77);
 }
 .control-friend-pending {
     color: rgb(0, 255, 255);
