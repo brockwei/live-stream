@@ -148,7 +148,7 @@ $(function () {
         // let result = username==='User not found'||username==='This is you'?`<span style="margin:0 auto;">${username}</span>`:`<span>${username}</span><div class="control-friend-button-group"><div class="${sent}"><i class="fa fa-plus"></i></div><div class="${status=="pending"?"control-friend-delete":messageable}"><i class="fa ${status=="pending"?"fa-times":"fa-comment"}"></i></div></div>`;
         let firstClass = status=="friends"?"control-friend-message":status=="sent"?"control-friend-added":"control-friend-add";
         let secondClass= status=="pending"||status=="friends"?"control-friend-delete":"control-friend-message-no";
-        let firstIcon  = status=="friends"?"fa-comment":"fa-plus";
+        let firstIcon  = status=="friends"?"fa-comment":"fa-user-plus";
         let secondIcon = status=="pending"||status=="friends"?"fa-times":"fa-comment";
         let result = username==='User not found'||username==='This is you'?`<span style="margin:0 auto;">${username}</span>`:`<span>${username}</span><div class="control-friend-button-group"><div class="${firstClass}"><i class="fa ${firstIcon}"></i></div><div class="${secondClass}"><i class="fa ${secondIcon}"></i></div></div>`;
         $('#control-search-display').html(result);
@@ -186,7 +186,7 @@ $(function () {
     socket.on('control friend list',function(pending, friends, offline){
         $('#control-friends-list').empty();
         for(var i in pending){
-            $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-pending">${pending[i]}</span><div class="control-friend-button-group"><div class="control-friend-add"><i class="fa fa-plus"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
+            $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-pending">${pending[i]}</span><div class="control-friend-button-group"><div class="control-friend-add"><i class="fa fa-user-plus"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
         }
         for(var i in friends){
             $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-online">${friends[i]}</span><div class="control-friend-button-group"><div class="control-friend-message" user-message="${friends[i]}"><i class="fa fa-comment"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
@@ -356,6 +356,7 @@ $(function () {
             $('#chat-messages').empty();
             $('#control-groupchat-list').append(`<li class="control-group control-message-highlighted"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
             $('#chat-ggroup').addClass('mobile-show');
+            $('.control-friend').removeClass('control-message-highlighted');
             $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
             // 
             $('#chat-field').parent().removeClass('chat-field-hidden');
