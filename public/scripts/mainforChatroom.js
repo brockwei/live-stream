@@ -58,7 +58,8 @@ $(function () {
             // if (scrollH < 0) {
             if ($('.chat-message').last().offset().top <700){
                 // $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
-                $('.chat-area').scrollTop($('.chat-message').last().offset().top+1000);
+                $('.chat-area').scrollTop(0);
+                $('.chat-area').scrollTop($('.chat-message').last().offset().top);
             }
         }
     }
@@ -80,6 +81,10 @@ $(function () {
         else {
             $(`[user-message=${friend}]`).addClass('control-friend-message-unread');
         }
+        $('#right-group').hide();
+        if(peerConnection){
+            peerConnection.close();
+        }
     })
 
     //  Function to show a person is typing
@@ -99,10 +104,13 @@ $(function () {
     };
   }
 
-   socket.on('typing', function() {
-       console.log('someone else typing');
-       $('#typing').html(" &nbsp; <em>  is typing a message... </em>");
-   });
+    socket.on('typing', function(username) {
+        // console.log('someone else typing');
+        console.log(chatRoomConfig.targetID+":"+username);
+        if(chatRoomConfig.targetID==username){
+            $('#typing').html(" &nbsp; <em>  is typing a message... </em>");
+        }
+    });
 
    socket.on('typing', debounce( function(data){
        console.log('typinggggg');
@@ -329,7 +337,11 @@ $(function () {
     })
     //Webcam Basic Javascript
     $('body').on('click','#chat-call-friend', function(){
+        grabWebCamVideo();
         $('#right-group').slideToggle('fast');
+        if(peerConnection){
+            peerConnection.close();
+        }
     })
 
     $('body').on('click','#control-group-create', function(){
@@ -343,10 +355,6 @@ $(function () {
             $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
         }
     })
-    $('body').on('click','#chat-call-friend',function(){
-        grabWebCamVideo();
-    })
-
     // Group chat Javascript
     chatRoomConfig.loadGroupMessages = function(data, scrollH){
         // console.log(JSON.parse(data[0]));
@@ -359,7 +367,8 @@ $(function () {
         }
         if ($('.chat-message').last().offset().top <700){
             // $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
-            $('.chat-area').scrollTop($('.chat-message').last().offset().top+1000);
+            $('.chat-area').scrollTop(0);
+            $('.chat-area').scrollTop($('.chat-message').last().offset().top);
         }
     }
 

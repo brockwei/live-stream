@@ -70,7 +70,7 @@
     max-width: 80%;
     margin: 5px 0;
     padding: 10px;
-    border: 1px solid rgb(150,150,150);
+    /* border: 1px solid rgb(150,150,150); */
     background: white;
     color: black;
     border-radius: 10px;
@@ -78,13 +78,14 @@
     clear: both;
 }
 .chat-message-username {
-    color: red;
+    color: yellow;
 }
 .chat-message-friend {
     color: blue;
 }
 .chat-message-sent {
-    background: rgb(174, 255, 174);
+    background: rgb(98, 0, 202);
+    color: white;
     float: left;
 }
 .chat-message-read {

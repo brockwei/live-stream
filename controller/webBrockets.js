@@ -90,7 +90,7 @@ module.exports = (io) => {
              // typing...
         socket.on('typing',function(username){
             // console.log(username);
-            io.to(socket.request.sessionStore.online[username]).emit('typing');
+            io.to(socket.request.sessionStore.online[username]).emit('typing',socket.request.session.userData.username);
         });
 
         }
