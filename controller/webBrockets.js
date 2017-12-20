@@ -285,5 +285,12 @@ module.exports = (io) => {
         //     }
         // })
         /*Experimental end */
+
+        socket.on('video interim message', function(message) {
+            io.to(targetSocket).emit('video voice message', message);
+        });
+        socket.on('video voice final message', function(message) {
+            io.to(targetSocket).emit('video voice final message', message);
+        });
     });
 }
