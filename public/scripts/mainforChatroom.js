@@ -297,13 +297,14 @@ $(function () {
     $('body').on('click', '.control-group-delete', function(){
         // console.log($(this).parent().parent().children().text());
         // $('#control-search-display').empty();
-        $(this).parent().parent().remove();
         chatRoomConfig.deleteID = $(this).parent().parent().children().text();
+        $(this).parent().parent().remove();
         //Empties chat messages and friend name
         if(chatRoomConfig.deleteID==chatRoomConfig.groupChatRoom){
             $('#chat-friend').empty();
             $('#chat-messages').empty();
         }
+        chatRoomConfig.groupChatRoom = null;
     })
     $('body').on('click', '.control-group-message', function(){
         // console.log($(this).parent().parent().children().text());
