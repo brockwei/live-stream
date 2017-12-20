@@ -1,10 +1,11 @@
 $(function () {
     var socket = io();
     var chatRoomConfig = {
-        'username': '',
-        'email'   : '',
-        'targetID': '',
-        'deleteID': null
+        'username'     : '',
+        'email'        : '',
+        'targetID'     : '',
+        'deleteID'     : null,
+        'groupChatRoom': null,
     }
 
   
@@ -13,8 +14,11 @@ $(function () {
     $('#chat-messages').append($('<li class="welcoming">').text(`Welcome to Michelle's Mukbang`));
     //Send chat message on form submit
     $('#chat-field').submit(function () {
-        if ($('#input-field').val()) {
+        if ($('#input-field').val()&&chatRoomConfig.groupChatRoom==null) {
             socket.emit('chat message', $('#input-field').val(),chatRoomConfig.targetID);
+        }
+        else {
+            socket.emit('group chat message', $('#input-field').val());
         }
         $('#input-field').val('');
         return false;
@@ -33,14 +37,17 @@ $(function () {
                 $('#chat-messages').append($('<li class="chat-message chat-message-unread">').html(`<span class='chat-message-friend'>${message[i].friend}</span><br>${message[i].message}`));    
             }
             //Scrolls to the bottom of the page
-            if (scrollH < 0) {
-                $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
+            // if (scrollH < 0) {
+            if ($('.chat-message').last().offset().top <700){
+                // $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
+                $('.chat-area').scrollTop($('.chat-message').last().offset().top+1000);
             }
         }
     }
     //Recieve chat log from backend
     socket.on('chat message',function(message, friend){
         let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
+        // console.log()
         // if(message[0].friend==chatRoomConfig.targetID){
         if(friend==chatRoomConfig.targetID){
             let promise = new Promise((res,rej)=>{
@@ -225,8 +232,17 @@ $(function () {
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         $('#chat-friend').html(chatRoomConfig.targetID +'<span id="typing"> </span>');
+        console.log();
+        if($(this).parent().parent().children().hasClass('control-friend-online')){
+            $('#chat-friend').html(`${chatRoomConfig.targetID} <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
+        }
+        else if($(this).parent().parent().children().hasClass('control-friend-offline')){
+            $('#chat-friend').html(`${chatRoomConfig.targetID}`);    
+        }
         socket.emit('control message target', chatRoomConfig.targetID);
         socket.emit('chat retrieve messages', chatRoomConfig.targetID);
+        // 
+        chatRoomConfig.groupChatRoom = null;
     })
     //WebRTC JavaScript
     var localVideo;
@@ -253,12 +269,12 @@ $(function () {
         if(localStream.getAudioTracks()[0].enabled){
             localStream.getAudioTracks()[0].enabled = false;
             // $('#mute').val('Unmute');
-            $('.wrtc-button-mute').html('<i class="fa fa-microphone-slash"></i>');
+            $('.wrtc-button-mute').html('<i class="fa fa-microphone-slash fa-2x"></i>');
         }
         else {
             localStream.getAudioTracks()[0].enabled = true;
             // $('#mute').val('Mute');
-            $('.wrtc-button-mute').html('<i class="fa fa-microphone"></i>');
+            $('.wrtc-button-mute').html('<i class="fa fa-microphone fa-2x"></i>');
         }
     }
     function start(isCaller){
@@ -316,6 +332,13 @@ $(function () {
 
 
     
+    // $('#start').on('click', function(){
+    //     start(true);
+    // })
+    // $('.friend-button').on('click', function(){
+    //     grabWebCamVideo();
+    // })
+
     $('body').on('click','.wrtc-button-start', function(){
         
         socket.emit('wrtc connection request', chatRoomConfig.targetID);
@@ -331,19 +354,79 @@ $(function () {
             peerConnection.close();
         }
     })
-
-    /*Experimental */
-    $('#hehexd').on('click',function(){
-        // console.log('hahaha');
-        socket.emit('hehexd test', chatRoomConfig.targetID);
-    })
-    socket.on('chat test',function(name){
-        console.log(name + " sent you a nudge!");
-    })
-    $('.friend-button').on('click',function(){
-        console.log($(this).text());
-        chatRoomConfig.targetID = $(this).text();
-        $('#chat-friend').html('Target: '+chatRoomConfig.targetID);
+    //Webcam Basic Javascript
+    $('body').on('click','#chat-call-friend', function(){
+        $('#right-group').slideToggle();
     })
 
+    $('body').on('click','#control-group-create', function(){
+        chatRoomConfig.groupChatRoom = prompt('Join Chat Room:');
+        let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
+        socket.emit('control group add user', data);
+        $('#chat-messages').empty();
+        $('#control-groupchat-list').append(`<li class="control-group"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
+    })
+    // Group chat Javascript
+    chatRoomConfig.loadGroupMessages = function(data, scrollH){
+        // console.log(JSON.parse(data[0]));
+        
+        if(JSON.parse(data[0])["user"]==chatRoomConfig.username){
+            $('#chat-messages').append($('<li class="chat-message chat-message-sent">').html(`<span class='chat-message-username'>${JSON.parse(data[0])["user"]}</span><br>${JSON.parse(data[0])["msg"]}`));
+        }
+        else if (JSON.parse(data[0])["user"]!=chatRoomConfig.username){
+            $('#chat-messages').append($('<li class="chat-message chat-message-read">').html(`<span class='chat-message-friend'>${JSON.parse(data[0])["user"]}</span><br>${JSON.parse(data[0])["msg"]}`));    
+        }
+        if ($('.chat-message').last().offset().top <700){
+            // $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
+            $('.chat-area').scrollTop($('.chat-message').last().offset().top+1000);
+        }
+    }
+
+    $('body').on('click', '.control-group-delete', function(){
+        // console.log($(this).parent().parent().children().text());
+        // $('#control-search-display').empty();
+        chatRoomConfig.deleteID = $(this).parent().parent().children().text();
+        $(this).parent().parent().remove();
+        //Empties chat messages and friend name
+        if(chatRoomConfig.deleteID==chatRoomConfig.groupChatRoom){
+            $('#chat-friend').empty();
+            $('#chat-messages').empty();
+        }
+        chatRoomConfig.groupChatRoom = null;
+    })
+    $('body').on('click', '.control-group-message', function(){
+        // console.log($(this).parent().parent().children().text());
+        chatRoomConfig.groupChatRoom = $(this).parent().parent().children().text();
+        let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
+        socket.emit('control group add user', data); 
+        $('#chat-messages').empty();
+        $('#chat-friend').empty();
+    })
+
+    //Copy Paste:
+    socket.on('group chat history', function (data) {
+        data.forEach(dataElement => {
+            // $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(dataElement)["user"] + "</span> : " + JSON.parse(dataElement)["msg"]));
+            if(JSON.parse(dataElement)["user"]==chatRoomConfig.username){
+                $('#chat-messages').append($('<li class="chat-message chat-message-sent">').html(`<span class='chat-message-username'>${JSON.parse(dataElement)["user"]}</span><br>${JSON.parse(dataElement)["msg"]}`));
+            }
+            else if (JSON.parse(dataElement)["user"]!=chatRoomConfig.username){
+                $('#chat-messages').append($('<li class="chat-message chat-message-read">').html(`<span class='chat-message-friend'>${JSON.parse(dataElement)["user"]}</span><br>${JSON.parse(dataElement)["msg"]}`));    
+            }
+            if ($('.chat-message').last().offset().top <700){
+                // $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
+                $('.chat-area').scrollTop($('.chat-message').last().offset().top+1000);
+            }
+        });        
+    })
+
+    socket.on('group chat message', function (data) {
+        let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
+        chatRoomConfig.loadGroupMessages(data, scrollH);
+    });
+    socket.on('updatechat', function (username, data) {
+        $('#chat-messages').append('<b>' + username + ':</b> ' + data + '<br>');
+    });
+
+    
 });

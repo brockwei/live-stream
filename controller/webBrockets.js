@@ -286,11 +286,100 @@ module.exports = (io) => {
         // })
         /*Experimental end */
 
+        // Group Chat - Javascript
+        let rooms = [];
+        let groupChatData = {
+            numberOfUsers: 0,
+            users: []
+        }
+        socket.on('control group add user', function(obj){
+            obj = JSON.parse(obj);
+            socket.username = obj.username;
+            socket.room = obj.roomname;
+            console.log('socket.room ' + socket.room);
+            // send client to the room
+            socket.join(socket.room);
+            client.lrange(`${socket.room}`, 0, -1, function (err, data) {
+                io.to(socket.id).emit('group chat history', data)
+            });
+            io.to(socket.id).emit('group chat updatechat', 'SERVER', 'you have connected to room1');
+            socket.broadcast.to(`${socket.room}`).emit('group chat updatechat', 'SERVER', socket.username + ' has connected to this room');
+            console.log('emailsssss ' + socket.request.session.userData.email);
+            let emailAndName = {
+                email: socket.request.session.userData.email,
+                username: socket.request.session.userData.username,
+            }
+            console.log(emailAndName);
+            emailAndName = JSON.stringify(emailAndName);
+            console.log('emailandname ' + emailAndName);
+            client.sadd(`${socket.room}_userlist`, emailAndName, function (err, num) {
+                if (err) { return console.log(err)}
+                groupChatData.numberOfUsers = num;
+                client.smembers(`${socket.room}_userlist`, function (err, reply) {
+                    console.log('reply ' + reply);
+                    io.emit('group user data', reply);
+                });
+            });
+
+        });
+        // 
+        socket.on('disconnect', () => {     
+            if(socket.request.session.userData){
+                let emailAndName = {
+                            email: socket.request.session.userData.email,
+                            username: socket.request.session.userData.username,
+                            }
+
+                    emailAndName = JSON.stringify(emailAndName)
+                    client.srem(`${socket.room}_userlist`, `${emailAndName}`, function (err, reply) {
+                
+                    if (err) {
+                        return console.log(err);
+                    }
+                
+                    client.smembers(`${socket.room}_userlist`, function (err, reply) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    io.emit('group user data', reply);
+                    })
+                });   
+                console.log(`${socket.username} left the socket`);
+            }
+        });
+        // 
+        socket.on('group chat message', function(msg){
+            console.log('group chat message recieved');
+            // io.emit('chat message', msg);
+            let message = {
+                // 'user': username,
+                'user': socket.request.session.userData.username,
+                'email': socket.request.session.userData.email,
+                'msg': msg
+            }
+            message = JSON.stringify(message);
+
+            client.rpush(`${socket.room}`, message, function (err, data) {
+                if (err) {
+                    return console.log(err);
+                }
+                client.lrange(`${socket.room}`, -1, -1, function (err, data) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    io.to(`${socket.room}`).emit('group chat message', data)
+                })
+            })
+        });
+
+
+        // Caption
         socket.on('video interim message', function(message) {
             io.to(targetSocket).emit('video voice message', message);
         });
         socket.on('video voice final message', function(message) {
             io.to(targetSocket).emit('video voice final message', message);
         });
+        
     });
 }
