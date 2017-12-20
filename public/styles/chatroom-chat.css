@@ -1,11 +1,5 @@
-/*Right side styles (Video & Chat)*/
-#right-group {
-    /* flex: 1 1 auto; This allows the center div to take 100% of remaining space in middle */
-    /* height: 100%; */
-    /* display: flex; */
-    width: 100%;
-    display: none;
-}
+/*Right side styles (Chat)*/
+
 
 .chat-group {
     /* border-left: 1px solid rgb(189, 123, 255); */

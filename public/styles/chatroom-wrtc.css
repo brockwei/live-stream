@@ -1,19 +1,28 @@
 /*WebRTC styles*/
+#right-group {
+    /* flex: 1 1 auto; This allows the center div to take 100% of remaining space in middle */
+    /* height: 100%; */
+    /* display: flex; */
+    width: 100%;
+    display: none;
+    background: rgb(20, 0, 41);
+}
+
 .video-group {
     height: 100%;
     width: 100%;
-    background: rgb(18, 0, 34);
+    background: rgb(20, 0, 41);
     text-align: center;
 }
 #remoteVideo {
     width: 35%;
     max-width: 350px;
-    border: 1px solid rgb(189, 123, 255);
+    /* border: 1px solid rgb(37, 0, 73); */
 }
 #localVideo {
     width: 35%;
     max-width: 350px;
-    border: 1px solid rgb(189, 123, 255);
+    /* border: 1px solid rgb(37, 0, 73); */
 }
 .wrtc-button-group {
     display: flex;
