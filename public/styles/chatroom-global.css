@@ -58,4 +58,6 @@ a:hover {
 #special-username-taken {
     color: red;
 }
-/*Mobile responsive styles*/
+#mobile-return {
+    display: none;
+}

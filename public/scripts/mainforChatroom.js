@@ -213,6 +213,9 @@ $(function () {
         // 
         chatRoomConfig.groupChatRoom = null;
         $('#chat-ggroup').addClass('mobile-show');
+        $('.control-friend').removeClass('control-message-highlighted');
+        $('.control-group').removeClass('control-message-highlighted');
+        $(this).parent().parent().addClass('control-message-highlighted');
     })
     //WebRTC JavaScript
     var localVideo;
@@ -331,12 +334,14 @@ $(function () {
 
     $('body').on('click','#control-group-create', function(){
         chatRoomConfig.groupChatRoom = prompt('Join Chat Room:');
-        let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
-        socket.emit('control group add user', data);
-        $('#chat-messages').empty();
-        $('#control-groupchat-list').append(`<li class="control-group"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
-        $('#chat-ggroup').addClass('mobile-show');
-        $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
+        if(chatRoomConfig.groupChatRoom!=null){
+            let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
+            socket.emit('control group add user', data);
+            $('#chat-messages').empty();
+            $('#control-groupchat-list').append(`<li class="control-group control-message-highlighted"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
+            $('#chat-ggroup').addClass('mobile-show');
+            $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
+        }
     })
     $('body').on('click','#chat-call-friend',function(){
         grabWebCamVideo();
@@ -379,6 +384,9 @@ $(function () {
         $('#chat-friend').empty();
         $('#chat-ggroup').addClass('mobile-show');
         $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
+        $('.control-friend').removeClass('control-message-highlighted');
+        $('.control-group').removeClass('control-message-highlighted');
+        $(this).parent().parent().addClass('control-message-highlighted');
     })
 
     //Copy Paste:
