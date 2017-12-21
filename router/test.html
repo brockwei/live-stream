@@ -39,6 +39,13 @@
                 </div>
             </div>
         </div>
+        <div id="wrtc-special-call-container">
+            <div id="wrtc-special-call-container2">
+                <div id="wrtc-special-call">
+
+                </div>
+            </div>
+        </div>
         <!-- Left Group -->
         <div id="left-ggroup">
             <div id="left-group">
@@ -88,7 +95,7 @@
                     <div class="wrtc-button wrtc-button-start" onclick="startButton(event)"><i class="fa fa-phone fa-2x"></i></div>
                     <div class="wrtc-button wrtc-button-mute"><i class="fa fa-microphone fa-2x"></i></div>
                     <div class="wrtc-button wrtc-button-stop"><i class="fa fa-times fa-2x"></i></div>
-                    <button class="btn captionOn" onclick="startButton(event)">Caption on</button>
+                    <button id="captionOn" class="btn" onclick="startButton(event)">Caption on</button>
                     <button class="btn captionOff" onclick="stopButton(event)">Caption off</button>
                 </div>
                 <span class=remoteCaption> 
@@ -112,9 +119,9 @@
         </div> -->
         <div id="chat-ggroup" style="width:100%;">
             <div class="chat-group">
-                <div id="chat-friend" class="control-header">
+                <!-- <div id="chat-friend" class="control-header">
                     <div id="typing"></div>
-                </div>
+                </div> -->
                 <!-- <div id="chat-group-header">
                     <div id="chat-friend"></div>
                 </div> -->
@@ -158,8 +165,9 @@
                         <div class="wrtc-button wrtc-button-stop">
                             <i class="fa fa-times fa-2x"></i>
                         </div>
-                        <button class="btn captionOn" onclick="startButton(event)">Caption on</button>
-                        <button class="btn captionOff" onclick="stopButton(event)">Caption off</button>
+                        <button id="captionOn" class="btn">Caption</button>
+                        <!-- <button class="btn captionOff" onclick="stopButton(event)">Caption off</button> -->
+
                     </div>
                     <span class=remoteCaption>
                         <div class="results">
@@ -174,6 +182,7 @@
                         </div>
                     </span>
                     <div id="div_language">
+                        <span id="selectLanguage">Select language spoken: </span>
                         <select id="select_language" onchange="updateCountry()"></select>
                         &nbsp;&nbsp;
                         <select id="select_dialect"></select>
@@ -365,9 +374,6 @@
     // }
 
 
-
-
-
     var final_span_remote = document.getElementById('final_span_remote'),
         interim_span_remote = document.getElementById('interim_span_remote'),
         final_span = document.getElementById('final_span'),
@@ -379,7 +385,7 @@
     function reset() {
         recognizing = false;
         interim_span.innerHTML = '';
-        transcription.innerHTML = '';
+        final_span.innerHTML = '';
         recognition.start();
     }
 
@@ -449,34 +455,28 @@
         }
     }
 
-    $('.captionOn').on('click', function () {
-        $('.results').show();
-        $('#div_language').show();
-        // var socket = io();
-        // // $('form').submit(function(){
-        // socket.on('video voice message', function () {
-        //     let temporary = $('#interim_span').val();
-        //     socket.emit('video interim message', temporary);
-        // });
-        // socket.on('video voice remote message', function (message) {
-        //     $('#interim_span_remote').html(message);
-        // });
-        // socket.on('video voice final message', function () {
-        //     let temporary = $('#final_span').val();
-        //     socket.emit('video voice final message', temporary);
-        // });
-        // socket.on('video voice final remote message', function (message) {
-        //     $('#final_span_remote').html(message);
-        // });
-        // //   return false;
-        // // });
-    });
-    $('.captionOff').on('click', function () {
-        $('.results').hide();
-        $('#div_language').hide();
-    });
+    $('.results').hide();
+    $('#div_language').hide();
 
+    $('#captionOn').on('click', function (event) {
+        if ($('.results').css('display') === "none" && $('#div_language').css('display') === "none") {
+            $('#captionOn').css("background-color", "rgb(9,28,87)");
+            $('#captionOn').css("color", "white");
+            $('#captionOn').html("");
+            $('#captionOn').html("Caption On");
+            $('.results').show();
+            $('#div_language').show();
+            startButton(event);
+        } else {
+            $('#captionOn').css("background-color", "rgb(122,18,22)");
+            $('#captionOn').html("");
+            $('#captionOn').html("Caption Off");
+            $('.results').hide();
+            $('#div_language').hide();
+            stopButton(event);
+        }
 
+    });
 
 </script>
 <script src="/scripts/mainforChatroom.js"></script>

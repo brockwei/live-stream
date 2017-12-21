@@ -119,6 +119,11 @@
     /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
     background: rgb(37, 0, 73);
 }
+.chat-area::-webkit-scrollbar-thumb:active {
+    /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
+    background: rgb(98, 0, 202);
+}
+
 .chat-field-hidden {
     display: none;
 }
@@ -152,4 +157,19 @@
     color:white;
     font-family:Arial, Helvetica, sans-serif;
     font-size:14px;
+}
+#selectLanguage {
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+}
+#captionOn {
+    margin-top:12px;
+    margin-left:4px;
+    height:30px;
+    width:85px;
+    border-radius:6px;
+}
+#div_language {
+    margin-top:17px;
 }

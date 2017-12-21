@@ -315,16 +315,32 @@ module.exports = (io) => {
             Messages.update({ "type": "read" }, constraints).then(() => { });
         })
         //WebRTC connection
-        socket.on('wrtc connection request', function (username) {
+        socket.on('wrtc connection request', function(username){
+            console.log('step 1');
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc connection request', 'Placeholder');
         })
-        socket.on('message', function (message, username) {
+        socket.on('message',function(message, username){
+            
             let targetSocket = socket.request.sessionStore.online[username];
-            console.log(targetSocket);
+            console.log('step 4'+username );
+            // console.log(targetSocket);
             io.to(targetSocket).emit('message', message);
         })
-
+        
+        // WebRTC connection
+        socket.on('wrtc send video request',function(username){
+            let targetSocket = socket.request.sessionStore.online[username];
+            io.to(targetSocket).emit('wrtc send video request', socket.request.session.userData.username);
+        })
+        socket.on('wrtc cancel video request',function(username){
+            let targetSocket = socket.request.sessionStore.online[username];
+            io.to(targetSocket).emit('wrtc cancel video request', 'placeholder');
+        })
+        socket.on('wrtc connection accepted', function(username){
+            let targetSocket = socket.request.sessionStore.online[username];
+            io.to(targetSocket).emit('wrtc connection accepted', 'placeholder');
+        });
         /*Experiment*/
         // socket.on('hehexd test', function(target){
         //     console.log(socket.request.sessionStore);
@@ -425,7 +441,7 @@ module.exports = (io) => {
             })
         });
 
-
+console.log('targeeeeetedsd')
         // Caption
         socket.on('video interim message', function (message) {
             let targetSocket = socket.request.sessionStore.online[username];

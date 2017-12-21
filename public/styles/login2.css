@@ -2,11 +2,11 @@ html,body {
     margin: 0;
     height: 100%;
     font-family: 'Ubuntu', sans-serif;
-    background-color: rgb(251,111,102);
+    background-color: rgb(67, 0, 134);
 }
 .white-strip {
     width: 100%;
-    height: 10vh;
+    height: 70px;
     padding: 14px;
     background-color: white;
     border-bottom: rgb(227,227,227);
@@ -24,23 +24,24 @@ html,body {
 .content-box {
     background-color: white;
     margin:0;
-    padding:20px 70px;
+    padding:4px 70px;
     text-align: center;
     
 }
 
 .signupFor {
-    float:left;
+    /* float:left; */
     color: darkslategrey;
     margin-bottom:2vh;
     font-family: 'Alegreya Sans', sans-serif;
     font-size:3vw;
+    clear: both;
 }
 .first {
     margin-left:2vw;
-    margin-top:0vh;
-    height:6vh;
-    width:11vw;
+    /* margin-top:0vh; */
+    height: 40px;
+    width: 100px;
     display: inline;
     float:right;
     font-family:'Alegreya Sans', sans-serif;
@@ -49,16 +50,16 @@ html,body {
     }
 
 .second {
-    background-color: rgb(251,111,102);
+    background-color: rgb(67, 0, 134);
     color:white;
-    border-color: rgb(251,111,102);
+    border-color: rgb(67, 0, 134);
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
 .third {
     background-color: white;
-    color:rgb(251,111,102);
-    border-color: rgb(251,111,102);
+    color:rgb(67, 0, 134);
+    border-color: rgb(67, 0, 134);
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
@@ -68,7 +69,7 @@ html,body {
 }
 
 @media screen and (max-width: 830px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         width:13vw;
@@ -78,10 +79,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:16px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 687px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1vh;
@@ -92,10 +93,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:14px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 616px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.3vh;
@@ -106,10 +107,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
     }
 @media screen and (max-width: 555px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.3vh;
@@ -122,10 +123,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 529px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.4vh;
@@ -138,10 +139,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 491px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.4vh;
@@ -154,10 +155,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 430px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.6vh;
@@ -169,10 +170,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 403px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.4vh;
@@ -185,26 +186,43 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 .second:hover {
     background-color: white;
-    color:rgb(251,111,102);
-    border-color: rgb(251,111,102);
+    color:rgb(67, 0, 134);
+    border-color: rgb(67, 0, 134);
 }
 .third:hover {
-    background-color: rgb(251,111,102);
+    background-color: rgb(67, 0, 134);
     color:white;
-    border-color: rgb(251,111,102);
+    border-color: rgb(67, 0, 134);
 }
 
 .white-box {
     background-color: white;
-    width:70vw;
-    margin :20vh 15vw;
-    padding: 60px;
+<<<<<<< HEAD
+    width:80vw;
+    margin :20vh 10vw;
+    padding: 50px;
+=======
+    max-width: 700px;
+    margin : 120px auto;
+    padding: 60px 20px;
+>>>>>>> 13ec138b630e3447e61f9c0bfb3189b7875d13a8
     border-radius: 15px;
+    
 }
+@media screen and (max-width: 593px) {
+    .white-box {
+        padding: 20px;
+    }
+    .signupFor {
+        margin-left:15px;
+    }
+    
+}
+
 #divider {
     margin-top:4vh;
 }
@@ -220,45 +238,55 @@ hr {
     float:right;
 }
 .social {
-    width:28vw;
-    height:7vh;
-    margin:1vh 1vw;
+    width:250px;
+    height:45px;
+    margin:0 auto;
     padding:7px 6px;
     font-size:20px;
-    margin-bottom:3vh;
+    margin-bottom:2vh;
     font-family: 'Abel', sans-serif;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
-@media screen and (max-width: 882px) {
+/* .social.fb {
+    margin-top:75px;
+} */
+.fa-facebook-official {
+    margin-top:3px;
+}
+.fa-google-plus {
+    margin-top:3px;
+}
+@media screen and (max-width: 889px) {
     .social {
         width:28vw;
         font-size:18px;
-    }
+    } */
     .signupFor {
         font-size:3vw;
     }
 }
 @media screen and (max-width: 812px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:17px;
         padding:12.3px 6px;
-    }
+    } */
     .content-box {
         padding:20px 50px; 
+        text-align: center;
     }
     .signupFor {
         font-size:3vw;
     }
 }
 @media screen and (max-width: 768px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:15px;
         padding:12.3px 6px;
         height:7vh;
-    }
+    } */
     .content-box {
         padding:20px 40px; 
     }
@@ -271,12 +299,12 @@ hr {
     }
 }
 @media screen and (max-width: 671px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:13px;
         padding:12.3px 6px;
         height:7vh;
-    }
+    } */
     .content-box {
         padding:20px 30px; 
     }
@@ -289,12 +317,12 @@ hr {
     }
 }
 @media screen and (max-width: 592px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:14px;
         padding:12.3px 0px;
         height:7vh;
-    }
+    } */
     .content-box {
         padding:20px 0px; 
     }
@@ -307,12 +335,12 @@ hr {
     }
 }
 @media screen and (max-width: 567px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:14px;
         padding:12.3px 0px;
         height:7vh;
-    }
+    } */
     .content-box {
         padding:20px 0px; 
     }
@@ -325,25 +353,34 @@ hr {
     }
 }
 @media screen and (max-width: 567px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:14px;
         padding:12.3px 0px;
         height:7vh;
-    }
+    } */
     .signupFor {
         font-size:6vw;
     }
 }
 @media screen and (max-width: 441px) {
-    .social {
+    /* .social {
         width:35vw;
         font-size:14px;
         padding:12.3px 0px;
         height:7vh;
-    }
+    } */
     .signupFor {
         font-size:7vw;
+    }
+}
+@media screen and (max-width: 332px) {
+    .slogan {
+        font-size:20px;
+        margin-top:8px;
+    }
+    .second {
+        font-size:12px;
     }
 }
 .fb {
@@ -374,6 +411,14 @@ input {
    border-color:rgb(238,238,238);
    text-indent:35px;
 }
+input.signup {
+    text-indent:0px !important;
+    background-color:rgb(171,151,242);
+    font-weight:bold;
+    font-size:23px;
+    color:whitesmoke;
+    font-family: 'Abel', sans-serif;
+}
 input::-webkit-input-placeholder {
     color:rgb(121,121,121);
 }
@@ -397,13 +442,16 @@ input[name*='assword'] {
     background-size:30px;
 }
 .signupNow {
-    color:rgb(251,111,102);
+    color:rgb(67, 0, 134);
     font-size:15px;
 
 }
 .loginNow {
-    background-color:rgb(254,42,96);
-    color:white;
-    width:35vw;
+    background-color:rgb(171,151,242);
+    font-weight:bold;
+    font-size:23px;
+    color:whitesmoke;
+    font-family: 'Abel', sans-serif;
+    /* width:35vw; */
     text-indent:0px !important;
 }
