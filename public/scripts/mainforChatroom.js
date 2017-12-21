@@ -1,3 +1,150 @@
+var desired_langs = {
+    'auto': 'Automatic',
+    'af': 'Afrikaans',
+    'sq': 'Albanian',
+    'am': 'Amharic',
+    'ar': 'Arabic',
+    'hy': 'Armenian',
+    'az': 'Azerbaijani',
+    'eu': 'Basque',
+    'be': 'Belarusian',
+    'bn': 'Bengali',
+    'bs': 'Bosnian',
+    'bg': 'Bulgarian',
+    'ca': 'Catalan',
+    'ceb': 'Cebuano',
+    'ny': 'Chichewa',
+    'zh-cn': 'Chinese Simplified',
+    'zh-tw': 'Chinese Traditional',
+    'co': 'Corsican',
+    'hr': 'Croatian',
+    'cs': 'Czech',
+    'da': 'Danish',
+    'nl': 'Dutch',
+    'en': 'English',
+    'eo': 'Esperanto',
+    'et': 'Estonian',
+    'tl': 'Filipino',
+    'fi': 'Finnish',
+    'fr': 'French',
+    'fy': 'Frisian',
+    'gl': 'Galician',
+    'ka': 'Georgian',
+    'de': 'German',
+    'el': 'Greek',
+    'gu': 'Gujarati',
+    'ht': 'Haitian Creole',
+    'ha': 'Hausa',
+    'haw': 'Hawaiian',
+    'iw': 'Hebrew',
+    'hi': 'Hindi',
+    'hmn': 'Hmong',
+    'hu': 'Hungarian',
+    'is': 'Icelandic',
+    'ig': 'Igbo',
+    'id': 'Indonesian',
+    'ga': 'Irish',
+    'it': 'Italian',
+    'ja': 'Japanese',
+    'jw': 'Javanese',
+    'kn': 'Kannada',
+    'kk': 'Kazakh',
+    'km': 'Khmer',
+    'ko': 'Korean',
+    'ku': 'Kurdish (Kurmanji)',
+    'ky': 'Kyrgyz',
+    'lo': 'Lao',
+    'la': 'Latin',
+    'lv': 'Latvian',
+    'lt': 'Lithuanian',
+    'lb': 'Luxembourgish',
+    'mk': 'Macedonian',
+    'mg': 'Malagasy',
+    'ms': 'Malay',
+    'ml': 'Malayalam',
+    'mt': 'Maltese',
+    'mi': 'Maori',
+    'mr': 'Marathi',
+    'mn': 'Mongolian',
+    'my': 'Myanmar (Burmese)',
+    'ne': 'Nepali',
+    'no': 'Norwegian',
+    'ps': 'Pashto',
+    'fa': 'Persian',
+    'pl': 'Polish',
+    'pt': 'Portuguese',
+    'ma': 'Punjabi',
+    'ro': 'Romanian',
+    'ru': 'Russian',
+    'sm': 'Samoan',
+    'gd': 'Scots Gaelic',
+    'sr': 'Serbian',
+    'st': 'Sesotho',
+    'sn': 'Shona',
+    'sd': 'Sindhi',
+    'si': 'Sinhala',
+    'sk': 'Slovak',
+    'sl': 'Slovenian',
+    'so': 'Somali',
+    'es': 'Spanish',
+    'su': 'Sundanese',
+    'sw': 'Swahili',
+    'sv': 'Swedish',
+    'tg': 'Tajik',
+    'ta': 'Tamil',
+    'te': 'Telugu',
+    'th': 'Thai',
+    'tr': 'Turkish',
+    'uk': 'Ukrainian',
+    'ur': 'Urdu',
+    'uz': 'Uzbek',
+    'vi': 'Vietnamese',
+    'cy': 'Welsh',
+    'xh': 'Xhosa',
+    'yi': 'Yiddish',
+    'yo': 'Yoruba',
+    'zu': 'Zulu'
+};
+
+var translationTable = {
+    'Afrikaans': 'Afrikaans',
+    'Indonesian': 'Bahasa Indonesia',
+    'Malay': 'Bahasa Melayu',
+    'Catalan': 'Català',
+    'Czech': 'Čeština',
+    'German': 'Deutsch',
+    'English': 'English',
+    'Spanish': 'Español',
+    'Basque': 'Euskara',
+    'French': 'Français',
+    'Galician': 'Galego',
+    'Croatian': 'Hrvatski',
+    'Zulu': 'IsiZulu',
+    'Icelandic':'Íslenska',
+    'Italian':'Italiano',
+    'Hungarian':'Magyar',
+    'Dutch':'Nederlands',
+    'Polish':'Polski',
+    'Portuguese':'Português',
+    'Romanian':'Română',
+    'Slovak':'Slovenčina',
+    "Finnish":'Suomi',
+    'Swedish':'Svenska',
+    'Turkish':'Türkçe',
+    'Bulgarian':'български',
+    'Russian':'Pусский',
+    'Serbian':'Српски',
+    'Korean':'한국어',
+    'Chinese':'中文',
+    'Japanese':'日本語',
+    'Latin':'Lingua latīna'
+}
+
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+}
+
+
 $(function () {
     var socket = io();
     var chatRoomConfig = {
@@ -559,6 +706,8 @@ $(function () {
         for (var i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
                 final_transcript += event.results[i][0].transcript;
+
+
                 socket.emit('video interim message', final_transcript, chatRoomConfig.targetID);
             } else {
                 interim_transcript += event.results[i][0].transcript;
@@ -577,4 +726,22 @@ $(function () {
         $('#final_span_remote').html(message);
     })
 
+    // socket.on('video voice desired lang pref', function () {
+    //     var desiredLanguage = $('#desiredlanguage').val();
+    //     var key = getKeyByValue(desired_langs, desiredLanguage);
+    //     console.log('desired lang code ' + key);
+    //     socket.emit('desired lang code', desiredLanguage)
+    // })
+
+    $('#desiredlanguage').on('change', function () {
+        console.log('changegegegegege')
+        // socket.on('video voice desire lang', function () {
+        // var desiredLanguage = $('#desiredlanguage').val();
+        var key = getKeyByValue(translationTable, $('#desiredlanguage option:selected').text());
+        console.log('keyyeee ' + key)
+        key = getKeyByValue(desired_langs, key);
+        console.log('desired lang code ' + key);
+        socket.emit('video voice desired lang key', key)
+    })
+    // })
 });

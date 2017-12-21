@@ -173,12 +173,12 @@
                         <!-- <button class="btn captionOff" onclick="stopButton(event)">Caption off</button> -->
 
                     </div>
-                    <span class=remoteCaption>
+                    <!-- <span class=remoteCaption>
                         <div class="results">
                             <span id="final_span_remote" class="final">remoteCaption: </span>
                             <span id="interim_span_remote" class="interim"></span>
                         </div>
-                    </span>
+                    </span> -->
                     <span class=localCaption>
                         <div class="results">
                             <span id="final_span" class="final"> </span>
@@ -191,6 +191,17 @@
                         &nbsp;&nbsp;
                         <select id="select_dialect"></select>
                     </div>
+                    <div id='translate_language'>
+                        <span id='desired_language'>Desired language</span>
+                        <select id="desiredlanguage" onchange="updateCountry()"></select>
+                        &nbsp;&nbsp;
+                    </div>
+                    <span class=remoteCaption>
+                        <!-- <div class="results"> -->
+                        <span id="final_span_remote" class="final"></span>
+                        <span id="interim_span_remote" class="interim"></span>
+                        <!-- </div> -->
+                    </span>
                 </div>
 
                 <!--  -->
@@ -264,7 +275,7 @@
             ['it-CH', 'Svizzera']],
         ['Magyar', ['hu-HU']],
         ['Nederlands', ['nl-NL']],
-        ['Norsk bokmål', ['nb-NO']],
+        // ['Norsk bokmål', ['nb-NO']],
         ['Polski', ['pl-PL']],
         ['Português', ['pt-BR', 'Brasil'],
             ['pt-PT', 'Portugal']],
@@ -283,8 +294,11 @@
             ['yue-Hant-HK', '粵語 (香港)']],
         ['日本語', ['ja-JP']],
         ['Lingua latīna', ['la']]];
+
+
     for (var i = 0; i < langs.length; i++) {
         select_language.options[i] = new Option(langs[i][0], i);
+        desiredlanguage.options[i] = new Option(langs[i][0], i);
     }
     select_language.selectedIndex = 6;
     updateCountry();
@@ -293,10 +307,12 @@
     function updateCountry() {
         for (var i = select_dialect.options.length - 1; i >= 0; i--) {
             select_dialect.remove(i);
+
         }
         var list = langs[select_language.selectedIndex];
         for (var i = 1; i < list.length; i++) {
             select_dialect.options.add(new Option(list[i][1], list[i][0]));
+
         }
         select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
     }
