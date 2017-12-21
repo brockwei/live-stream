@@ -317,14 +317,14 @@ module.exports = (io) => {
         })
         //WebRTC connection
         socket.on('wrtc connection request', function (username) {
-            console.log('step 1');
+            // console.log('step 1');
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc connection request', 'Placeholder');
         })
         socket.on('message', function (message, username) {
 
             let targetSocket = socket.request.sessionStore.online[username];
-            console.log('step 4' + username);
+            // console.log('step 4' + username);
             // console.log(targetSocket);
             io.to(targetSocket).emit('message', message);
         })
@@ -342,6 +342,10 @@ module.exports = (io) => {
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc connection accepted', 'placeholder');
         });
+        socket.on('wrtc close peer connection',function(username){
+            let targetSocket = socket.request.sessionStore.online[username];
+            io.to(targetSocket).emit('wrtc close peer connection', 'placeholder');
+        })
         /*Experiment*/
         // socket.on('hehexd test', function(target){
         //     console.log(socket.request.sessionStore);
@@ -441,7 +445,9 @@ module.exports = (io) => {
                 })
             })
         });
-
+        socket.on('group chat leave room', function(room){
+            socket.leave(room);
+        })
         // Caption
         socket.on('video interim message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
