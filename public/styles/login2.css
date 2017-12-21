@@ -2,7 +2,7 @@ html,body {
     margin: 0;
     height: 100%;
     font-family: 'Ubuntu', sans-serif;
-    background-color: rgb(251,111,102);
+    background-color: rgb(67, 0, 134);
 }
 .white-strip {
     width: 100%;
@@ -24,7 +24,7 @@ html,body {
 .content-box {
     background-color: white;
     margin:0;
-    padding:20px 70px;
+    padding:4px 70px;
     text-align: center;
     
 }
@@ -49,16 +49,16 @@ html,body {
     }
 
 .second {
-    background-color: rgb(251,111,102);
+    background-color: rgb(67, 0, 134);
     color:white;
-    border-color: rgb(251,111,102);
+    border-color: rgb(67, 0, 134);
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
 .third {
     background-color: white;
-    color:rgb(251,111,102);
-    border-color: rgb(251,111,102);
+    color:rgb(67, 0, 134);
+    border-color: rgb(67, 0, 134);
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
@@ -189,22 +189,32 @@ html,body {
 }
 .second:hover {
     background-color: white;
-    color:rgb(251,111,102);
-    border-color: rgb(251,111,102);
+    color:rgb(67, 0, 134);
+    border-color: rgb(67, 0, 134);
 }
 .third:hover {
-    background-color: rgb(251,111,102);
+    background-color: rgb(67, 0, 134);
     color:white;
-    border-color: rgb(251,111,102);
+    border-color: rgb(67, 0, 134);
 }
 
 .white-box {
     background-color: white;
-    width:70vw;
-    margin :20vh 15vw;
-    padding: 60px;
+    width:80vw;
+    margin :20vh 10vw;
+    padding: 50px;
     border-radius: 15px;
 }
+@media screen and (max-width: 593px) {
+    .white-box {
+        padding: 20px;
+    }
+    .signupFor {
+        margin-left:15px;
+    }
+    
+}
+
 #divider {
     margin-top:4vh;
 }
@@ -220,17 +230,28 @@ hr {
     float:right;
 }
 .social {
-    width:28vw;
+    display:flex;
+    justify-content:center;
+    width:24vw;
     height:7vh;
-    margin:1vh 1vw;
+    margin:1vh auto;
     padding:7px 6px;
     font-size:20px;
-    margin-bottom:3vh;
+    margin-bottom:2vh;
     font-family: 'Abel', sans-serif;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
-@media screen and (max-width: 882px) {
+/* .social.fb {
+    margin-top:75px;
+} */
+.fa-facebook-official {
+    margin-top:3px;
+}
+.fa-google-plus {
+    margin-top:3px;
+}
+@media screen and (max-width: 889px) {
     .social {
         width:28vw;
         font-size:18px;
@@ -346,6 +367,15 @@ hr {
         font-size:7vw;
     }
 }
+@media screen and (max-width: 332px) {
+    .slogan {
+        font-size:20px;
+        margin-top:8px;
+    }
+    .second {
+        font-size:12px;
+    }
+}
 .fb {
     background-color:white;
     color:rgb(59,88,152);
@@ -374,6 +404,14 @@ input {
    border-color:rgb(238,238,238);
    text-indent:35px;
 }
+input.signup {
+    text-indent:0px !important;
+    background-color:rgb(171,151,242);
+    font-weight:bold;
+    font-size:23px;
+    color:whitesmoke;
+    font-family: 'Abel', sans-serif;
+}
 input::-webkit-input-placeholder {
     color:rgb(121,121,121);
 }
@@ -397,13 +435,16 @@ input[name*='assword'] {
     background-size:30px;
 }
 .signupNow {
-    color:rgb(251,111,102);
+    color:rgb(67, 0, 134);
     font-size:15px;
 
 }
 .loginNow {
-    background-color:rgb(254,42,96);
-    color:white;
-    width:35vw;
+    background-color:rgb(171,151,242);
+    font-weight:bold;
+    font-size:23px;
+    color:whitesmoke;
+    font-family: 'Abel', sans-serif;
+    /* width:35vw; */
     text-indent:0px !important;
 }

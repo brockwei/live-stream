@@ -401,12 +401,18 @@ module.exports = (io) => {
             })
         });
 
-
+console.log('targeeeeetedsd')
         // Caption
         socket.on('video interim message', function(message) {
+            let targetSocket = socket.request.sessionStore.online[username];
+    
+            console.log(message + " this is message! ");
+            console.log(chatRoomConfig.targetID + ": this is target ID ... ");
             io.to(targetSocket).emit('video voice remote message', message);
         });
         socket.on('video voice final message', function(message) {
+            let targetSocket = socket.request.sessionStore.online[username];
+            console.log(chatRoomConfig.targetID + ": this is target ID !!! ");
             io.to(targetSocket).emit('video voice final remote message', message);
         });
         

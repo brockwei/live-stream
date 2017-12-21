@@ -35,14 +35,19 @@
     color: white;
     background: rgb(255, 166, 0);
     padding: 5px 10px;
+    margin-left:6px;
     border: 1px solid orange;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+.wrtc-button-start {
+    background: rgb(152,251,152) !important;
+    border: 1px solid rgb(152,251,152) !important;
+}
 .wrtc-button-start:hover {
-    background: orangered;
+    background: rgb(144,238,144);
 }
 .wrtc-button-stop {
     background: red;
