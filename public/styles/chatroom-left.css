@@ -57,7 +57,7 @@
 }
 #control-search-display {
     height: 50px;
-    padding: 0 5px 0 5px;
+    padding: 0 5px 0 10px;
     color: white;
     /* border-bottom: rgb(189, 123, 255); */
     background: rgb(37, 0, 73);
@@ -66,6 +66,7 @@
     align-items: center;
 }
 .control-friend-button-group {
+    font-size: 1.3em;
     height: 20px;
     width: 45px;
     display: flex;
@@ -108,9 +109,9 @@
 .control-friend-added,.control-friend-message-no{
     height: 20px;
     width: 20px;
-    color: rgb(37, 0, 73);
-    background: rgb(82, 0, 163);
-    border: 1px solid rgb(82, 0, 163);
+    color: rgb(82, 0, 163);
+    /* background: rgb(82, 0, 163); */
+    /* border: 1px solid rgb(82, 0, 163); */
 }
 
 /* Control Friends list styles */
@@ -216,7 +217,7 @@
 .control-group-message:hover,.control-group-delete:hover {
     /* border: 1px solid white; */
     color: white;
-    background: rgb(0, 7, 68);
+    /* background: rgb(0, 7, 68); */
 }
 
 /*Control Group Improvement*/

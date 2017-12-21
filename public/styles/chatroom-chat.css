@@ -40,9 +40,16 @@
     justify-content: center;
     align-items: center;
 }
+#chat-call-friend:hover {
+    background: rgb(86, 0, 172);
+}
+#chat-call-friend:active {
+    background: rgb(67, 0, 134);
+}
 .chat-area {
     background: rgb(230,230,230);
     margin: 0;
+    padding: 10px 0;
     height: 100%;
     overflow-y: scroll;
     width: 100%;
@@ -73,9 +80,11 @@
 }
 .chat-message-username {
     color: yellow;
+    font-weight:700;
 }
 .chat-message-friend {
-    color: blue;
+    color: rgb(98, 0, 202);
+    font-weight:700;
 }
 .chat-message-sent {
     background: rgb(98, 0, 202);
