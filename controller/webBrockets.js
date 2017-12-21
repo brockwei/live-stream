@@ -1,4 +1,5 @@
 const client = require('./redis');
+const translate = require('google-translate-api');
 
 //Database
 const Model = require('../models');
@@ -315,29 +316,29 @@ module.exports = (io) => {
             Messages.update({ "type": "read" }, constraints).then(() => { });
         })
         //WebRTC connection
-        socket.on('wrtc connection request', function(username){
+        socket.on('wrtc connection request', function (username) {
             console.log('step 1');
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc connection request', 'Placeholder');
         })
-        socket.on('message',function(message, username){
-            
+        socket.on('message', function (message, username) {
+
             let targetSocket = socket.request.sessionStore.online[username];
-            console.log('step 4'+username );
+            console.log('step 4' + username);
             // console.log(targetSocket);
             io.to(targetSocket).emit('message', message);
         })
-        
+
         // WebRTC connection
-        socket.on('wrtc send video request',function(username){
+        socket.on('wrtc send video request', function (username) {
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc send video request', socket.request.session.userData.username);
         })
-        socket.on('wrtc cancel video request',function(username){
+        socket.on('wrtc cancel video request', function (username) {
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc cancel video request', 'placeholder');
         })
-        socket.on('wrtc connection accepted', function(username){
+        socket.on('wrtc connection accepted', function (username) {
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc connection accepted', 'placeholder');
         });
@@ -441,16 +442,15 @@ module.exports = (io) => {
             })
         });
 
-console.log('targeeeeetedsd')
         // Caption
-        socket.on('video interim message', function (message) {
+        socket.on('video interim message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
             console.log('message ' + message)
-            console.log('chatroomConfig ' + chatRoomConfig.targetID)
+            // console.log('chatroomConfig ' + chatRoomConfig.targetID)
             //I need the id of the other guy
-            io.to(targetSocket).emit('video voice remote message', message);
+            io.to(targetSocket).emit('video voice interim remote message', message);
         });
-        socket.on('video voice final message', function (message) {
+        socket.on('video voice final message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
             console.log('video voice final message ' + message)
             //I need the id of the other guy
