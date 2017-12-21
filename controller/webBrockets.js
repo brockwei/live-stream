@@ -18,7 +18,7 @@ module.exports = (io) => {
             let currentSession = JSON.parse(socket.request.sessionStore.sessions[socket.request.sessionID]);
             currentSession.socketID = socket.id;
             socket.request.sessionStore.sessions[socket.request.sessionID] = JSON.stringify(currentSession);
-            // console.log(`..........${socket.id}............`);
+            console.log(`..........${socket.id}............`);
             // console.log(socket.request.sessionStore.sessions);
         }
         /*-3- On socket connection, emit to client some information about the user*/
@@ -247,6 +247,7 @@ module.exports = (io) => {
             if(username){
                 // let targetSocket = socket.request.session.targetSocket;
                 let targetSocket = socket.request.sessionStore.online[username];
+                console.log(targetSocket+"okay yay");
                 Messages.create({
                     username:socket.request.session.userData.username,
                     friend: username,

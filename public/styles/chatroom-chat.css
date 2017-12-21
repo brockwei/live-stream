@@ -1,11 +1,5 @@
-/*Right side styles (Video & Chat)*/
-#right-group {
-    /* flex: 1 1 auto; This allows the center div to take 100% of remaining space in middle */
-    /* height: 100%; */
-    /* display: flex; */
-    width: 100%;
-    display: none;
-}
+/*Right side styles (Chat)*/
+
 
 .chat-group {
     /* border-left: 1px solid rgb(189, 123, 255); */
@@ -46,9 +40,16 @@
     justify-content: center;
     align-items: center;
 }
+#chat-call-friend:hover {
+    background: rgb(86, 0, 172);
+}
+#chat-call-friend:active {
+    background: rgb(67, 0, 134);
+}
 .chat-area {
     background: rgb(230,230,230);
     margin: 0;
+    padding: 10px 0;
     height: 100%;
     overflow-y: scroll;
     width: 100%;
@@ -79,9 +80,11 @@
 }
 .chat-message-username {
     color: yellow;
+    font-weight:700;
 }
 .chat-message-friend {
-    color: blue;
+    color: rgb(98, 0, 202);
+    font-weight:700;
 }
 .chat-message-sent {
     background: rgb(98, 0, 202);
@@ -139,14 +142,14 @@
     margin-top:2px;
     font-size:10px;
     color:white;
-    }
-    .localCaption {
-        color:white;
-        font-family:Arial, Helvetica, sans-serif;
-        font-size:14px;
-    }
-    .remoteCaption {
-        color:white;
-        font-family:Arial, Helvetica, sans-serif;
-        font-size:14px;
-    }
+}
+.localCaption {
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+}
+.remoteCaption {
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+}

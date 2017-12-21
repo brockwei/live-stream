@@ -46,13 +46,13 @@ $(function () {
         $('#chat-messages').empty();
         for(var i in message){
             if(message[i].type=="to"){
-                $('#chat-messages').append($('<li class="chat-message chat-message-sent">').html(`<span class='chat-message-username'>${message[i].username}</span><br>${message[i].message}`));
+                $('#chat-messages').append($('<li class="chat-message chat-message-sent">').html(`<span style="font-weight:700;" class='chat-message-username'>${message[i].username}</span><br>${message[i].message}`));
             }
             else if (message[i].type=="read"){
-                $('#chat-messages').append($('<li class="chat-message chat-message-read">').html(`<span class='chat-message-friend'>${message[i].friend}</span><br>${message[i].message}`));    
+                $('#chat-messages').append($('<li class="chat-message chat-message-read">').html(`<span style="font-weight:700;" class='chat-message-friend'>${message[i].friend}</span><br>${message[i].message}`));    
             }
             else if (message[i].type=="from"){
-                $('#chat-messages').append($('<li class="chat-message chat-message-unread">').html(`<span class='chat-message-friend'>${message[i].friend}</span><br>${message[i].message}`));    
+                $('#chat-messages').append($('<li class="chat-message chat-message-unread">').html(`<span style="font-weight:700;" class='chat-message-friend'>${message[i].friend}</span><br>${message[i].message}`));    
             }
             //Scrolls to the bottom of the page
             // if (scrollH < 0) {
@@ -114,7 +114,7 @@ $(function () {
 
    socket.on('typing', debounce( function(data){
        console.log('typinggggg');
-        $('#typing').empty();
+        $("#typing").empty();
    },2000));
 
     /*-1- Chat Timed Out */
@@ -150,7 +150,7 @@ $(function () {
         let secondClass= status=="pending"||status=="friends"?"control-friend-delete":"control-friend-message-no";
         let firstIcon  = status=="friends"?"fa-comment":"fa-user-plus";
         let secondIcon = status=="pending"||status=="friends"?"fa-times":"fa-comment";
-        let result = username==='User not found'||username==='This is you'?`<span style="margin:0 auto;">${username}</span>`:`<span>${username}</span><div class="control-friend-button-group"><div class="${firstClass}"><i class="fa ${firstIcon}"></i></div><div class="${secondClass}"><i class="fa ${secondIcon}"></i></div></div>`;
+        let result = username==='User not found'||username==='This is you'?`<span style="color:rgb(255, 77, 77);margin:0 auto;">${username}</span>`:`<span>${username}</span><div class="control-friend-button-group"><div class="${firstClass}"><i class="fa ${firstIcon}"></i></div><div class="${secondClass}"><i class="fa ${secondIcon}"></i></div></div>`;
         $('#control-search-display').html(result);
     });
     $('body').on('click', '.control-friend-add', function(){
@@ -213,10 +213,11 @@ $(function () {
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         $('#chat-friend').html(`@${chatRoomConfig.targetID}` +'<span id="typing"> </span>');
         // console.log();
-        if($(this).parent().parent().children().hasClass('control-friend-online')){
+        if($(this).parent().parent().children().hasClass('control-friend-online')&&!!window.chrome){
             $('#chat-friend').html(`<div>@${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
         }
-        else if($(this).parent().parent().children().hasClass('control-friend-offline')){
+        // else if($(this).parent().parent().children().hasClass('control-friend-offline')){
+        else{
             $('#chat-friend').html(`<div>@${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div>`);    
         }
         socket.emit('control message target', chatRoomConfig.targetID);

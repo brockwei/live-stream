@@ -21,6 +21,7 @@ var cookieParser = require('cookie-parser');
 const passport = require('passport');
 const setupPassport = require('./controller/passport');
 const expressValidator = require('express-validator');
+const translate = require('google-translate-api');
 const router = require('./router/router')(express);
 const port = process.env.PORT
 const flash = require('connect-flash')
