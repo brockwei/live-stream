@@ -89,10 +89,10 @@ $(function () {
         else {
             $(`[user-message=${friend}]`).addClass('control-friend-message-unread');
         }
-        $('#right-group').hide();
-        if(peerConnection){
-            peerConnection.close();
-        }
+        // $('#right-group').hide();
+        // if(peerConnection){
+        //     peerConnection.close();
+        // }
     })
 
     //  Function to show a person is typing
@@ -223,7 +223,6 @@ $(function () {
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         $('#chat-friend').html(`@${chatRoomConfig.targetID}` +'<span id="typing"> </span>');
-        // console.log();
         if($(this).parent().parent().children().hasClass('control-friend-online')&&!!window.chrome){
             $('#chat-friend').html(`<div>@${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
         }
@@ -251,6 +250,7 @@ $(function () {
     remoteVideo = document.getElementById('remoteVideo');
 
     socket.on('message',function(stream){
+        // console.log('what');
         gotMessageFromServer(stream);
     })
     //Function to get webcam
@@ -275,7 +275,8 @@ $(function () {
         }
     }
     function start(isCaller){
-        console.log('start', isCaller);
+        // console.log('start', isCaller);
+        console.log('step 3' +chatRoomConfig.username);
         peerConnection = new RTCPeerConnection(peerConnectionConfig);
         peerConnection.onicecandidate = gotIceCandidate;
         peerConnection.onaddstream = gotRemoteStream;
@@ -288,12 +289,12 @@ $(function () {
     function gotDescription(description){
         console.log('got description');
         peerConnection.setLocalDescription(description, function(){
-            socket.emit('message', JSON.stringify({'sdp':description}),chatRoomConfig.targetID);
+            socket.emit('message', JSON.stringify({'sdp':description}),chatRoomConfig.videoTargetID);
         }, function(){console.log('set description error')});
     }
     function gotIceCandidate(event){
         if(event.candidate){
-            socket.emit('message', JSON.stringify({'ice':event.candidate}),chatRoomConfig.targetID);
+            socket.emit('message', JSON.stringify({'ice':event.candidate}),chatRoomConfig.videoTargetID);
         }
     }
     function gotRemoteStream(event){
@@ -304,6 +305,7 @@ $(function () {
         console.log(error);
     }
     function gotMessageFromServer(message){
+        console.log('step 7');
         if(!peerConnection) start(false);
 
         var signal = JSON.parse(message); //deprecated
@@ -336,11 +338,102 @@ $(function () {
     //     grabWebCamVideo();
     // })
 
-    $('body').on('click','.wrtc-button-start', function(){
-        
-        socket.emit('wrtc connection request', chatRoomConfig.targetID);
+    //zzzzEXPERIMENT
+    $('body').on('click','.wrtc-button-start',()=>{
+        $('#wrtc-special-call-container').fadeIn();
+        $('#wrtc-special-call').html(`<div style="height:100%;display:flex;flex-direction:column;justify-content:space-between;"><div>Calling <strong style="color:greenyellow;">${chatRoomConfig.targetID}</strong>...</div><div class="wrtc-button wrtc-cancel-video-request" style="background:red;margin:0 auto;"><i class="fa fa-times fa-2x"></i></div></div>`)
+        chatRoomConfig.videoTargetID = chatRoomConfig.targetID;
+        socket.emit('wrtc send video request',chatRoomConfig.targetID);
+        $('.wrtc-button-start').hide();
     })
+    $('body').on('click','.wrtc-cancel-video-request',function(){
+        socket.emit('wrtc cancel video request',chatRoomConfig.videoTargetID);
+        $('#wrtc-special-call-container').fadeOut();
+        $('.wrtc-button-start').show();
+    })
+    //lionheart
+    //Function to get webcam
+    function grabWebCamVideo2(resolve,reject){
+        var constraints = {video: true,audio: true};
+        navigator.mediaDevices.getUserMedia(constraints).then(function(stream){
+            localStream = stream;
+            localVideo.srcObject = stream;
+            resolve(stream);
+        }).catch(function(err){
+            reject(err);
+            console.log('error');
+        });
+    }
+    $('body').on('click','.wrtc-accept-video-request',function(){
+        
+        let promise = new Promise((resolve,reject)=>{
+            grabWebCamVideo2(resolve,reject);
+            $('.wrtc-button-start').hide();
+            $('#right-group').show();
+            if(peerConnection){
+                peerConnection.close();
+            }
+            $('#chat-call-friend').toggleClass('control-message-highlighted');
+            // resolve();
+        });
+        promise.then((localStream)=>{
+            chatRoomConfig.targetID = chatRoomConfig.videoTargetID;
+            // console.log(chatRoomConfig.videoTargetID);
+            
+            $('#chat-friend').html(`@${chatRoomConfig.videoTargetID}` +'<span id="typing"> </span>');
+            if($(`[user-message="${chatRoomConfig.videoTargetID}"]`).parent().parent().children().hasClass('control-friend-online')&&!!window.chrome){
+                $('#chat-friend').html(`<div>@${chatRoomConfig.videoTargetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
+            }
+            // else if($(this).parent().parent().children().hasClass('control-friend-offline')){
+            else{
+                $('#chat-friend').html(`<div>@${chatRoomConfig.videoTargetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div>`);    
+            }
+            
+                chatRoomConfig.groupChatRoom = null;
+                $('#chat-ggroup').addClass('mobile-show');
+                $('.control-friend').removeClass('control-message-highlighted');
+                $('.control-group').removeClass('control-message-highlighted');
+                $(`[user-message="${chatRoomConfig.videoTargetID}"]`).parent().parent().addClass('control-message-highlighted');
+                $('#chat-field').parent().removeClass('chat-field-hidden');
+                socket.emit('control message target', chatRoomConfig.videoTargetID);
+                socket.emit('chat retrieve messages', chatRoomConfig.videoTargetID);
+            socket.emit('wrtc connection accepted', chatRoomConfig.videoTargetID);
+            socket.emit('wrtc connection request', chatRoomConfig.videoTargetID);
+            $('#wrtc-special-call-container').fadeOut();
+        }).catch(e=>{
+            console.log(e);
+        })
+        
+        // socket.emit('control message target', chatRoomConfig.videoTargetID);
+        // socket.emit('chat retrieve messages', chatRoomConfig.videoTargetID);
+        // // 
+        // chatRoomConfig.groupChatRoom = null;
+        // $('#chat-ggroup').addClass('mobile-show');
+        // $('.control-friend').removeClass('control-message-highlighted');
+        // $('.control-group').removeClass('control-message-highlighted');
+        // $(`[user-message="${chatRoomConfig.videoTargetID}"]`).parent().parent().addClass('control-message-highlighted');
+        // $('#chat-field').parent().removeClass('chat-field-hidden');
+        // // 
+        
+    })
+    socket.on('wrtc send video request', function(username){
+        chatRoomConfig.videoTargetID = username;
+        $('#wrtc-special-call-container').fadeIn();
+        $('#wrtc-special-call').html(`<div style="height:100%;display:flex;flex-direction:column;justify-content:space-between;"><div><strong style="color:greenyellow;">${username}</strong> is calling you!</div><div style="display:flex;"><div class="wrtc-button wrtc-accept-video-request" style="background:red;margin:0 auto;"><i class="fa fa-phone fa-2x"></i></div>&nbsp&nbsp&nbsp<div class="wrtc-button wrtc-cancel-video-request" style="background:red;margin:0 auto;"><i class="fa fa-times fa-2x"></i></div></div></div>`)
+    })
+    socket.on('wrtc cancel video request', function(){
+        $('#wrtc-special-call-container').fadeOut();
+        $('.wrtc-button-start').show();
+    })
+    socket.on('wrtc connection accepted',function(){
+        $('#wrtc-special-call-container').fadeOut();
+    });
+    // $('body').on('click','.wrtc-button-start', function(){
+        
+    //     socket.emit('wrtc connection request', chatRoomConfig.targetID);
+    // })
     socket.on('wrtc connection request',function(placeholder){
+        console.log('step 2');
         start(true);
     })
     $('body').on('click','.wrtc-button-mute', function(){
@@ -353,6 +446,7 @@ $(function () {
     })
     //Webcam Basic Javascript
     $('body').on('click','#chat-call-friend', function(){
+        $('.wrtc-button-start').show();
         grabWebCamVideo();
         $('#right-group').slideToggle('fast');
         if(peerConnection){
