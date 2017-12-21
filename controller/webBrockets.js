@@ -292,15 +292,31 @@ module.exports = (io) => {
         })
         //WebRTC connection
         socket.on('wrtc connection request', function(username){
+            console.log('step 1');
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc connection request','Placeholder');
         })
         socket.on('message',function(message, username){
+            
             let targetSocket = socket.request.sessionStore.online[username];
-            console.log(targetSocket);
+            console.log('step 4'+username );
+            // console.log(targetSocket);
             io.to(targetSocket).emit('message', message);
         })
         
+        // WebRTC connection
+        socket.on('wrtc send video request',function(username){
+            let targetSocket = socket.request.sessionStore.online[username];
+            io.to(targetSocket).emit('wrtc send video request', socket.request.session.userData.username);
+        })
+        socket.on('wrtc cancel video request',function(username){
+            let targetSocket = socket.request.sessionStore.online[username];
+            io.to(targetSocket).emit('wrtc cancel video request', 'placeholder');
+        })
+        socket.on('wrtc connection accepted', function(username){
+            let targetSocket = socket.request.sessionStore.online[username];
+            io.to(targetSocket).emit('wrtc connection accepted', 'placeholder');
+        });
         /*Experiment*/
         // socket.on('hehexd test', function(target){
         //     console.log(socket.request.sessionStore);
@@ -333,14 +349,14 @@ module.exports = (io) => {
             });
             io.to(socket.id).emit('group chat updatechat', 'SERVER', 'you have connected to room1');
             socket.broadcast.to(`${socket.room}`).emit('group chat updatechat', 'SERVER', socket.username + ' has connected to this room');
-            console.log('emailsssss ' + socket.request.session.userData.email);
+            // console.log('emailsssss ' + socket.request.session.userData.email);
             let emailAndName = {
                 email: socket.request.session.userData.email,
                 username: socket.request.session.userData.username,
             }
-            console.log(emailAndName);
+            // console.log(emailAndName);
             emailAndName = JSON.stringify(emailAndName);
-            console.log('emailandname ' + emailAndName);
+            // console.log('emailandname ' + emailAndName);
             client.sadd(`${socket.room}_userlist`, emailAndName, function (err, num) {
                 if (err) { return console.log(err)}
                 groupChatData.numberOfUsers = num;
@@ -404,6 +420,7 @@ module.exports = (io) => {
 console.log('targeeeeetedsd')
         // Caption
         socket.on('video interim message', function(message) {
+<<<<<<< HEAD
             let targetSocket = socket.request.sessionStore.online[username];
     
             console.log(message + " this is message! ");
@@ -413,6 +430,14 @@ console.log('targeeeeetedsd')
         socket.on('video voice final message', function(message) {
             let targetSocket = socket.request.sessionStore.online[username];
             console.log(chatRoomConfig.targetID + ": this is target ID !!! ");
+=======
+            console.log('message '+message)
+            console.log('chatroomConfig '+chatRoomConfig.targetID)
+            io.to(targetSocket).emit('video voice remote message', message);
+        });
+        socket.on('video voice final message', function(message) {
+            console.log('video voice final message '+ message)
+>>>>>>> 13ec138b630e3447e61f9c0bfb3189b7875d13a8
             io.to(targetSocket).emit('video voice final remote message', message);
         });
         

@@ -6,7 +6,7 @@ html,body {
 }
 .white-strip {
     width: 100%;
-    height: 10vh;
+    height: 70px;
     padding: 14px;
     background-color: white;
     border-bottom: rgb(227,227,227);
@@ -30,17 +30,18 @@ html,body {
 }
 
 .signupFor {
-    float:left;
+    /* float:left; */
     color: darkslategrey;
     margin-bottom:2vh;
     font-family: 'Alegreya Sans', sans-serif;
     font-size:3vw;
+    clear: both;
 }
 .first {
     margin-left:2vw;
-    margin-top:0vh;
-    height:6vh;
-    width:11vw;
+    /* margin-top:0vh; */
+    height: 40px;
+    width: 100px;
     display: inline;
     float:right;
     font-family:'Alegreya Sans', sans-serif;
@@ -68,7 +69,7 @@ html,body {
 }
 
 @media screen and (max-width: 830px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         width:13vw;
@@ -78,10 +79,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:16px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 687px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1vh;
@@ -92,10 +93,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:14px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 616px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.3vh;
@@ -106,10 +107,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
     }
 @media screen and (max-width: 555px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.3vh;
@@ -122,10 +123,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 529px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.4vh;
@@ -138,10 +139,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 491px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.4vh;
@@ -154,10 +155,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 430px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.6vh;
@@ -169,10 +170,10 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 @media screen and (max-width: 403px) {
-    .first {
+    /* .first {
         margin-left:2vw;
         margin-top:0.3vh;
         padding-top:1.4vh;
@@ -185,7 +186,7 @@ html,body {
         font-family:'Alegreya Sans', sans-serif;
         font-size:13px;
         white-space: normal;
-    }
+    } */
 }
 .second:hover {
     background-color: white;
@@ -200,10 +201,17 @@ html,body {
 
 .white-box {
     background-color: white;
+<<<<<<< HEAD
     width:80vw;
     margin :20vh 10vw;
     padding: 50px;
+=======
+    max-width: 700px;
+    margin : 120px auto;
+    padding: 60px 20px;
+>>>>>>> 13ec138b630e3447e61f9c0bfb3189b7875d13a8
     border-radius: 15px;
+    
 }
 @media screen and (max-width: 593px) {
     .white-box {
@@ -230,11 +238,9 @@ hr {
     float:right;
 }
 .social {
-    display:flex;
-    justify-content:center;
-    width:24vw;
-    height:7vh;
-    margin:1vh auto;
+    width:250px;
+    height:45px;
+    margin:0 auto;
     padding:7px 6px;
     font-size:20px;
     margin-bottom:2vh;
@@ -255,31 +261,32 @@ hr {
     .social {
         width:28vw;
         font-size:18px;
-    }
+    } */
     .signupFor {
         font-size:3vw;
     }
 }
 @media screen and (max-width: 812px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:17px;
         padding:12.3px 6px;
-    }
+    } */
     .content-box {
         padding:20px 50px; 
+        text-align: center;
     }
     .signupFor {
         font-size:3vw;
     }
 }
 @media screen and (max-width: 768px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:15px;
         padding:12.3px 6px;
         height:7vh;
-    }
+    } */
     .content-box {
         padding:20px 40px; 
     }
@@ -292,12 +299,12 @@ hr {
     }
 }
 @media screen and (max-width: 671px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:13px;
         padding:12.3px 6px;
         height:7vh;
-    }
+    } */
     .content-box {
         padding:20px 30px; 
     }
@@ -310,12 +317,12 @@ hr {
     }
 }
 @media screen and (max-width: 592px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:14px;
         padding:12.3px 0px;
         height:7vh;
-    }
+    } */
     .content-box {
         padding:20px 0px; 
     }
@@ -328,12 +335,12 @@ hr {
     }
 }
 @media screen and (max-width: 567px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:14px;
         padding:12.3px 0px;
         height:7vh;
-    }
+    } */
     .content-box {
         padding:20px 0px; 
     }
@@ -346,23 +353,23 @@ hr {
     }
 }
 @media screen and (max-width: 567px) {
-    .social {
+    /* .social {
         width:28vw;
         font-size:14px;
         padding:12.3px 0px;
         height:7vh;
-    }
+    } */
     .signupFor {
         font-size:6vw;
     }
 }
 @media screen and (max-width: 441px) {
-    .social {
+    /* .social {
         width:35vw;
         font-size:14px;
         padding:12.3px 0px;
         height:7vh;
-    }
+    } */
     .signupFor {
         font-size:7vw;
     }
