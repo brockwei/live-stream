@@ -132,13 +132,13 @@
                 </div> -->
                 <!-- <div id="chat-group-header"><div id="chat-friend"></div></div>
                     <!--  -->
-                    <!-- <div id="right-group">
+                <!-- <div id="right-group">
                         <div class="video-group">
                             <video id="remoteVideo" autoplay></video>
                             <video id="localVideo" autoplay muted></video>
                         </div>
                         <div class="wrtc-button wrtc-button-mute">
-                            <i class="fa fa-microphone fa-2x"></i> --> 
+                            <i class="fa fa-microphone fa-2x"></i> -->
                 <div id="chat-group-header">
                     <div id="chat-friend"></div>
                 </div>
@@ -208,6 +208,8 @@
     pageReady();
 </script> -->
 <script>
+    var socket = io();
+
     var langs =
         [['Afrikaans', ['af-ZA']],
         ['Bahasa Indonesia', ['id-ID']],
@@ -341,13 +343,13 @@
     //             interim_transcript += event.results[i][0].transcript;
     //         }
     //     }
-       
+
 
     //     if (event.results[event.resultIndex][0].length > 20) {
     //         final_transcript = '';
     //         interim_transcript = '';
     //     }
-        
+
 
     //     final_transcript = capitalize(final_transcript);
     //     final_span.innerHTML = linebreak(final_transcript);
@@ -368,7 +370,7 @@
 
 
 
-    
+
     var final_span_remote = document.getElementById('final_span_remote'),
         interim_span_remote = document.getElementById('interim_span_remote'),
         final_span = document.getElementById('final_span'),
@@ -435,8 +437,22 @@
         for (var i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
                 final_transcript += event.results[i][0].transcript;
+                console.log(final_transcript + ' dasdagsyd')
+                socket.on('video voice final message', function () {
+                    // let temporary = $('#final_span').val();
+                    // console.log('temporary 2 ' + final_transcript)
+                    socket.emit('video voice final message', final_transcript);
+                });
+
             } else {
                 interim_transcript += event.results[i][0].transcript;
+                console.log(interim_transcript + ' dsadasdsadasdsa')
+                socket.on('video voice message', function () {
+                    // let temporary = $('#interim_span').val();
+                    // console.log('temporary1 ' + interim_transcript)
+                    socket.emit('video interim message', interim_transcript);
+                });
+
             }
         }
         interim_span.innerHTML = interim_transcript;
@@ -475,7 +491,17 @@
         }
     }
 
-    var socket = io();
+
+    // console.log($('#interim_span').val() + ' dasdagsyd')
+    socket.on('video voice remote message', function (message) {
+        console.log('video voice remote message ' + message)
+        $('#interim_span_remote').html(message);
+    });
+
+    socket.on('video voice final remote message', function (message) {
+        console.log('video voice final remote message ' + message)
+        $('#final_span_remote').html(message);
+    });
 
     $('.captionOn').on('click', function () {
         $('.results').show();
@@ -483,24 +509,8 @@
         // $('form').submit(function(){
         // var socket = io();
 
-        socket.on('video voice message', function () {
-            let temporary = $('#interim_span').val();
-            console.log('temporary1 ' + temporary)
-            socket.emit('video interim message', temporary);
-        });
-        socket.on('video voice remote message', function (message) {
-            console.log('video voice remote message ' + message)
-            $('#interim_span_remote').html(message);
-        });
-        socket.on('video voice final message', function () {
-            let temporary = $('#final_span').val();
-            console.log('temporary 2 ' + temporary)
-            socket.emit('video voice final message', temporary);
-        });
-        socket.on('video voice final remote message', function (message) {
-            console.log('video voice final remote message ' + message)
-            $('#final_span_remote').html(message);
-        });
+
+
         //   return false;
         // });
     });
