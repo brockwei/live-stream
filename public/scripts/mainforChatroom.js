@@ -7,6 +7,14 @@ $(function () {
         'deleteID'     : null,
         'groupChatRoom': null,
     }
+    chatRoomConfig.clearChat = function(){
+        $('#chat-call-friend').remove();
+        $('#right-group').hide();
+        $('#chat-friend').empty();
+        $('#chat-field').parent().addClass('chat-field-hidden');
+        $('#chat-messages').empty();
+        $('#chat-messages').html(`<br><li style="color:black;">Welcome to Go Chat instant messenging app!</li>`);
+    }
     //Special
     $('#special-form').submit(function () {
         // socket.emit('chat message', $('#control-search-field').val());
@@ -168,19 +176,15 @@ $(function () {
         // console.log(chatRoomConfig.deleteID);
         //Empties chat messages and friend name
         if(chatRoomConfig.deleteID==chatRoomConfig.targetID){
-            $('#chat-friend').empty();
-            $('#chat-messages').empty();
+            chatRoomConfig.clearChat();    
         }
         socket.emit('control friend delete', chatRoomConfig.deleteID);
         // 
-        $('#chat-messages').html(`<br><li style="color:black;">Welcome to Go Chat instant messenging app!</li>`);
-        $('#chat-field').parent().addClass('chat-field-hidden');
     })
     socket.on('control friend delete',function(message){
         $('#control-search-display').empty();
         if(message==chatRoomConfig.targetID){
-            $('#chat-friend').empty();
-            $('#chat-messages').empty();
+            chatRoomConfig.clearChat();
         }
     })
     //Friends List Javascript
@@ -191,9 +195,16 @@ $(function () {
         }
         for(var i in friends){
             $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-online">${friends[i]}</span><div class="control-friend-button-group"><div class="control-friend-message" user-message="${friends[i]}"><i class="fa fa-comment"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
+            if(friends[i]==chatRoomConfig.targetID){
+                $('#chat-friend').html(`<div>@${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);
+            }
         }
         for(var i in offline){
             $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-offline">${offline[i]}</span><div class="control-friend-button-group"><div class="control-friend-message" user-message="${offline[i]}"><i class="fa fa-comment"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
+            if(offline[i]==chatRoomConfig.targetID){
+                $('#chat-call-friend').remove();
+                $('#right-group').hide();
+            }
         }
         socket.emit('control retrieve unread messages', '');
     })
