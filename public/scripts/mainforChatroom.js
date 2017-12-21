@@ -7,11 +7,29 @@ $(function () {
         'deleteID'     : null,
         'groupChatRoom': null,
     }
-
-  
-  //"start of messages"
+    //Special
+    $('#special-form').submit(function () {
+        // socket.emit('chat message', $('#control-search-field').val());
+        socket.emit('config submit username', $('#special-username').val());
+        return false;
+    });
+    /*-4- Require username*/
+    socket.on('config require username',function(){
+        $('#special-correction').show();
+    }) 
+    /*-5- Require username*/
+    socket.on('config require username failed',function(){
+        // $('#special-correction').show();
+        $('#special-username-taken').html('Username unavailable')
+    }) 
+    /*-6- */
+    socket.on('config oauth username created',function(username){
+        socket.emit('config oauth username created', username);
+        $('#special-correction').hide();
+    }) 
+    //"start of messages"
     //Chatroom Javascript
-    $('#chat-messages').append($('<li class="welcoming">').text(`Welcome to Michelle's Mukbang`));
+    $('#chat-messages').append($('<li class="welcoming">').text(`Welcome to Go Chat web app`));
     //Send chat message on form submit
     $('#chat-field').submit(function () {
         if ($('#input-field').val()&&chatRoomConfig.groupChatRoom==null) {
@@ -93,55 +111,6 @@ $(function () {
         $("#typing").empty();
    },2000));
 
-    // //function to load chatroom message history
-    // function loadMessages(data, scrollH) {
-    //     if (JSON.parse(data[0])["email"] == chatRoomConfig.email) {
-    //         $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(data[0])["user"] + "</span> : " + JSON.parse(data[0])["msg"]));
-    //     }
-    //     else {
-    //         $('#chat-messages').append($('<li>').text(JSON.parse(data[0])["user"] + " : " + JSON.parse(data[0])["msg"]));
-    //     }
-    //     if (scrollH < 0) {
-    //         $('.chat-area').scrollTop($('#chat-messages')[0].scrollHeight);
-    //     }
-    // }
-    // //Function to input messages in chatroom
-    // $('#chat-field').submit(function () {
-    //     if ($('#input-field').val() == "/clear") {
-    //         $('#messages').empty();
-    //     } else if ($('#input-field').val()) {
-    //         socket.emit('chat message', $('#input-field').val());
-    //         console.log($('#input-field').val());
-    //     }
-    //     $('#input-field').val('');
-    //     return false;
-    // });
-
-    // //Not needed: function to show online users in chat
-    // socket.on('user data', function (data) {
-    //     $('#users').empty();
-    //     $('#users').append($('<li>').text(`${data.numberOfUsers} user${data.numberOfUsers == 1 ? "" : "s"} online.`));
-    //     for (var i in data.users) {
-    //         $('#users').append($('<li>').text(data.users[i]));
-    //     }
-    // });
-
-    // //On chat message, scrolls to the bottom of page
-    // socket.on('chat message', function (data) {
-    //     let scrollH = $('#chat-messages')[0].scrollHeight - $('.chat-area').scrollTop() - $('.chat-area')[0].clientHeight;
-    //     loadMessages(data, scrollH);
-    //     console.log(JSON.parse(data));
-    //     console.log(scrollH);
-    // });
-    // //Shows chat history
-    // socket.once('chat history', function (data) {
-    //     data.forEach(dataElement => {
-    //         $('#chat-messages').append($('<li>').html('<span class="currentUser">' + JSON.parse(dataElement)["user"] + "</span> : " + JSON.parse(dataElement)["msg"]));
-    //     });
-    // })
-
-
-
     /*-1- Chat Timed Out */
     socket.on('chat timed out', function (destination) {
         window.location.href = destination;
@@ -156,7 +125,7 @@ $(function () {
         $('#control-username').html(data.username+`&nbsp&nbsp<a href="/logout"><i class="fa fa-sign-out"></i></a>`);
     });
     /*-3- End */
-
+    
     //Control Panel Javascript
     //Searches for user
     $('#control-search-button').on('click',function(){
@@ -230,21 +199,31 @@ $(function () {
     })
     //Chat Functionality Javascript
     $('body').on('click','.control-friend-message',function(){
-        grabWebCamVideo();
+        // grabWebCamVideo();chat-call-friend
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         $('#chat-friend').html(chatRoomConfig.targetID +'<div id="typing"> </div>');
         console.log();
         if($(this).parent().parent().children().hasClass('control-friend-online')){
-            $('#chat-friend').html(`${chatRoomConfig.targetID} <div id="typing"> </div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
+
+        //     $('#chat-friend').html(`${chatRoomConfig.targetID} <div id="typing"> </div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
+        // }
+        // else if($(this).parent().parent().children().hasClass('control-friend-offline')){
+        //     $('#chat-friend').html(`${chatRoomConfig.targetID} <div id="typing"> </div>`);   
+            
+            $('#chat-friend').html(`<div>${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
         }
         else if($(this).parent().parent().children().hasClass('control-friend-offline')){
-            $('#chat-friend').html(`${chatRoomConfig.targetID} <div id="typing"> </div>`);    
+            $('#chat-friend').html(`<div>${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div>`);    
         }
         socket.emit('control message target', chatRoomConfig.targetID);
         socket.emit('chat retrieve messages', chatRoomConfig.targetID);
         // 
         chatRoomConfig.groupChatRoom = null;
+        $('#chat-ggroup').addClass('mobile-show');
+        $('.control-friend').removeClass('control-message-highlighted');
+        $('.control-group').removeClass('control-message-highlighted');
+        $(this).parent().parent().addClass('control-message-highlighted');
     })
     //WebRTC JavaScript
     var localVideo;
@@ -358,16 +337,24 @@ $(function () {
     })
     //Webcam Basic Javascript
     $('body').on('click','#chat-call-friend', function(){
-        $('#right-group').slideToggle();
+        $('#right-group').slideToggle('fast');
     })
 
     $('body').on('click','#control-group-create', function(){
         chatRoomConfig.groupChatRoom = prompt('Join Chat Room:');
-        let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
-        socket.emit('control group add user', data);
-        $('#chat-messages').empty();
-        $('#control-groupchat-list').append(`<li class="control-group"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
+        if(chatRoomConfig.groupChatRoom!=null){
+            let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
+            socket.emit('control group add user', data);
+            $('#chat-messages').empty();
+            $('#control-groupchat-list').append(`<li class="control-group control-message-highlighted"><span class="control-friend-pending">${chatRoomConfig.groupChatRoom}</span><div class="control-friend-button-group"><div class="control-group-message"><i class="fa fa-comment"></i></div><div class="control-group-delete"><i class="fa fa-times"></i></div></li>`)
+            $('#chat-ggroup').addClass('mobile-show');
+            $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
+        }
     })
+    $('body').on('click','#chat-call-friend',function(){
+        grabWebCamVideo();
+    })
+
     // Group chat Javascript
     chatRoomConfig.loadGroupMessages = function(data, scrollH){
         // console.log(JSON.parse(data[0]));
@@ -403,6 +390,11 @@ $(function () {
         socket.emit('control group add user', data); 
         $('#chat-messages').empty();
         $('#chat-friend').empty();
+        $('#chat-ggroup').addClass('mobile-show');
+        $('#chat-friend').html(`<div><span id="mobile-return"><i class="fa fa-sign-out"></i></span></div>`);
+        $('.control-friend').removeClass('control-message-highlighted');
+        $('.control-group').removeClass('control-message-highlighted');
+        $(this).parent().parent().addClass('control-message-highlighted');
     })
 
     //Copy Paste:
@@ -430,5 +422,7 @@ $(function () {
         $('#chat-messages').append('<b>' + username + ':</b> ' + data + '<br>');
     });
 
-    
+    $('body').on('click','#mobile-return',function(){
+        $('#chat-ggroup').removeClass('mobile-show');
+    })
 });

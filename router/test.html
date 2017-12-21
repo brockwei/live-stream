@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Michelles Mukbang</title>
+    <title>Go Chat web app</title>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
@@ -19,6 +19,7 @@
     <link href="/styles/chatroom-left.css" rel="stylesheet">
     <link href="/styles/chatroom-wrtc.css" rel="stylesheet">
     <link href="/styles/chatroom-chat.css" rel="stylesheet">
+    <link href="/styles/chatroom-mobile.css" rel="stylesheet">
     <link href="/styles/chat.css" rel="stylesheet">
 </head>
 
@@ -26,8 +27,19 @@
     <!-- <h1>Dashboard</h1>
         <a class="btn btn-primary" href="/logout">Logout</a> -->
     <div class="container">
+        <div id="special-correction">
+            <div id="special-welcome">
+                <div style="text-align:center">
+                    <div>Welcome to Go Chat Web App! Please choose a username!</div><br>
+                    <form id="special-form" action="">
+                        <input id="special-username" placeholder="Please choose a username!" autocomplete="off" />
+                    </form>
+                    <div id="special-username-taken"> </div>
+                </div>
+            </div>
+        </div>
         <!-- Left Group -->
-        <div>
+        <div id="left-ggroup">
             <div id="left-group">
                 <!-- Control Panel -->
                 <div id="control-username" class="control-header">Placeholder</div>
@@ -72,7 +84,7 @@
                 </video>
                 <br />
                 <div class="wrtc-button-group">
-                    <div class="wrtc-button wrtc-button-start"><i class="fa fa-phone fa-2x"></i></div>
+                    <div class="wrtc-button wrtc-button-start" onclick="startButton(event)"><i class="fa fa-phone fa-2x"></i></div>
                     <div class="wrtc-button wrtc-button-mute"><i class="fa fa-microphone fa-2x"></i></div>
                     <div class="wrtc-button wrtc-button-stop"><i class="fa fa-times fa-2x"></i></div>
                     <button class="btn captionOn" onclick="startButton(event)">Caption on</button>
@@ -97,7 +109,7 @@
                 </div>
             </div>
         </div> -->
-        <div style="width:100%;">
+        <div id="chat-ggroup" style="width:100%;">
             <div class="chat-group">
                 <div id="chat-friend" class="control-header">
                     <div id="typing"></div>
@@ -114,9 +126,18 @@
                     <div class="wrtc-button-group">
                         <div class="wrtc-button wrtc-button-start">
                             <i class="fa fa-phone fa-2x"></i>
+                <!-- <div id="chat-friend" class="control-header">
+                    <span id="typing"></span>
+                </div> -->
+                <!-- <div id="chat-group-header"><div id="chat-friend"></div></div>
+                    <!--  -->
+                    <!-- <div id="right-group">
+                        <div class="video-group">
+                            <video id="remoteVideo" autoplay></video>
+                            <video id="localVideo" autoplay muted></video>
                         </div>
                         <div class="wrtc-button wrtc-button-mute">
-                            <i class="fa fa-microphone fa-2x"></i>
+                            <i class="fa fa-microphone fa-2x"></i> --> 
                         </div>
                         <div class="wrtc-button wrtc-button-stop">
                             <i class="fa fa-times fa-2x"></i>
@@ -125,13 +146,13 @@
                         <button class="btn captionOff" onclick="stopButton(event)">Caption off</button>
                     </div>
                     <span class=remoteCaption>
-                        <div id="results">
+                        <div class="results">
                             <span id="final_span_remote" class="final">remoteCaption: </span>
                             <span id="interim_span_remote" class="interim"></span>
                         </div>
                     </span>
                     <span class=localCaption>
-                        <div id="results">
+                        <div class="results">
                             <span id="final_span" class="final"> </span>
                             <span id="interim_span" class="interim"></span>
                         </div>
@@ -154,6 +175,7 @@
                         <button id='datasend'>Chat</button>
                     </form>
 
+                    <!-- <div id="typing"> </div> -->
                 </div>
             </div>
         </div>
@@ -297,6 +319,14 @@
                 interim_transcript += event.results[i][0].transcript;
             }
         }
+       
+
+        if (event.results[event.resultIndex][0].length > 20) {
+            final_transcript = '';
+            interim_transcript = '';
+        }
+        
+
         final_transcript = capitalize(final_transcript);
         final_span.innerHTML = linebreak(final_transcript);
         final_span_remote.innerHTML = linebreak(final_transcript);
@@ -332,7 +362,7 @@
     }
 
     $('.captionOn').on('click', function () {
-        $('#results').show();
+        $('.results').show();
         $('#div_language').show();
         var socket = io();
         // $('form').submit(function(){
@@ -357,7 +387,7 @@
         // });
     });
     $('.captionOff').on('click', function () {
-        $('#results').hide();
+        $('.results').hide();
         $('#div_language').hide();
     });
 
