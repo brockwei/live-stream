@@ -25,15 +25,21 @@ module.exports = (express) => {
         res.redirect('/test');
     }
     // Login Page
-    router.get('/', isNotLoggedIn, (req, res) => {
+    router.get('/', (req, res) => {
         // console.log('test');
-        res.render('login')
+        var a = req.session.invalidUserMessage
+        // var a = req.flash('invalidUserMessage')
+        // var b = req.flash('invalidPasswordMessage')
+        var b = req.session.invalidPasswordMessage
+        res.render('login', { invalidUserMessage: a, invalidPasswordMessage: b })
         // res.sendFile(__dirname + '/login2.html');
+
     });
 
     // Signup Page
     router.get('/signup', (req, res) => {
-        res.render('signup')
+        var c = req.session.repeatedEmail
+        res.render('signup', { repeatedEmail: c })
         // res.sendFile(__dirname + '/login2.html');
     });
     
@@ -62,10 +68,17 @@ module.exports = (express) => {
             // let name = req.user.profile.name.givenName;
             // req.session.name = name;
             // req.session.email = req.user.profile._json.email;
-            
-            req.session.userData = {
-                username: user[0].dataValues.username,
-                email: user[0].dataValues.email
+            if(user[0]){
+                req.session.userData = {
+                    username: user[0].dataValues.username,
+                    email: user[0].dataValues.email
+                }
+            }
+            else {
+                req.session.userData = {
+                    username: null,
+                    email: req.user.profile._json.email
+                }
             }
             console.log(req.session.userData);
             res.redirect('/test');
@@ -85,11 +98,18 @@ module.exports = (express) => {
         // console.log('google router'+req.user);
         // console.log(req.user)     
         User.findAll({ where: { "email": req.user.profile.emails[0].value } }).then(user => {
-            req.session.userData = {
-                username: user[0].dataValues.username,
-                email: user[0].dataValues.email
+            if(user[0]){
+                req.session.userData = {
+                    username: user[0].dataValues.username,
+                    email: user[0].dataValues.email
+                }
             }
-            console.log(req.session.userData);
+            else {
+                req.session.userData = {
+                    username: null,
+                    email: req.user.profile.emails[0].value
+                }
+            }
             res.redirect('/test');
         });   
     });

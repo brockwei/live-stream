@@ -30,7 +30,8 @@
         <div id="special-correction">
             <div id="special-welcome">
                 <div style="text-align:center">
-                    <div>Welcome to Go Chat Web App! Please choose a username!</div><br>
+                    <div>Welcome to Go Chat Web App! Please choose a username!</div>
+                    <br>
                     <form id="special-form" action="">
                         <input id="special-username" placeholder="Please choose a username!" autocomplete="off" />
                     </form>
@@ -114,18 +115,18 @@
                 <div id="chat-friend" class="control-header">
                     <div id="typing"></div>
                 </div>
-                <div id="chat-group-header">
+                <!-- <div id="chat-group-header">
                     <div id="chat-friend"></div>
-                </div>
+                </div> -->
                 <!--  -->
-                <div id="right-group">
+                <!-- <div id="right-group">
                     <div class="video-group">
                         <video id="remoteVideo" autoplay style="width:40%;"></video>
                         <video id="localVideo" autoplay muted style="width:40%;"></video>
                     </div>
                     <div class="wrtc-button-group">
                         <div class="wrtc-button wrtc-button-start">
-                            <i class="fa fa-phone fa-2x"></i>
+                            <i class="fa fa-phone fa-2x"></i> -->
                 <!-- <div id="chat-friend" class="control-header">
                     <span id="typing"></span>
                 </div> -->
@@ -138,6 +139,21 @@
                         </div>
                         <div class="wrtc-button wrtc-button-mute">
                             <i class="fa fa-microphone fa-2x"></i> --> 
+                <div id="chat-group-header">
+                    <div id="chat-friend"></div>
+                </div>
+                <!--  -->
+                <div id="right-group">
+                    <div class="video-group">
+                        <video id="remoteVideo" autoplay></video>
+                        <video id="localVideo" autoplay muted></video>
+                    </div>
+                    <div class="wrtc-button-group">
+                        <div class="wrtc-button wrtc-button-start">
+                            <i class="fa fa-phone fa-2x"></i>
+                        </div>
+                        <div class="wrtc-button wrtc-button-mute">
+                            <i class="fa fa-microphone fa-2x"></i>
                         </div>
                         <div class="wrtc-button wrtc-button-stop">
                             <i class="fa fa-times fa-2x"></i>
@@ -167,9 +183,11 @@
                 <!--  -->
                 <div class="chat-area">
                     <ul id="chat-messages">
+                        <br>
+                        <li style="color:black;">Welcome to Go Chat instant messenging app!</li>
                     </ul>
                 </div>
-                <div style="width:100%">
+                <div class="chat-field-hidden" style="width:100%">
                     <form id="chat-field" action="">
                         <input id="input-field" placeholder="Type message here.." autocomplete="off" />
                         <button id='datasend'>Chat</button>
@@ -271,47 +289,149 @@
         select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
     }
 
+
+
+
+
+    // var final_transcript = '';
+    // var recognizing = false;
+    // var ignore_onend;
+    // var start_timestamp;
+
+    // var recognition = new webkitSpeechRecognition();
+    // recognition.continuous = true;
+    // recognition.interimResults = true;
+    // recognition.onstart = function () {
+    //     recognizing = true;
+    // };
+    // recognition.onerror = function (event) {
+    //     if (event.error == 'no-speech') {
+    //         ignore_onend = true;
+    //     }
+    //     if (event.error == 'audio-capture') {
+    //         ignore_onend = true;
+    //     }
+    //     if (event.error == 'not-allowed') {
+    //         ignore_onend = true;
+    //     }
+    // };
+    // recognition.onend = function () {
+    //     recognizing = false;
+    //     if (ignore_onend) {
+    //         return;
+    //     }
+    //     if (!final_transcript) {
+    //         return;
+    //     }
+
+    //     if (window.getSelection) {
+    //         window.getSelection().removeAllRanges();
+    //         var range = document.createRange();
+    //         range.selectNode(document.getElementById('final_span'));
+    //         range.selectNode(document.getElementById('final_span_remote'));
+    //         window.getSelection().addRange(range);
+    //     }
+    // };
+    // recognition.onresult = function (event) {
+    //     var interim_transcript = '';
+    //     for (var i = event.resultIndex; i < event.results.length; ++i) {
+    //         if (event.results[i].isFinal) {
+    //             final_transcript += event.results[i][0].transcript;
+    //         } else {
+    //             interim_transcript += event.results[i][0].transcript;
+    //         }
+    //     }
+       
+
+    //     if (event.results[event.resultIndex][0].length > 20) {
+    //         final_transcript = '';
+    //         interim_transcript = '';
+    //     }
+        
+
+    //     final_transcript = capitalize(final_transcript);
+    //     final_span.innerHTML = linebreak(final_transcript);
+    //     final_span_remote.innerHTML = linebreak(final_transcript);
+    //     interim_span.innerHTML = linebreak(interim_transcript);
+    //     interim_span_remote.innerHTML = linebreak(interim_transcript);
+    // };
+    // var two_line = /\n\n/g;
+    // var one_line = /\n/g;
+    // function linebreak(s) {
+    //     return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+    // }
+    // var first_char = /\S/;
+    // function capitalize(s) {
+    //     return s.replace(first_char, function (m) { return m.toUpperCase(); });
+    // }
+
+
+
+
+    
+    var final_span_remote = document.getElementById('final_span_remote'),
+        interim_span_remote = document.getElementById('interim_span_remote'),
+        final_span = document.getElementById('final_span'),
+        interim_span = document.getElementById('interim_span')
+
+    interim_span.style.opacity = '0.5';
+    interim_span_remote.style.opacity = '0.5';
+
+    function reset() {
+        recognizing = false;
+        interim_span.innerHTML = '';
+        transcription.innerHTML = '';
+        recognition.start();
+    }
+
     var final_transcript = '';
     var recognizing = false;
-    var ignore_onend;
-    var start_timestamp;
+    // var ignore_onend;
+    // var start_timestamp;
 
     var recognition = new webkitSpeechRecognition();
+
     recognition.continuous = true;
     recognition.interimResults = true;
+
     recognition.onstart = function () {
         recognizing = true;
     };
     recognition.onerror = function (event) {
-        if (event.error == 'no-speech') {
-            ignore_onend = true;
-        }
-        if (event.error == 'audio-capture') {
-            ignore_onend = true;
-        }
-        if (event.error == 'not-allowed') {
-            ignore_onend = true;
-        }
+        console.log(event.error)
+        // if (event.error == 'no-speech') {
+        //     ignore_onend = true;
+        // }
+        // if (event.error == 'audio-capture') {
+        //     ignore_onend = true;
+        // }
+        // if (event.error == 'not-allowed') {
+        //     ignore_onend = true;
+        // }
     };
     recognition.onend = function () {
-        recognizing = false;
-        if (ignore_onend) {
-            return;
-        }
-        if (!final_transcript) {
-            return;
-        }
+        reset();
+        // recognizing = false;
+        // if (ignore_onend) {
+        //     return;
+        // }
+        // if (!final_transcript) {
+        //     return;
+        // }
 
-        if (window.getSelection) {
-            window.getSelection().removeAllRanges();
-            var range = document.createRange();
-            range.selectNode(document.getElementById('final_span'));
-            range.selectNode(document.getElementById('final_span_remote'));
-            window.getSelection().addRange(range);
-        }
+        // if (window.getSelection) {
+        //     window.getSelection().removeAllRanges();
+        //     var range = document.createRange();
+        //     range.selectNode(document.getElementById('final_span'));
+        //     range.selectNode(document.getElementById('final_span_remote'));
+        //     window.getSelection().addRange(range);
+        // }
     };
     recognition.onresult = function (event) {
         var interim_transcript = '';
+        var final_transcript = '';
+
+        // main for loop for final and interim results
         for (var i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
                 final_transcript += event.results[i][0].transcript;
@@ -319,29 +439,23 @@
                 interim_transcript += event.results[i][0].transcript;
             }
         }
-       
-
-        if (event.results[event.resultIndex][0].length > 20) {
-            final_transcript = '';
-            interim_transcript = '';
-        }
-        
-
-        final_transcript = capitalize(final_transcript);
-        final_span.innerHTML = linebreak(final_transcript);
-        final_span_remote.innerHTML = linebreak(final_transcript);
-        interim_span.innerHTML = linebreak(interim_transcript);
-        interim_span_remote.innerHTML = linebreak(interim_transcript);
+        interim_span.innerHTML = interim_transcript;
+        final_span.innerHTML = final_transcript;
+        // final_transcript = capitalize(final_transcript);
+        // final_span.innerHTML = linebreak(final_transcript);
+        // final_span_remote.innerHTML = linebreak(final_transcript);
+        // interim_span.innerHTML = linebreak(interim_transcript);
+        // interim_span_remote.innerHTML = linebreak(interim_transcript);
     };
-    var two_line = /\n\n/g;
-    var one_line = /\n/g;
-    function linebreak(s) {
-        return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
-    }
-    var first_char = /\S/;
-    function capitalize(s) {
-        return s.replace(first_char, function (m) { return m.toUpperCase(); });
-    }
+    // var two_line = /\n\n/g;
+    // var one_line = /\n/g;
+    // function linebreak(s) {
+    //     return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+    // }
+    // var first_char = /\S/;
+    // function capitalize(s) {
+    //     return s.replace(first_char, function (m) { return m.toUpperCase(); });
+    // }
 
     function startButton(event) {
         final_transcript = '';
@@ -370,19 +484,16 @@
             let temporary = $('#interim_span').val();
             socket.emit('video interim message', temporary);
         });
-        socket.on('video voice message', function (message) {
+        socket.on('video voice remote message', function (message) {
             $('#interim_span_remote').html(message);
         });
-        if ($('#final_span').val() != '') {
-            socket.on('video voice final message', function () {
-                let temporaryfinal = $('#final_span').val();
-                socket.emit('video final message', temporaryfinal);
-            });
-            socket.on('video voice final message', function (message) {
-                $('#final_span_remote').html(message);
-            });
-        }
-
+        socket.on('video voice final message', function () {
+            let temporary = $('#final_span').val();
+            socket.emit('video voice final message', temporary);
+        });
+        socket.on('video voice final remote message', function (message) {
+            $('#final_span_remote').html(message);
+        });
         //   return false;
         // });
     });

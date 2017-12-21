@@ -1,6 +1,6 @@
 /*Left side styles (Dashboard & Friendslist)*/
 #left-group {
-    background: rgb(18, 0, 34);
+    background: rgb(37, 0, 73);
     /* width: 20%;
     max-width: 200px; */
     width: 300px;
@@ -17,7 +17,7 @@
     font-size: 1.2em;
     /* border-bottom: 1px solid rgb(189, 123, 255); */
     /* background: rgb(18, 0, 34); */
-    background: rgb(18, 0, 34);
+    background: rgb(37, 0, 73);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,8 +33,9 @@
     justify-content: flex-end;
 }
 #control-search-field {
-    background: rgb(37, 0, 73);
+    background: rgb(67, 0, 134);
     color: white;
+    font-weight: 700;
     width: 100%;
     padding: 5px;
     border: 0px;
@@ -46,25 +47,26 @@
     outline: none;
 }
 #control-search-button {
-    background: rgb(37, 0, 73);
-    width: 33px;
-    height: 33px;
+    background: rgb(67, 0, 134);
+    width: 50px;
+    height: 50px;
     color: rgba(189, 123, 255, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 #control-search-display {
-    height: 33px;
-    padding: 0 5px 0 5px;
+    height: 50px;
+    padding: 0 5px 0 10px;
     color: white;
     /* border-bottom: rgb(189, 123, 255); */
-    background: rgb(18, 0, 34);
+    background: rgb(37, 0, 73);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .control-friend-button-group {
+    font-size: 1.3em;
     height: 20px;
     width: 45px;
     display: flex;
@@ -80,7 +82,7 @@
 .control-friend-add:hover,.control-friend-message:hover,.control-friend-delete:hover{
     /* border: 1px solid white; */
     color: white;
-    background: rgb(35, 0, 68);
+    /* background: rgb(35, 0, 68); */
 }
 .control-friend-message-unread { /* Unread messages */
     color: greenyellow;
@@ -107,9 +109,9 @@
 .control-friend-added,.control-friend-message-no{
     height: 20px;
     width: 20px;
-    color: rgb(18, 0, 34);
-    background: rgb(82, 0, 163);
-    border: 1px solid rgb(82, 0, 163);
+    color: rgb(82, 0, 163);
+    /* background: rgb(82, 0, 163); */
+    /* border: 1px solid rgb(82, 0, 163); */
 }
 
 /* Control Friends list styles */
@@ -119,11 +121,12 @@
 }
 #control-friends-list,#control-friends-pending-list {
     list-style-type: none;
+    font-weight: 700;
     margin: 0;
     padding: 0;
 }
 #control-friends-list{
-    height: 200px;
+    height: 150px;
     overflow-y: auto;
 }
 #control-friends-list::-webkit-scrollbar {
@@ -137,13 +140,13 @@
     background: linear-gradient(to left, rgb(189, 123, 255),rgb(189,123,255));
 }
 .control-friend,.control-group {
-    height: 33px;
-    padding: 0 5px 0 5px;
+    height: 50px;
+    padding: 0 5px 0 10px;
     color: rgb(189, 123, 255);
     /* border-top: 1px solid rgb(189, 123, 255); */
     /* border-bottom: 1px solid rgb(189, 123, 255); */
     /* background: rgb(18, 0, 34); */
-    background: linear-gradient(to bottom right,rgb(18, 0, 34),rgb(22, 0, 40));
+    background: rgb(37, 0, 73);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -152,7 +155,7 @@
     color:greenyellow;
 }
 .control-friend-offline {
-    color: red;
+    color: rgb(255, 77, 77);
 }
 .control-friend-pending {
     color: rgb(0, 255, 255);
@@ -193,9 +196,10 @@
 }
 
 .control-group {
-    height: 33px;
+    height: 50px;
     padding: 0 5px 0 5px;
     color: rgb(123, 169, 255);
+    font-weight: 700;
     /* border-top: 1px solid rgb(189, 123, 255); */
     /* border-bottom: 1px solid rgb(123, 169, 255); */
     /* background: rgb(18, 0, 34); */
@@ -213,10 +217,13 @@
 .control-group-message:hover,.control-group-delete:hover {
     /* border: 1px solid white; */
     color: white;
-    background: rgb(0, 7, 68);
+    /* background: rgb(0, 7, 68); */
 }
 
 /*Control Group Improvement*/
 .control-message-highlighted {
-    background: rgb(37, 0, 73);
+    background: rgb(67, 0, 134);
+}
+#control-group-create:hover,#mobile-return:hover {
+    color: rgb(189, 123, 255);
 }

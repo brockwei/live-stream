@@ -1,11 +1,5 @@
-/*Right side styles (Video & Chat)*/
-#right-group {
-    /* flex: 1 1 auto; This allows the center div to take 100% of remaining space in middle */
-    /* height: 100%; */
-    /* display: flex; */
-    width: 100%;
-    display: none;
-}
+/*Right side styles (Chat)*/
+
 
 .chat-group {
     /* border-left: 1px solid rgb(189, 123, 255); */
@@ -19,7 +13,7 @@
     align-items: center;
 }
 #chat-group-header {
-    border-left: 1px solid rgb(189, 123, 255);
+    /* border-left: 1px solid rgb(189, 123, 255); */
     background: rgb(0,0,0);
     width: 100%;
 }
@@ -31,7 +25,7 @@
     color: white;
     font-size: 1.2em;
     /* border-bottom: 1px solid rgb(189, 123, 255); */
-    background: rgb(18, 0, 34);
+    background: rgb(37, 0, 73);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,16 +33,23 @@
 #chat-call-friend {
     height: 70px;
     width: 70px;
-    border-left: 1px solid rgb(189, 123, 255);
-    border-bottom: 1px solid rgb(189, 123, 255);
+    /* border-left: 1px solid rgb(189, 123, 255);
+    border-bottom: 1px solid rgb(189, 123, 255); */
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+#chat-call-friend:hover {
+    background: rgb(86, 0, 172);
+}
+#chat-call-friend:active {
+    background: rgb(67, 0, 134);
+}
 .chat-area {
     background: rgb(230,230,230);
     margin: 0;
+    padding: 10px 0;
     height: 100%;
     overflow-y: scroll;
     width: 100%;
@@ -70,7 +71,7 @@
     max-width: 80%;
     margin: 5px 0;
     padding: 10px;
-    border: 1px solid rgb(150,150,150);
+    /* border: 1px solid rgb(150,150,150); */
     background: white;
     color: black;
     border-radius: 10px;
@@ -78,13 +79,16 @@
     clear: both;
 }
 .chat-message-username {
-    color: red;
+    color: yellow;
+    font-weight:700;
 }
 .chat-message-friend {
-    color: blue;
+    color: rgb(98, 0, 202);
+    font-weight:700;
 }
 .chat-message-sent {
-    background: rgb(174, 255, 174);
+    background: rgb(98, 0, 202);
+    color: white;
     float: left;
 }
 .chat-message-read {
@@ -95,6 +99,7 @@
     background: rgb(255, 191, 123);
 }
 #input-field {
+    border: none;
     width: 100%;
     padding: 10px;
     /* height: 20px; */
@@ -112,7 +117,25 @@
 }
 .chat-area::-webkit-scrollbar-thumb {
     /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
-    background: rgb(105,105,105);
+    background: rgb(37, 0, 73);
+}
+.chat-field-hidden {
+    display: none;
+}
+#datasend {
+    color: white;
+    font-weight: 700;
+    background: rgb(37, 0, 73);
+    border: none;
+}
+#datasend:focus {
+    outline: none;
+}
+#datasend:hover {
+    background: rgb(86, 0, 172);
+}
+#datasend:active {
+    background: rgb(67, 0, 134);
 }
 
 #typing {
