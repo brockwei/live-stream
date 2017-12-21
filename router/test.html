@@ -202,14 +202,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="http://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="/scripts/mainforChatroom.js"></script>
 <!-- <script src="/scripts/main.js"></script> -->
 <!-- <script type="text/javascript">
     pageReady();
 </script> -->
 <script>
-    var socket = io();
-
     var langs =
         [['Afrikaans', ['af-ZA']],
         ['Bahasa Indonesia', ['id-ID']],
@@ -429,49 +426,45 @@
         //     window.getSelection().addRange(range);
         // }
     };
-    recognition.onresult = function (event) {
-        var interim_transcript = '';
-        var final_transcript = '';
 
-        // main for loop for final and interim results
-        for (var i = event.resultIndex; i < event.results.length; ++i) {
-            if (event.results[i].isFinal) {
-                final_transcript += event.results[i][0].transcript;
-                console.log(final_transcript + ' dasdagsyd')
-                socket.on('video voice final message', function () {
-                    // let temporary = $('#final_span').val();
-                    // console.log('temporary 2 ' + final_transcript)
-                    socket.emit('video voice final message', final_transcript);
-                });
+    // socket.on('connection', function () {
+        recognition.onresult = function (event) {
+            var interim_transcript = '';
+            var final_transcript = '';
 
-            } else {
-                interim_transcript += event.results[i][0].transcript;
-                console.log(interim_transcript + ' dsadasdsadasdsa')
-                socket.on('video voice message', function () {
+            // main for loop for final and interim results
+            for (var i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    final_transcript += event.results[i][0].transcript;
+                    // socket.on('video voice message', function () {
                     // let temporary = $('#interim_span').val();
-                    // console.log('temporary1 ' + interim_transcript)
-                    socket.emit('video interim message', interim_transcript);
-                });
+                    // socket.emit('video voice final message', temporary);
 
+                } else {
+                    interim_transcript += event.results[i][0].transcript;
+                    // socket.emit('video interim message', interim_transcript);
+
+                }
             }
-        }
-        interim_span.innerHTML = interim_transcript;
-        final_span.innerHTML = final_transcript;
-        // final_transcript = capitalize(final_transcript);
-        // final_span.innerHTML = linebreak(final_transcript);
-        // final_span_remote.innerHTML = linebreak(final_transcript);
-        // interim_span.innerHTML = linebreak(interim_transcript);
-        // interim_span_remote.innerHTML = linebreak(interim_transcript);
-    };
-    // var two_line = /\n\n/g;
-    // var one_line = /\n/g;
-    // function linebreak(s) {
-    //     return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
-    // }
-    // var first_char = /\S/;
-    // function capitalize(s) {
-    //     return s.replace(first_char, function (m) { return m.toUpperCase(); });
-    // }
+            interim_span.innerHTML = interim_transcript;
+            final_span.innerHTML = final_transcript;
+            // final_transcript = capitalize(final_transcript);
+            // final_span.innerHTML = linebreak(final_transcript);
+            // final_span_remote.innerHTML = linebreak(final_transcript);
+            // interim_span.innerHTML = linebreak(interim_transcript);
+            // interim_span_remote.innerHTML = linebreak(interim_transcript);
+        };
+        // var two_line = /\n\n/g;
+        // var one_line = /\n/g;
+        // function linebreak(s) {
+        //     return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+        // }
+        // var first_char = /\S/;
+        // function capitalize(s) {
+        //     return s.replace(first_char, function (m) { return m.toUpperCase(); });
+        // }
+    // })
+
 
     function startButton(event) {
         final_transcript = '';
@@ -491,28 +484,27 @@
         }
     }
 
-
-    // console.log($('#interim_span').val() + ' dasdagsyd')
-    socket.on('video voice remote message', function (message) {
-        console.log('video voice remote message ' + message)
-        $('#interim_span_remote').html(message);
-    });
-
-    socket.on('video voice final remote message', function (message) {
-        console.log('video voice final remote message ' + message)
-        $('#final_span_remote').html(message);
-    });
-
     $('.captionOn').on('click', function () {
         $('.results').show();
         $('#div_language').show();
-        // $('form').submit(function(){
         // var socket = io();
-
-
-
-        //   return false;
+        // // $('form').submit(function(){
+        // socket.on('video voice message', function () {
+        //     let temporary = $('#interim_span').val();
+        //     socket.emit('video interim message', temporary);
         // });
+        // socket.on('video voice remote message', function (message) {
+        //     $('#interim_span_remote').html(message);
+        // });
+        // socket.on('video voice final message', function () {
+        //     let temporary = $('#final_span').val();
+        //     socket.emit('video voice final message', temporary);
+        // });
+        // socket.on('video voice final remote message', function (message) {
+        //     $('#final_span_remote').html(message);
+        // });
+        // //   return false;
+        // // });
     });
     $('.captionOff').on('click', function () {
         $('.results').hide();
@@ -522,5 +514,7 @@
 
 
 </script>
+<script src="/scripts/mainforChatroom.js"></script>
+
 
 </html>
