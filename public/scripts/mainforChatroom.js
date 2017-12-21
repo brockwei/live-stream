@@ -437,7 +437,14 @@ $(function () {
     $('body').on('click', '.wrtc-button-stop', function () {
         if (peerConnection) {
             peerConnection.close();
+            location.reload();
         }
+        socket.emit('wrtc close peer connection', chatRoomConfig.targetID);
+        
+        
+    })
+    socket.on('wrtc close peer connection', function(placeholder){
+        location.reload();
     })
     //Webcam Basic Javascript
     $('body').on('click','#chat-call-friend', function(){
@@ -447,6 +454,7 @@ $(function () {
         if (peerConnection) {
             peerConnection.close();
         }
+        
         $('#chat-call-friend').toggleClass('control-message-highlighted');
     })
 
