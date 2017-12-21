@@ -420,24 +420,12 @@ module.exports = (io) => {
 console.log('targeeeeetedsd')
         // Caption
         socket.on('video interim message', function(message) {
-<<<<<<< HEAD
-            let targetSocket = socket.request.sessionStore.online[username];
-    
-            console.log(message + " this is message! ");
-            console.log(chatRoomConfig.targetID + ": this is target ID ... ");
-            io.to(targetSocket).emit('video voice remote message', message);
-        });
-        socket.on('video voice final message', function(message) {
-            let targetSocket = socket.request.sessionStore.online[username];
-            console.log(chatRoomConfig.targetID + ": this is target ID !!! ");
-=======
             console.log('message '+message)
             console.log('chatroomConfig '+chatRoomConfig.targetID)
             io.to(targetSocket).emit('video voice remote message', message);
         });
         socket.on('video voice final message', function(message) {
             console.log('video voice final message '+ message)
->>>>>>> 13ec138b630e3447e61f9c0bfb3189b7875d13a8
             io.to(targetSocket).emit('video voice final remote message', message);
         });
         
