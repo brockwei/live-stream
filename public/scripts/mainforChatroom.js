@@ -220,6 +220,7 @@ $(function () {
     //Chat Functionality Javascript
     $('body').on('click', '.control-friend-message', function () {
         // grabWebCamVideo();chat-call-friend
+        socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
         $('#chat-friend').html(`@${chatRoomConfig.targetID}` +'<span id="typing"> </span>');
@@ -459,6 +460,9 @@ $(function () {
     })
 
     $('body').on('click', '#control-group-create', function () {
+        if(chatRoomConfig){
+            socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
+        }
         chatRoomConfig.groupChatRoom = prompt('Join Chat Room:');
         if (chatRoomConfig.groupChatRoom != null) {
             let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
@@ -509,6 +513,7 @@ $(function () {
     })
     $('body').on('click', '.control-group-message', function () {
         // console.log($(this).parent().parent().children().text());
+        socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
         chatRoomConfig.groupChatRoom = $(this).parent().parent().children().text();
         let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
         socket.emit('control group add user', data);

@@ -445,7 +445,9 @@ module.exports = (io) => {
                 })
             })
         });
-
+        socket.on('group chat leave room', function(room){
+            socket.leave(room);
+        })
         // Caption
         socket.on('video interim message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
