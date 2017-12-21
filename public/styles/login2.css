@@ -201,15 +201,12 @@ html,body {
 
 .white-box {
     background-color: white;
-<<<<<<< HEAD
     width:80vw;
     margin :20vh 10vw;
     padding: 50px;
-=======
-    max-width: 700px;
+    /* max-width: 700px;
     margin : 120px auto;
-    padding: 60px 20px;
->>>>>>> 13ec138b630e3447e61f9c0bfb3189b7875d13a8
+    padding: 60px 20px; */
     border-radius: 15px;
     
 }
@@ -248,9 +245,9 @@ hr {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
-/* .social.fb {
-    margin-top:75px;
-} */
+.social.google {
+    margin-left:4px;
+}
 .fa-facebook-official {
     margin-top:3px;
 }
@@ -263,7 +260,7 @@ hr {
         font-size:18px;
     } */
     .signupFor {
-        font-size:3vw;
+        font-size:59px;
     }
 }
 @media screen and (max-width: 812px) {
@@ -277,7 +274,7 @@ hr {
         text-align: center;
     }
     .signupFor {
-        font-size:3vw;
+        font-size:45px;
     }
 }
 @media screen and (max-width: 768px) {
@@ -295,7 +292,7 @@ hr {
         margin :20vh 0vw;
     }
     .signupFor {
-        font-size:4vw;
+        font-size:5vw;
     }
 }
 @media screen and (max-width: 671px) {
@@ -333,6 +330,9 @@ hr {
     .signupFor {
         font-size:6vw;
     }
+    #with {
+        display:none;
+    }
 }
 @media screen and (max-width: 567px) {
     /* .social {
@@ -351,18 +351,11 @@ hr {
     .signupFor {
         font-size:6vw;
     }
-}
-@media screen and (max-width: 567px) {
-    /* .social {
-        width:28vw;
-        font-size:14px;
-        padding:12.3px 0px;
-        height:7vh;
-    } */
-    .signupFor {
-        font-size:6vw;
+    .slogan {
+        margin-left:20px;
     }
 }
+
 @media screen and (max-width: 441px) {
     /* .social {
         width:35vw;
@@ -373,14 +366,21 @@ hr {
     .signupFor {
         font-size:7vw;
     }
+
 }
-@media screen and (max-width: 332px) {
+@media screen and (max-width: 351px) {
     .slogan {
-        font-size:20px;
+        margin-left:17px;
+        font-size:17px;
         margin-top:8px;
     }
     .second {
-        font-size:12px;
+        padding-top:8px;
+        font-size:14px;
+    }
+    .social.fb {
+        padding-top:9px;
+        font-size:15px;
     }
 }
 .fb {
