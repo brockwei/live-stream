@@ -119,6 +119,11 @@
     /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
     background: rgb(37, 0, 73);
 }
+.chat-area::-webkit-scrollbar-thumb:active {
+    /* background: linear-gradient(to left, rgb(231, 143, 0),orange); */
+    background: rgb(98, 0, 202);
+}
+
 .chat-field-hidden {
     display: none;
 }
