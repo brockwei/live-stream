@@ -120,24 +120,24 @@ var translationTable = {
     'Galician': 'Galego',
     'Croatian': 'Hrvatski',
     'Zulu': 'IsiZulu',
-    'Icelandic':'Íslenska',
-    'Italian':'Italiano',
-    'Hungarian':'Magyar',
-    'Dutch':'Nederlands',
-    'Polish':'Polski',
-    'Portuguese':'Português',
-    'Romanian':'Română',
-    'Slovak':'Slovenčina',
-    "Finnish":'Suomi',
-    'Swedish':'Svenska',
-    'Turkish':'Türkçe',
-    'Bulgarian':'български',
-    'Russian':'Pусский',
-    'Serbian':'Српски',
-    'Korean':'한국어',
-    'Chinese':'中文',
-    'Japanese':'日本語',
-    'Latin':'Lingua latīna'
+    'Icelandic': 'Íslenska',
+    'Italian': 'Italiano',
+    'Hungarian': 'Magyar',
+    'Dutch': 'Nederlands',
+    'Polish': 'Polski',
+    'Portuguese': 'Português',
+    'Romanian': 'Română',
+    'Slovak': 'Slovenčina',
+    "Finnish": 'Suomi',
+    'Swedish': 'Svenska',
+    'Turkish': 'Türkçe',
+    'Bulgarian': 'български',
+    'Russian': 'Pусский',
+    'Serbian': 'Српски',
+    'Korean': '한국어',
+    'Chinese': '中文',
+    'Japanese': '日本語',
+    'Latin': 'Lingua latīna'
 }
 
 function getKeyByValue(object, value) {
@@ -154,7 +154,7 @@ $(function () {
         'deleteID': null,
         'groupChatRoom': null,
     }
-    chatRoomConfig.clearChat = function(){
+    chatRoomConfig.clearChat = function () {
         $('#chat-call-friend').remove();
         $('#right-group').hide();
         $('#chat-friend').empty();
@@ -322,15 +322,15 @@ $(function () {
         chatRoomConfig.deleteID = $(this).parent().parent().children().text();
         // console.log(chatRoomConfig.deleteID);
         //Empties chat messages and friend name
-        if(chatRoomConfig.deleteID==chatRoomConfig.targetID){
-            chatRoomConfig.clearChat();    
+        if (chatRoomConfig.deleteID == chatRoomConfig.targetID) {
+            chatRoomConfig.clearChat();
         }
         socket.emit('control friend delete', chatRoomConfig.deleteID);
         // 
     })
     socket.on('control friend delete', function (message) {
         $('#control-search-display').empty();
-        if(message==chatRoomConfig.targetID){
+        if (message == chatRoomConfig.targetID) {
             chatRoomConfig.clearChat();
         }
     })
@@ -342,13 +342,13 @@ $(function () {
         }
         for (var i in friends) {
             $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-online">${friends[i]}</span><div class="control-friend-button-group"><div class="control-friend-message" user-message="${friends[i]}"><i class="fa fa-comment"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
-            if(friends[i]==chatRoomConfig.targetID){
+            if (friends[i] == chatRoomConfig.targetID) {
                 $('#chat-friend').html(`<div>@${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);
             }
         }
         for (var i in offline) {
             $('#control-friends-list').append(`<li class="control-friend"><span class="control-friend-offline">${offline[i]}</span><div class="control-friend-button-group"><div class="control-friend-message" user-message="${offline[i]}"><i class="fa fa-comment"></i></div><div class="control-friend-delete"><i class="fa fa-times"></i></div></li>`);
-            if(offline[i]==chatRoomConfig.targetID){
+            if (offline[i] == chatRoomConfig.targetID) {
                 $('#chat-call-friend').remove();
                 $('#right-group').hide();
             }
@@ -367,12 +367,12 @@ $(function () {
     //Chat Functionality Javascript
     $('body').on('click', '.control-friend-message', function () {
         // grabWebCamVideo();chat-call-friend
-        socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
+        socket.emit('group chat leave room', chatRoomConfig.groupChatRoom);
         $(this).removeClass('control-friend-message-unread');
         chatRoomConfig.targetID = $(this).parent().parent().children().text();
-        $('#chat-friend').html(`@${chatRoomConfig.targetID}` +'<span id="typing"> </span>');
-        if($(this).parent().parent().children().hasClass('control-friend-online')&&!!window.chrome){
-            $('#chat-friend').html(`<div>@${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
+        $('#chat-friend').html(`@${chatRoomConfig.targetID}` + '<span id="typing"> </span>');
+        if ($(this).parent().parent().children().hasClass('control-friend-online') && !!window.chrome) {
+            $('#chat-friend').html(`<div>@${chatRoomConfig.targetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);
         }
         // else if($(this).parent().parent().children().hasClass('control-friend-offline')){
         else {
@@ -387,7 +387,7 @@ $(function () {
         $('.control-group').removeClass('control-message-highlighted');
         $(this).parent().parent().addClass('control-message-highlighted');
         $('#chat-field').parent().removeClass('chat-field-hidden');
-        if(chatRoomConfig.videoTargetID!=chatRoomConfig.targetID){
+        if (chatRoomConfig.videoTargetID != chatRoomConfig.targetID) {
             $('#right-group').hide();
         }
     })
@@ -400,7 +400,7 @@ $(function () {
     localVideo = document.getElementById('localVideo');
     remoteVideo = document.getElementById('remoteVideo');
 
-    socket.on('message',function(stream){
+    socket.on('message', function (stream) {
         // console.log('what');
         gotMessageFromServer(stream);
     })
@@ -425,9 +425,9 @@ $(function () {
             $('.wrtc-button-mute').html('<i class="fa fa-microphone fa-2x"></i>');
         }
     }
-    function start(isCaller){
+    function start(isCaller) {
         // console.log('start', isCaller);
-        console.log('step 3' +chatRoomConfig.username);
+        console.log('step 3' + chatRoomConfig.username);
         peerConnection = new RTCPeerConnection(peerConnectionConfig);
         peerConnection.onicecandidate = gotIceCandidate;
         peerConnection.onaddstream = gotRemoteStream;
@@ -439,13 +439,13 @@ $(function () {
     // console.log(start);
     function gotDescription(description) {
         console.log('got description');
-        peerConnection.setLocalDescription(description, function(){
-            socket.emit('message', JSON.stringify({'sdp':description}),chatRoomConfig.videoTargetID);
-        }, function(){console.log('set description error')});
+        peerConnection.setLocalDescription(description, function () {
+            socket.emit('message', JSON.stringify({ 'sdp': description }), chatRoomConfig.videoTargetID);
+        }, function () { console.log('set description error') });
     }
-    function gotIceCandidate(event){
-        if(event.candidate){
-            socket.emit('message', JSON.stringify({'ice':event.candidate}),chatRoomConfig.videoTargetID);
+    function gotIceCandidate(event) {
+        if (event.candidate) {
+            socket.emit('message', JSON.stringify({ 'ice': event.candidate }), chatRoomConfig.videoTargetID);
         }
     }
     function gotRemoteStream(event) {
@@ -455,9 +455,9 @@ $(function () {
     function createOfferError(error) {
         console.log(error);
     }
-    function gotMessageFromServer(message){
+    function gotMessageFromServer(message) {
         console.log('step 7');
-        if(!peerConnection) start(false);
+        if (!peerConnection) start(false);
 
         var signal = JSON.parse(message); //deprecated
         if (signal.sdp) {
@@ -481,72 +481,72 @@ $(function () {
     })
 
     //zzzzEXPERIMENT
-    $('body').on('click','.wrtc-button-start',()=>{
+    $('body').on('click', '.wrtc-button-start', () => {
         $('#wrtc-special-call-container').fadeIn();
         $('#wrtc-special-call').html(`<div style="height:100%;display:flex;flex-direction:column;justify-content:space-between;"><div>Calling <strong style="color:greenyellow;">${chatRoomConfig.targetID}</strong>...</div><div class="wrtc-button wrtc-cancel-video-request" style="background:red;margin:0 auto;"><i class="fa fa-times fa-2x"></i></div></div>`)
         chatRoomConfig.videoTargetID = chatRoomConfig.targetID;
-        socket.emit('wrtc send video request',chatRoomConfig.targetID);
+        socket.emit('wrtc send video request', chatRoomConfig.targetID);
         $('.wrtc-button-start').hide();
     })
-    $('body').on('click','.wrtc-cancel-video-request',function(){
-        socket.emit('wrtc cancel video request',chatRoomConfig.videoTargetID);
+    $('body').on('click', '.wrtc-cancel-video-request', function () {
+        socket.emit('wrtc cancel video request', chatRoomConfig.videoTargetID);
         $('#wrtc-special-call-container').fadeOut();
         $('.wrtc-button-start').show();
     })
     //lionheart
     //Function to get webcam
-    function grabWebCamVideo2(resolve,reject){
-        var constraints = {video: true,audio: true};
-        navigator.mediaDevices.getUserMedia(constraints).then(function(stream){
+    function grabWebCamVideo2(resolve, reject) {
+        var constraints = { video: true, audio: true };
+        navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
             localStream = stream;
             localVideo.srcObject = stream;
             resolve(stream);
-        }).catch(function(err){
+        }).catch(function (err) {
             reject(err);
             console.log('error');
         });
     }
-    $('body').on('click','.wrtc-accept-video-request',function(){
-        
-        let promise = new Promise((resolve,reject)=>{
-            grabWebCamVideo2(resolve,reject);
+    $('body').on('click', '.wrtc-accept-video-request', function () {
+
+        let promise = new Promise((resolve, reject) => {
+            grabWebCamVideo2(resolve, reject);
             $('.wrtc-button-start').hide();
             $('#right-group').show();
-            if(peerConnection){
+            if (peerConnection) {
                 peerConnection.close();
             }
             $('#chat-call-friend').toggleClass('control-message-highlighted');
             // resolve();
         });
-        promise.then((localStream)=>{
+        promise.then((localStream) => {
             chatRoomConfig.targetID = chatRoomConfig.videoTargetID;
             // console.log(chatRoomConfig.videoTargetID);
-            
-            $('#chat-friend').html(`@${chatRoomConfig.videoTargetID}` +'<span id="typing"> </span>');
-            if($(`[user-message="${chatRoomConfig.videoTargetID}"]`).parent().parent().children().hasClass('control-friend-online')&&!!window.chrome){
-                $('#chat-friend').html(`<div>@${chatRoomConfig.videoTargetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);    
+
+            $('#chat-friend').html(`@${chatRoomConfig.videoTargetID}` + '<span id="typing"> </span>');
+            if ($(`[user-message="${chatRoomConfig.videoTargetID}"]`).parent().parent().children().hasClass('control-friend-online') && !!window.chrome) {
+                $('#chat-friend').html(`<div>@${chatRoomConfig.videoTargetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div> <div id="chat-call-friend"><i class="fa fa-video-camera"></i></div>`);
             }
             // else if($(this).parent().parent().children().hasClass('control-friend-offline')){
-            else{
-                $('#chat-friend').html(`<div>@${chatRoomConfig.videoTargetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div>`);    
+            else {
+                $('#chat-friend').html(`<div>@${chatRoomConfig.videoTargetID}&nbsp&nbsp<span id="mobile-return"><i class="fa fa-sign-out"></i></span><span id="typing"></span></div>`);
             }
-            
-                chatRoomConfig.groupChatRoom = null;
-                $('#chat-ggroup').addClass('mobile-show');
-                $('.control-friend').removeClass('control-message-highlighted');
-                $('.control-group').removeClass('control-message-highlighted');
-                $(`[user-message="${chatRoomConfig.videoTargetID}"]`).parent().parent().addClass('control-message-highlighted');
-                $('#chat-field').parent().removeClass('chat-field-hidden');
-                socket.emit('control message target', chatRoomConfig.videoTargetID);
-                socket.emit('chat retrieve messages', chatRoomConfig.videoTargetID);
-                $('#chat-call-friend').toggleClass('control-message-highlighted');
+
+            chatRoomConfig.groupChatRoom = null;
+            $('#chat-ggroup').addClass('mobile-show');
+            $('.control-friend').removeClass('control-message-highlighted');
+            $('.control-group').removeClass('control-message-highlighted');
+            $(`[user-message="${chatRoomConfig.videoTargetID}"]`).parent().parent().addClass('control-message-highlighted');
+            $('#chat-field').parent().removeClass('chat-field-hidden');
+            socket.emit('control message target', chatRoomConfig.videoTargetID);
+            socket.emit('chat retrieve messages', chatRoomConfig.videoTargetID);
+            $('#chat-call-friend').toggleClass('control-message-highlighted');
             socket.emit('wrtc connection accepted', chatRoomConfig.videoTargetID);
             socket.emit('wrtc connection request', chatRoomConfig.videoTargetID);
             $('#wrtc-special-call-container').fadeOut();
-        }).catch(e=>{
+        }).catch(e => {
             console.log(e);
         })
-        
+
         // socket.emit('control message target', chatRoomConfig.videoTargetID);
         // socket.emit('chat retrieve messages', chatRoomConfig.videoTargetID);
         // // 
@@ -557,25 +557,25 @@ $(function () {
         // $(`[user-message="${chatRoomConfig.videoTargetID}"]`).parent().parent().addClass('control-message-highlighted');
         // $('#chat-field').parent().removeClass('chat-field-hidden');
         // // 
-        
+
     })
-    socket.on('wrtc send video request', function(username){
+    socket.on('wrtc send video request', function (username) {
         chatRoomConfig.videoTargetID = username;
         $('#wrtc-special-call-container').fadeIn();
         $('#wrtc-special-call').html(`<div style="height:100%;display:flex;flex-direction:column;justify-content:space-between;"><div><strong style="color:greenyellow;">${username}</strong> is calling you!</div><div style="display:flex;"><div class="wrtc-button wrtc-accept-video-request" style="background:red;margin:0 auto;"><i class="fa fa-phone fa-2x"></i></div>&nbsp&nbsp&nbsp<div class="wrtc-button wrtc-cancel-video-request" style="background:red;margin:0 auto;"><i class="fa fa-times fa-2x"></i></div></div></div>`)
     })
-    socket.on('wrtc cancel video request', function(){
+    socket.on('wrtc cancel video request', function () {
         $('#wrtc-special-call-container').fadeOut();
         $('.wrtc-button-start').show();
     })
-    socket.on('wrtc connection accepted',function(){
+    socket.on('wrtc connection accepted', function () {
         $('#wrtc-special-call-container').fadeOut();
     });
     // $('body').on('click','.wrtc-button-start', function(){
-        
+
     //     socket.emit('wrtc connection request', chatRoomConfig.targetID);
     // })
-    socket.on('wrtc connection request',function(placeholder){
+    socket.on('wrtc connection request', function (placeholder) {
         console.log('step 2');
         start(true);
     })
@@ -588,27 +588,27 @@ $(function () {
             location.reload();
         }
         socket.emit('wrtc close peer connection', chatRoomConfig.targetID);
-        
-        
+
+
     })
-    socket.on('wrtc close peer connection', function(placeholder){
+    socket.on('wrtc close peer connection', function (placeholder) {
         location.reload();
     })
     //Webcam Basic Javascript
-    $('body').on('click','#chat-call-friend', function(){
+    $('body').on('click', '#chat-call-friend', function () {
         $('.wrtc-button-start').show();
         grabWebCamVideo();
         $('#right-group').slideToggle('fast');
         if (peerConnection) {
             peerConnection.close();
         }
-        
+
         $('#chat-call-friend').toggleClass('control-message-highlighted');
     })
 
     $('body').on('click', '#control-group-create', function () {
-        if(chatRoomConfig){
-            socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
+        if (chatRoomConfig) {
+            socket.emit('group chat leave room', chatRoomConfig.groupChatRoom);
         }
         chatRoomConfig.groupChatRoom = prompt('Join Chat Room:');
         if (chatRoomConfig.groupChatRoom != null) {
@@ -660,7 +660,7 @@ $(function () {
     })
     $('body').on('click', '.control-group-message', function () {
         // console.log($(this).parent().parent().children().text());
-        socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
+        socket.emit('group chat leave room', chatRoomConfig.groupChatRoom);
         chatRoomConfig.groupChatRoom = $(this).parent().parent().children().text();
         let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
         socket.emit('control group add user', data);
@@ -715,10 +715,10 @@ $(function () {
                 final_transcript += event.results[i][0].transcript;
 
 
-                socket.emit('video interim message', final_transcript, chatRoomConfig.targetID);
+                socket.emit('video voice final message', final_transcript, chatRoomConfig.targetID);
             } else {
                 interim_transcript += event.results[i][0].transcript;
-                socket.emit('video voice final message', interim_transcript);
+                socket.emit('video voice interim message', interim_transcript);
             }
         }
         interim_span.innerHTML = interim_transcript;
@@ -727,6 +727,9 @@ $(function () {
 
     socket.on('video voice interim remote message', function (message) {
         $('#interim_span_remote').html(message);
+        if ($('#final_span_remote').val()!=0){
+            $('#interim_span_remote').empty();
+        }
     })
 
     socket.on('video voice final remote message', function (message) {
@@ -741,14 +744,31 @@ $(function () {
     // })
 
     $('#desiredlanguage').on('change', function () {
-        console.log('changegegegegege')
+        // console.log('changegegegegege')
         // socket.on('video voice desire lang', function () {
-        // var desiredLanguage = $('#desiredlanguage').val();
+        console.log('dashjdgashdgas '+ $('#desiredlanguage option:selected').val())
+        var desiredLanguage = $('#desiredlanguage option:selected').val();
         var key = getKeyByValue(translationTable, $('#desiredlanguage option:selected').text());
         console.log('keyyeee ' + key)
         key = getKeyByValue(desired_langs, key);
         console.log('desired lang code ' + key);
         socket.emit('video voice desired lang key', key)
     })
+
+    $( "#desiredlanguange" ).trigger( "change" );
+
+    $('#select_language').on('change', function () {
+        // console.log('changegegegegege')
+        // socket.on('video voice desire lang', function () {
+        // console.log('dashjdgashdgas '+ $('#desiredlanguage option:selected').val())
+        var selectLanguage = $('#select_language option:selected').val();
+        var key = getKeyByValue(translationTable, $('#select_language option:selected').text());
+        // console.log('keyyeee ' + key)
+        key = getKeyByValue(desired_langs, key);
+        console.log('desired lang code ' + key);
+        socket.emit('video voice from lang key', key)
+    })
+    $( "#select_languange" ).trigger( "change" );
+
     // })
 });
