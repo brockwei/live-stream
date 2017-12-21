@@ -122,7 +122,7 @@ $(function () {
 
    socket.on('typing', debounce( function(data){
        console.log('typinggggg');
-        $('#typing').empty();
+        $("#typing").empty();
    },2000));
 
     /*-1- Chat Timed Out */
