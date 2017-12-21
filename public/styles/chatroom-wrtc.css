@@ -43,8 +43,14 @@
 .wrtc-button-start:hover {
     background: orangered;
 }
+.wrtc-button-mute:hover {
+    background: orangered;
+}
 .wrtc-button-stop {
     background: red;
+}
+.wrtc-button-stop:hover {
+    background: maroon;
 }
 /* Special Call */
 #wrtc-special-call-container {
