@@ -138,13 +138,13 @@
                         <button class="btn captionOff" onclick="stopButton(event)">Caption off</button>
                     </div>
                     <span class=remoteCaption>
-                        <div id="results">
+                        <div class="results">
                             <span id="final_span_remote" class="final">remoteCaption: </span>
                             <span id="interim_span_remote" class="interim"></span>
                         </div>
                     </span>
                     <span class=localCaption>
-                        <div id="results">
+                        <div class="results">
                             <span id="final_span" class="final"> </span>
                             <span id="interim_span" class="interim"></span>
                         </div>
@@ -370,30 +370,37 @@
         }
     }
 
+    var socket = io();
+
     $('.captionOn').on('click', function () {
-        $('#results').show();
+        $('.results').show();
         $('#div_language').show();
-        var socket = io();
         // $('form').submit(function(){
+        // var socket = io();
+
         socket.on('video voice message', function () {
             let temporary = $('#interim_span').val();
+            console.log('temporary1 ' + temporary)
             socket.emit('video interim message', temporary);
         });
         socket.on('video voice remote message', function (message) {
+            console.log('video voice remote message ' + message)
             $('#interim_span_remote').html(message);
         });
         socket.on('video voice final message', function () {
             let temporary = $('#final_span').val();
+            console.log('temporary 2 ' + temporary)
             socket.emit('video voice final message', temporary);
         });
         socket.on('video voice final remote message', function (message) {
+            console.log('video voice final remote message ' + message)
             $('#final_span_remote').html(message);
         });
         //   return false;
         // });
     });
     $('.captionOff').on('click', function () {
-        $('#results').hide();
+        $('.results').hide();
         $('#div_language').hide();
     });
 
