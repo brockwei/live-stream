@@ -1,8 +1,10 @@
-# Live Streaming Instant Messaging Project
-This is a nodejs live streaming instant messaging group project with websockets and WebRTC
+The project located in the testing Website folder is a personal website with three sections, About, Portfolio, and Contact.
+
+About is a brief introduction of myself, and the photos/Apps in the portfolio will be soon replaced by apps that are made by myself in the near future. I have additionally made a contact section for people who want to collaborate or hire me.
+# Live Streaming Project
+This is a nodejs live streaming group project with websockets
 
 ## Getting Started
- - Type `npm install` to install all the dependencies
  - Add .env file to the home directory which includes the following information:
     - FACEBOOK_ID
     - FACEBOOK_CLIENT_SECRET
@@ -10,19 +12,15 @@ This is a nodejs live streaming instant messaging group project with websockets 
     - GOOGLE_clientID
     - GOOGLE_clientSecret
     - GOOGLE_callbackURL
-    - PORT
  - Update config.json to match PostGreSQL config information
  - Call `sequelize db:migrate` in command line to update SQL table.
 
-Before using: 
+ - Click [here](URL) to use     
  - Start postgresql
     - sudo service postgresql start
 
-Click [here](https://www.hk-goto.com/) to test the app!
-
 ## Features
- - Direct chat with real time Video and Audio streams
- - Encrypted login with optional facebook and google+ login methods
+
 
 ## Built With
  - HTML/CSS/Javascript
@@ -30,12 +28,8 @@ Click [here](https://www.hk-goto.com/) to test the app!
  - Nodejs
     - Expressjs
     - Passportjs
-    - bcrypt
+    - Postgresql
     - Redis
-    - Socket.io
-    - sequelize
- - PostGreSQL
- - WebRTC
 
 ## Contributors
  - [Brock Wei](https://brockwei.github.io) 
@@ -43,10 +37,8 @@ Click [here](https://www.hk-goto.com/) to test the app!
  - [Isaac Yuen](https://github.com/Isaacwhyuenac)
 
 ## Acknowledgements
- - [Alex Lau](https://github.com/alexlau811) - For his guidance with this project
  - [Gordon Lau](https://github.com/gordonlau) - For his guidance with this project
  - [Michael Fung](https://github.com/MICFTK) - For his guidance with this project
- - [Shane Tully](https://shanetully.com/2014/09/a-dead-simple-webrtc-example/) - For his WebRTC tutorial 
  - [Icons8](https://icons8.com/) - For use of their icons
 
 
