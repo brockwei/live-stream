@@ -397,6 +397,7 @@ $(function () {
                 $('#chat-field').parent().removeClass('chat-field-hidden');
                 socket.emit('control message target', chatRoomConfig.videoTargetID);
                 socket.emit('chat retrieve messages', chatRoomConfig.videoTargetID);
+                $('#chat-call-friend').toggleClass('control-message-highlighted');
             socket.emit('wrtc connection accepted', chatRoomConfig.videoTargetID);
             socket.emit('wrtc connection request', chatRoomConfig.videoTargetID);
             $('#wrtc-special-call-container').fadeOut();
