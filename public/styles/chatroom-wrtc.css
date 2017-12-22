@@ -41,9 +41,12 @@
     align-items: center;
 }
 .wrtc-button-start {
-    background: rgb(152,251,152) !important;
-    border: 1px solid rgb(152,251,152) !important;
+    background: green !important;
 }
+.wrtc-button-start:hover{
+    background: greenyellow !important;
+}
+
 .wrtc-button-start:hover {
     background: rgb(144,238,144);
 }

@@ -171,14 +171,15 @@
                         </div>
                         <button id="captionOn" class="btn">Caption</button>
                         <!-- <button class="btn captionOff" onclick="stopButton(event)">Caption off</button> -->
+                        <button id="translationOn" class="btn">Translation</button>
 
                     </div>
-                    <span class=remoteCaption>
+                    <!-- <span class=remoteCaption>
                         <div class="results">
                             <span id="final_span_remote" class="final">remoteCaption: </span>
                             <span id="interim_span_remote" class="interim"></span>
                         </div>
-                    </span>
+                    </span> -->
                     <span class=localCaption>
                         <div class="results">
                             <span id="final_span" class="final"> </span>
@@ -191,6 +192,17 @@
                         &nbsp;&nbsp;
                         <select id="select_dialect"></select>
                     </div>
+                    <div id='translate_language'>
+                        <span id='desired_language'>Desired language</span>&nbsp&nbsp
+                        <select id="desiredlanguage" onchange="updateCountry()"></select>
+                        &nbsp;&nbsp;
+                    </div>
+                    <span class=remoteCaption>
+                        <div class="results">
+                            <span id="final_span_remote" class="final"></span>
+                            <span id="interim_span_remote" class="interim"></span>
+                        </div>
+                    </span>
                 </div>
 
                 <!--  -->
@@ -264,7 +276,7 @@
             ['it-CH', 'Svizzera']],
         ['Magyar', ['hu-HU']],
         ['Nederlands', ['nl-NL']],
-        ['Norsk bokmål', ['nb-NO']],
+        // ['Norsk bokmål', ['nb-NO']],
         ['Polski', ['pl-PL']],
         ['Português', ['pt-BR', 'Brasil'],
             ['pt-PT', 'Portugal']],
@@ -283,8 +295,11 @@
             ['yue-Hant-HK', '粵語 (香港)']],
         ['日本語', ['ja-JP']],
         ['Lingua latīna', ['la']]];
+
+
     for (var i = 0; i < langs.length; i++) {
         select_language.options[i] = new Option(langs[i][0], i);
+        desiredlanguage.options[i] = new Option(langs[i][0], i);
     }
     select_language.selectedIndex = 6;
     updateCountry();
@@ -293,89 +308,15 @@
     function updateCountry() {
         for (var i = select_dialect.options.length - 1; i >= 0; i--) {
             select_dialect.remove(i);
+
         }
         var list = langs[select_language.selectedIndex];
         for (var i = 1; i < list.length; i++) {
             select_dialect.options.add(new Option(list[i][1], list[i][0]));
+
         }
         select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
     }
-
-
-
-
-
-    // var final_transcript = '';
-    // var recognizing = false;
-    // var ignore_onend;
-    // var start_timestamp;
-
-    // var recognition = new webkitSpeechRecognition();
-    // recognition.continuous = true;
-    // recognition.interimResults = true;
-    // recognition.onstart = function () {
-    //     recognizing = true;
-    // };
-    // recognition.onerror = function (event) {
-    //     if (event.error == 'no-speech') {
-    //         ignore_onend = true;
-    //     }
-    //     if (event.error == 'audio-capture') {
-    //         ignore_onend = true;
-    //     }
-    //     if (event.error == 'not-allowed') {
-    //         ignore_onend = true;
-    //     }
-    // };
-    // recognition.onend = function () {
-    //     recognizing = false;
-    //     if (ignore_onend) {
-    //         return;
-    //     }
-    //     if (!final_transcript) {
-    //         return;
-    //     }
-
-    //     if (window.getSelection) {
-    //         window.getSelection().removeAllRanges();
-    //         var range = document.createRange();
-    //         range.selectNode(document.getElementById('final_span'));
-    //         range.selectNode(document.getElementById('final_span_remote'));
-    //         window.getSelection().addRange(range);
-    //     }
-    // };
-    // recognition.onresult = function (event) {
-    //     var interim_transcript = '';
-    //     for (var i = event.resultIndex; i < event.results.length; ++i) {
-    //         if (event.results[i].isFinal) {
-    //             final_transcript += event.results[i][0].transcript;
-    //         } else {
-    //             interim_transcript += event.results[i][0].transcript;
-    //         }
-    //     }
-
-
-    //     if (event.results[event.resultIndex][0].length > 20) {
-    //         final_transcript = '';
-    //         interim_transcript = '';
-    //     }
-
-
-    //     final_transcript = capitalize(final_transcript);
-    //     final_span.innerHTML = linebreak(final_transcript);
-    //     final_span_remote.innerHTML = linebreak(final_transcript);
-    //     interim_span.innerHTML = linebreak(interim_transcript);
-    //     interim_span_remote.innerHTML = linebreak(interim_transcript);
-    // };
-    // var two_line = /\n\n/g;
-    // var one_line = /\n/g;
-    // function linebreak(s) {
-    //     return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
-    // }
-    // var first_char = /\S/;
-    // function capitalize(s) {
-    //     return s.replace(first_char, function (m) { return m.toUpperCase(); });
-    // }
 
 
     var final_span_remote = document.getElementById('final_span_remote'),
@@ -461,7 +402,9 @@
 
     $('.results').hide();
     $('#div_language').hide();
+    $('#translate_language').hide();
 
+    //for the caption button
     $('#captionOn').on('click', function (event) {
         if ($('.results').css('display') === "none" && $('#div_language').css('display') === "none") {
             $('#captionOn').css("background-color", "rgb(9,28,87)");
@@ -479,8 +422,37 @@
             $('#div_language').hide();
             stopButton(event);
         }
-
     });
+
+    //for the translation button
+    $('#translationOn').on('click', function (event) {
+        if ($('.results').css('display') === "none" && $('#div_language').css('display') === "none") {
+            $('#translationOn').css("background-color", "rgb(9,28,87)");
+            $('#translationOn').css("color", "white");
+            $('#translationOn').html("");
+            $('#translationOn').html("translation On");
+            $('.results').show();
+            // $('#div_language').show();
+            $('#translate_language').show();
+            // console.log('dsgdajsdgas')
+            // $("#desiredlanguage").trigger("change");
+            // console.log('dsahdasgfsdhsfg')
+
+
+            // $('.remoteCaption').show();
+            // startButton(event);
+        } else {
+            $('#translationOn').css("background-color", "rgb(122,18,22)");
+            $('#translationOn').html("");
+            $('#translationOn').html("translation Off");
+            $('.results').hide();
+            // $('#div_language').hide();
+            $('#translate_language').hide();
+            // $('.remoteCaption').hide()
+            // stopButton(event);
+        }
+    });
+
 
 </script>
 <script src="/scripts/mainforChatroom.js"></script>
