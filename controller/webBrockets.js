@@ -485,8 +485,6 @@ module.exports = (io) => {
         //     // console.log('socket.request.sessionStore.languagekey '+socket.request.sessionStore.languagekey )
         // })
 
-
-
         socket.on('video voice final message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
 
