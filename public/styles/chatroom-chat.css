@@ -170,6 +170,13 @@
     width:85px;
     border-radius:6px;
 }
+#translationOn {
+    margin-top:12px;
+    margin-left:4px;
+    height:30px;
+    width:85px;
+    border-radius:6px;
+}
 #div_language {
     margin-top:17px;
 }
