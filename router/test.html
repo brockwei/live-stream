@@ -171,6 +171,7 @@
                         </div>
                         <button id="captionOn" class="btn">Caption</button>
                         <!-- <button class="btn captionOff" onclick="stopButton(event)">Caption off</button> -->
+                        <button id="translationOn" class="btn">Translation</button>
 
                     </div>
                     <!-- <span class=remoteCaption>
@@ -197,10 +198,10 @@
                         &nbsp;&nbsp;
                     </div>
                     <span class=remoteCaption>
-                        <!-- <div class="results"> -->
-                        <span id="final_span_remote" class="final"></span>
-                        <span id="interim_span_remote" class="interim"></span>
-                        <!-- </div> -->
+                        <div class="results">
+                            <span id="final_span_remote" class="final"></span>
+                            <span id="interim_span_remote" class="interim"></span>
+                        </div>
                     </span>
                 </div>
 
@@ -401,7 +402,9 @@
 
     $('.results').hide();
     $('#div_language').hide();
+    $('#translate_language').hide();
 
+    //for the caption button
     $('#captionOn').on('click', function (event) {
         if ($('.results').css('display') === "none" && $('#div_language').css('display') === "none") {
             $('#captionOn').css("background-color", "rgb(9,28,87)");
@@ -420,6 +423,36 @@
             stopButton(event);
         }
     });
+
+    //for the translation button
+    $('#translationOn').on('click', function (event) {
+        if ($('.results').css('display') === "none" && $('#div_language').css('display') === "none") {
+            $('#translationOn').css("background-color", "rgb(9,28,87)");
+            $('#translationOn').css("color", "white");
+            $('#translationOn').html("");
+            $('#translationOn').html("translation On");
+            $('.results').show();
+            // $('#div_language').show();
+            $('#translate_language').show();
+            // console.log('dsgdajsdgas')
+            // $("#desiredlanguage").trigger("change");
+            // console.log('dsahdasgfsdhsfg')
+
+
+            // $('.remoteCaption').show();
+            // startButton(event);
+        } else {
+            $('#translationOn').css("background-color", "rgb(122,18,22)");
+            $('#translationOn').html("");
+            $('#translationOn').html("translation Off");
+            $('.results').hide();
+            // $('#div_language').hide();
+            $('#translate_language').hide();
+            // $('.remoteCaption').hide()
+            // stopButton(event);
+        }
+    });
+
 
 </script>
 <script src="/scripts/mainforChatroom.js"></script>

@@ -718,16 +718,51 @@ $(function () {
                 socket.emit('video voice final message', final_transcript, chatRoomConfig.targetID);
             } else {
                 interim_transcript += event.results[i][0].transcript;
-                socket.emit('video voice interim message', interim_transcript);
+                socket.emit('video voice interim message', interim_transcript, chatRoomConfig.targetID);
             }
         }
         interim_span.innerHTML = interim_transcript;
         final_span.innerHTML = final_transcript;
     };
 
+
+    $('#desiredlanguage').on('change', function () {
+        // console.log('changegegegegege')
+        // socket.on('video voice desire lang', function () {
+        console.log('desired language dashjdgashdgas ' + $('#desiredlanguage option:selected').val())
+        var desiredLanguage = $('#desiredlanguage option:selected').val();
+        var key = getKeyByValue(translationTable, $('#desiredlanguage option:selected').text());
+        console.log('keyyeee ' + key)
+        key = getKeyByValue(desired_langs, key);
+        console.log('desired lang code ' + key);
+        socket.emit('video voice desired lang key', key)
+    })
+
+    // $(document).on('click', '#translationOn',function () {
+
+    // // $('#translationOn').on('click', function () {
+    $("#desiredlanguage").trigger("change");
+    // })
+
+
+    // $('#select_language').on('change', function () {
+    //     // console.log('changegegegegege')
+    //     // socket.on('video voice desire lang', function () {
+    //     console.log('select language dashjdgashdgas '+ $('#desiredlanguage option:selected').val())
+    //     var selectLanguage = $('#select_language option:selected').val();
+    //     var key = getKeyByValue(translationTable, $('#select_language option:selected').text());
+    //     console.log('keyyeee ' + key)
+    //     key = getKeyByValue(desired_langs, key);
+    //     console.log('desired lang code ' + key);
+    //     socket.emit('video voice from lang key', key)
+    // })
+
+    // $("#select_languange").trigger("change");
+
+
     socket.on('video voice interim remote message', function (message) {
         $('#interim_span_remote').html(message);
-        if ($('#final_span_remote').val()!=0){
+        if ($('#final_span_remote').val() != 0) {
             $('#interim_span_remote').empty();
         }
     })
@@ -743,32 +778,8 @@ $(function () {
     //     socket.emit('desired lang code', desiredLanguage)
     // })
 
-    $('#desiredlanguage').on('change', function () {
-        // console.log('changegegegegege')
-        // socket.on('video voice desire lang', function () {
-        console.log('dashjdgashdgas '+ $('#desiredlanguage option:selected').val())
-        var desiredLanguage = $('#desiredlanguage option:selected').val();
-        var key = getKeyByValue(translationTable, $('#desiredlanguage option:selected').text());
-        console.log('keyyeee ' + key)
-        key = getKeyByValue(desired_langs, key);
-        console.log('desired lang code ' + key);
-        socket.emit('video voice desired lang key', key)
-    })
 
-    $( "#desiredlanguange" ).trigger( "change" );
 
-    $('#select_language').on('change', function () {
-        // console.log('changegegegegege')
-        // socket.on('video voice desire lang', function () {
-        // console.log('dashjdgashdgas '+ $('#desiredlanguage option:selected').val())
-        var selectLanguage = $('#select_language option:selected').val();
-        var key = getKeyByValue(translationTable, $('#select_language option:selected').text());
-        // console.log('keyyeee ' + key)
-        key = getKeyByValue(desired_langs, key);
-        console.log('desired lang code ' + key);
-        socket.emit('video voice from lang key', key)
-    })
-    $( "#select_languange" ).trigger( "change" );
 
     // })
 });

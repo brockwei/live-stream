@@ -448,14 +448,18 @@ module.exports = (io) => {
         socket.on('group chat leave room', function (room) {
             socket.leave(room);
         })
+
+
+
+
         // Caption
         socket.on('video voice interim message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
-            // console.log('message ' + message)
+            console.log('interim message ' + message)
 
-            translate(`${message}`, { from:`${socket.request.sessionStore.fromlanguagekey}`, to: `${socket.request.sessionStore.languagekey}` }).then(res => {
+            // translate(`${message}`, { from:`${socket.request.sessionStore.fromlanguagekey}`, to: `${socket.request.sessionStore.languagekey}` }).then(res => {
 
-            // translate(`${message}`, { to: `${socket.request.sessionStore.languagekey}` }).then(res => {
+            translate(`${message}`, { to: `${socket.request.sessionStore.languagekey}` }).then(res => {
                 // console.log(res.text);
                 //=> I speak English
                 message = res.text;
@@ -474,17 +478,20 @@ module.exports = (io) => {
             // console.log('socket.request.sessionStore.languagekey '+socket.request.sessionStore.languagekey )
         })
 
-        socket.on('video voice from lang key', function (key) {
-            socket.request.sessionStore.fromlanguagekey = key;
-            // console.log('socket.request.sessionStore.languagekey '+socket.request.sessionStore.languagekey )
-        })
+
+        // socket.on('video voice from lang key', function (key) {
+        //     socket.request.sessionStore.fromlanguagekey = key;
+        //     // console.log('socket.request.sessionStore.languagekey '+socket.request.sessionStore.languagekey )
+        // })
+
+
 
         socket.on('video voice final message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
 
-            translate(`${message}`, { from:`${socket.request.sessionStore.fromlanguagekey}`, to: `${socket.request.sessionStore.languagekey}` }).then(res => {
+            // translate(`${message}`, { from:`${socket.request.sessionStore.fromlanguagekey}`, to: `${socket.request.sessionStore.languagekey}` }).then(res => {
 
-            // translate(`${message}`, { to: `${socket.request.sessionStore.languagekey}` }).then(res => {
+            translate(`${message}`, { to: `${socket.request.sessionStore.languagekey}` }).then(res => {
                 // console.log(res.text);
                 //=> I speak English
                 console.log('messagesss' + message)
