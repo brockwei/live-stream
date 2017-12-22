@@ -607,8 +607,9 @@ $(function () {
     })
 
     $('body').on('click', '#control-group-create', function () {
-        if (chatRoomConfig) {
-            socket.emit('group chat leave room', chatRoomConfig.groupChatRoom);
+        chatRoomConfig.targetID = null;
+        if(chatRoomConfig){
+            socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
         }
         chatRoomConfig.groupChatRoom = prompt('Join Chat Room:');
         if (chatRoomConfig.groupChatRoom != null) {
@@ -660,7 +661,8 @@ $(function () {
     })
     $('body').on('click', '.control-group-message', function () {
         // console.log($(this).parent().parent().children().text());
-        socket.emit('group chat leave room', chatRoomConfig.groupChatRoom);
+        chatRoomConfig.targetID = null;
+        socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
         chatRoomConfig.groupChatRoom = $(this).parent().parent().children().text();
         let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
         socket.emit('control group add user', data);
