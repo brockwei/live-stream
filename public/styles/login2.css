@@ -246,7 +246,7 @@ hr {
     transition-duration: 0.4s;
 }
 .social.google {
-    margin-left:4px;
+    margin-left:5px;
 }
 .fa-facebook-official {
     margin-top:3px;
@@ -442,16 +442,23 @@ input[name*='assword'] {
     background-size:30px;
 }
 .signupNow {
-    color:rgb(67, 0, 134);
+    color:rgb(171,151,242);
     font-size:15px;
 
 }
 .loginNow {
-    background-color:rgb(171,151,242);
+    background-color:rgb(75,0,130);
     font-weight:bold;
     font-size:23px;
     color:whitesmoke;
     font-family: 'Abel', sans-serif;
     /* width:35vw; */
     text-indent:0px !important;
+}
+.loginNow:hover {
+    background-color:rgb(127,0,255);
+}
+div.alert-danger {
+   height:49px;
+   
 }

@@ -342,7 +342,7 @@ module.exports = (io) => {
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc connection accepted', 'placeholder');
         });
-        socket.on('wrtc close peer connection',function(username){
+        socket.on('wrtc close peer connection', function (username) {
             let targetSocket = socket.request.sessionStore.online[username];
             io.to(targetSocket).emit('wrtc close peer connection', 'placeholder');
         })
@@ -445,22 +445,65 @@ module.exports = (io) => {
                 })
             })
         });
-        socket.on('group chat leave room', function(room){
+        socket.on('group chat leave room', function (room) {
             socket.leave(room);
         })
+
+
+
+
         // Caption
-        socket.on('video interim message', function (message, username) {
+        socket.on('video voice interim message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
-            console.log('message ' + message)
-            // console.log('chatroomConfig ' + chatRoomConfig.targetID)
-            //I need the id of the other guy
-            io.to(targetSocket).emit('video voice interim remote message', message);
+            console.log('interim message ' + message)
+
+            // translate(`${message}`, { from:`${socket.request.sessionStore.fromlanguagekey}`, to: `${socket.request.sessionStore.languagekey}` }).then(res => {
+
+            translate(`${message}`, { to: `${socket.request.sessionStore.languagekey}` }).then(res => {
+                // console.log(res.text);
+                //=> I speak English
+                message = res.text;
+                console.log(res.from.language.iso);
+                console.log('video interim message ' + message)
+                io.to(targetSocket).emit('video voice interim remote message', message);
+
+                //=> nl 
+            }).catch(err => {
+                console.error(err);
+            });
+
         });
+        socket.on('video voice desired lang key', function (key) {
+            socket.request.sessionStore.languagekey = key;
+            // console.log('socket.request.sessionStore.languagekey '+socket.request.sessionStore.languagekey )
+        })
+
+
+        // socket.on('video voice from lang key', function (key) {
+        //     socket.request.sessionStore.fromlanguagekey = key;
+        //     // console.log('socket.request.sessionStore.languagekey '+socket.request.sessionStore.languagekey )
+        // })
+
+
+
         socket.on('video voice final message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
-            console.log('video voice final message ' + message)
-            //I need the id of the other guy
-            io.to(targetSocket).emit('video voice final remote message', message);
+
+            // translate(`${message}`, { from:`${socket.request.sessionStore.fromlanguagekey}`, to: `${socket.request.sessionStore.languagekey}` }).then(res => {
+
+            translate(`${message}`, { to: `${socket.request.sessionStore.languagekey}` }).then(res => {
+                // console.log(res.text);
+                //=> I speak English
+                console.log('messagesss' + message)
+                message = res.text;
+                console.log(res.from.language.iso);
+                // console.log('video voice final message '+message);
+                io.to(targetSocket).emit('video voice final remote message', message);
+
+                //=> nl 
+            }).catch(err => {
+                console.error(err);
+            });
         });
 
     });
