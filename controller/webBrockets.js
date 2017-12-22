@@ -171,9 +171,8 @@ module.exports = (io) => {
                     });
                 }
             })
-
-
         })
+        
         socket.on('control friend delete', function (username) {
             let friendStatus1 = {
                 where: {
@@ -240,6 +239,7 @@ module.exports = (io) => {
         socket.on('control message target', (username) => {
             socket.request.session.targetSocket = socket.request.sessionStore.online[username];
         });
+
         socket.on('control retrieve unread messages', (placeholder) => {
             let constraints = { where: { "username": socket.request.session.userData.username, "type": "from" }, order: [['createdAt', 'ASC']] };
             Messages.findAll(constraints).then(msg => {
@@ -268,7 +268,7 @@ module.exports = (io) => {
             if (username) {
                 // let targetSocket = socket.request.session.targetSocket;
                 let targetSocket = socket.request.sessionStore.online[username];
-                console.log(targetSocket + "okay yay");
+                // console.log(targetSocket + "okay yay");
                 Messages.create({
                     username: socket.request.session.userData.username,
                     friend: username,
