@@ -135,7 +135,7 @@ var translationTable = {
     'Russian': 'Pусский',
     'Serbian': 'Српски',
     'Korean': '한국어',
-    'Chinese': '中文',
+    'Chinese Simplified': '中文',
     'Japanese': '日本語',
     'Latin': 'Lingua latīna'
 }
@@ -607,8 +607,9 @@ $(function () {
     })
 
     $('body').on('click', '#control-group-create', function () {
-        if (chatRoomConfig) {
-            socket.emit('group chat leave room', chatRoomConfig.groupChatRoom);
+        chatRoomConfig.targetID = null;
+        if(chatRoomConfig){
+            socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
         }
         chatRoomConfig.groupChatRoom = prompt('Join Chat Room:');
         if (chatRoomConfig.groupChatRoom != null) {
@@ -660,7 +661,8 @@ $(function () {
     })
     $('body').on('click', '.control-group-message', function () {
         // console.log($(this).parent().parent().children().text());
-        socket.emit('group chat leave room', chatRoomConfig.groupChatRoom);
+        chatRoomConfig.targetID = null;
+        socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
         chatRoomConfig.groupChatRoom = $(this).parent().parent().children().text();
         let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
         socket.emit('control group add user', data);
@@ -713,8 +715,6 @@ $(function () {
         for (var i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
                 final_transcript += event.results[i][0].transcript;
-
-
                 socket.emit('video voice final message', final_transcript, chatRoomConfig.targetID);
             } else {
                 interim_transcript += event.results[i][0].transcript;
@@ -729,12 +729,12 @@ $(function () {
     $('#desiredlanguage').on('change', function () {
         // console.log('changegegegegege')
         // socket.on('video voice desire lang', function () {
-        console.log('desired language dashjdgashdgas ' + $('#desiredlanguage option:selected').val())
+        // console.log('desired language dashjdgashdgas ' + $('#desiredlanguage option:selected').val())
         var desiredLanguage = $('#desiredlanguage option:selected').val();
         var key = getKeyByValue(translationTable, $('#desiredlanguage option:selected').text());
-        console.log('keyyeee ' + key)
+        // console.log('keyyeee ' + key)
         key = getKeyByValue(desired_langs, key);
-        console.log('desired lang code ' + key);
+        // console.log('desired lang code ' + key);
         socket.emit('video voice desired lang key', key)
     })
 
@@ -762,14 +762,24 @@ $(function () {
 
     socket.on('video voice interim remote message', function (message) {
         $('#interim_span_remote').html(message);
-        if ($('#final_span_remote').val() != 0) {
-            $('#interim_span_remote').empty();
+        if($('#interim_span_remote').text()!==''){
+            $('#final_span_remote').empty();
         }
     })
 
     socket.on('video voice final remote message', function (message) {
         $('#final_span_remote').html(message);
+        // console.log('dsadsadsdas')
+        if ($('#final_span_remote').text() !== '') {
+            $('#interim_span_remote').empty();
+
+        }
+        // console.log('HIIIIIIIIIIIIII')
     })
+
+    // if ($('#final_span_remote').val() != '') {
+    //     $('#interim_span_remote').empty();
+    // }
 
     // socket.on('video voice desired lang pref', function () {
     //     var desiredLanguage = $('#desiredlanguage').val();

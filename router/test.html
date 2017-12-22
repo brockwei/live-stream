@@ -330,7 +330,10 @@
     function reset() {
         recognizing = false;
         interim_span.innerHTML = '';
+        interim_span_remote.innerHTML = '';
         final_span.innerHTML = '';
+        final_span_remote.innerHTML = '';
+
         recognition.start();
     }
 

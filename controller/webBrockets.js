@@ -455,7 +455,7 @@ module.exports = (io) => {
         // Caption
         socket.on('video voice interim message', function (message, username) {
             let targetSocket = socket.request.sessionStore.online[username];
-            console.log('interim message ' + message)
+            // console.log('interim message ' + message)
 
             // translate(`${message}`, { from:`${socket.request.sessionStore.fromlanguagekey}`, to: `${socket.request.sessionStore.languagekey}` }).then(res => {
 
@@ -463,8 +463,8 @@ module.exports = (io) => {
                 // console.log(res.text);
                 //=> I speak English
                 message = res.text;
-                console.log(res.from.language.iso);
-                console.log('video interim message ' + message)
+                // console.log(res.from.language.iso);
+                // console.log('video interim message ' + message)
                 io.to(targetSocket).emit('video voice interim remote message', message);
 
                 //=> nl 
@@ -475,6 +475,7 @@ module.exports = (io) => {
         });
         socket.on('video voice desired lang key', function (key) {
             socket.request.sessionStore.languagekey = key;
+            console.log('video voice desired lang key ' + socket.request.sessionStore.languagekey)
             // console.log('socket.request.sessionStore.languagekey '+socket.request.sessionStore.languagekey )
         })
 
@@ -494,9 +495,9 @@ module.exports = (io) => {
             translate(`${message}`, { to: `${socket.request.sessionStore.languagekey}` }).then(res => {
                 // console.log(res.text);
                 //=> I speak English
-                console.log('messagesss' + message)
+                // console.log('messagesss' + message)
                 message = res.text;
-                console.log(res.from.language.iso);
+                // console.log(res.from.language.iso);
                 // console.log('video voice final message '+message);
                 io.to(targetSocket).emit('video voice final remote message', message);
 
