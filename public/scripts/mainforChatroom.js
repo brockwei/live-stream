@@ -460,6 +460,7 @@ $(function () {
     })
 
     $('body').on('click', '#control-group-create', function () {
+        chatRoomConfig.targetID = null;
         if(chatRoomConfig){
             socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
         }
@@ -513,6 +514,7 @@ $(function () {
     })
     $('body').on('click', '.control-group-message', function () {
         // console.log($(this).parent().parent().children().text());
+        chatRoomConfig.targetID = null;
         socket.emit('group chat leave room',chatRoomConfig.groupChatRoom);
         chatRoomConfig.groupChatRoom = $(this).parent().parent().children().text();
         let data = JSON.stringify({ username: chatRoomConfig.username, roomname: chatRoomConfig.groupChatRoom });
